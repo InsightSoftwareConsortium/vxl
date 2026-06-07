@@ -11,7 +11,6 @@
 // - vnl_matrix_inverse
 // - vnl_fft_1d
 // - vnl_fft_2d
-// - vnl_orthogonal_complement
 // - vnl_conjugate_gradient
 // - vnl_lbfgs
 // - vnl_powell
@@ -32,7 +31,6 @@
 #include <vnl/algo/vnl_lbfgsb.h>
 #include <vnl/algo/vnl_lsqr.h>
 #include <vnl/algo/vnl_matrix_inverse.h>
-#include <vnl/algo/vnl_orthogonal_complement.h>
 #include <vnl/algo/vnl_powell.h>
 #include <vnl/algo/vnl_svd_economy.h>
 #include <vnl/algo/vnl_svd.h>
@@ -74,16 +72,6 @@ test_fft()
   fft2d.fwd_transform(m);
   fft2d.bwd_transform(m);
   TEST_NEAR("vnl_fft_2d", m[5][5], 10 * 9 * 10.5, 1e-6);
-}
-
-static void
-test_orthogonal_complement()
-{
-  vnl_vector<double> v(20);
-  for (int i = 0; i < 20; ++i)
-    v[i] = 0.5 + i;
-  vnl_matrix<double> oc = vnl_orthogonal_complement(v);
-  TEST("vnl_orthogonal_complement", oc[0][0] < 0 && oc[0][1] == 0 && oc[1][0] > 0, true);
 }
 
 class F_test_powell : public vnl_cost_function
@@ -244,7 +232,6 @@ test_algo()
 {
   test_matrix_inverse();
   test_fft();
-  test_orthogonal_complement();
   test_powell();
   test_lsqr();
   test_discrete_diff();
