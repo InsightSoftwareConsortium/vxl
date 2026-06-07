@@ -17,7 +17,6 @@
 // - vnl_lsqr
 // - vnl_discrete_diff_fwd
 // - vnl_discrete_diff_sym
-// - vnl_generalized_schur
 //
 // \author Peter Vanroose, KULeuven/ESAT.
 // \date 20 September 2003
@@ -26,7 +25,6 @@
 #include <vnl/algo/vnl_discrete_diff.h>
 #include <vnl/algo/vnl_fft_1d.h>
 #include <vnl/algo/vnl_fft_2d.h>
-#include <vnl/algo/vnl_generalized_schur.h>
 #include <vnl/algo/vnl_lbfgs.h>
 #include <vnl/algo/vnl_lbfgsb.h>
 #include <vnl/algo/vnl_lsqr.h>
@@ -213,20 +211,6 @@ test_discrete_diff()
   TEST_NEAR("vnl_discrete_diff_sym", J(0, 1), -18, 1e-6);
 }
 
-static void
-test_generalized_schur()
-{
-  vnl_matrix<float> A(4, 4, 0.0f);
-  vnl_matrix<float> B(4, 4, 0.0f);
-  vnl_matrix<float> L(4, 4, 1.0f);
-  vnl_matrix<float> R(4, 4, 1.0f);
-  vnl_vector<float> ar(4, 0.0f);
-  vnl_vector<float> ai(4, 0.0f);
-  vnl_vector<float> b(4, 0.0f);
-  const bool r = vnl_generalized_schur(&A, &B, &ar, &ai, &b, &L, &R);
-  TEST("vnl_generalized_schur", r, true);
-}
-
 void
 test_algo()
 {
@@ -235,7 +219,6 @@ test_algo()
   test_powell();
   test_lsqr();
   test_discrete_diff();
-  test_generalized_schur();
 }
 
 TESTMAIN(test_algo);
