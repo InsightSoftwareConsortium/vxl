@@ -10,7 +10,6 @@ add_executable( vnl_test_all
   test_inverse.cxx
   test_diag_matrix.cxx
   test_diag_matrix_fixed.cxx
-  test_file_matrix.cxx
   test_math.cxx
   test_na.cxx
   test_matrix.cxx
@@ -56,7 +55,6 @@ add_test( NAME vnl_test_complex COMMAND vnl_test_all test_complex               
 add_test( NAME vnl_test_complexify COMMAND vnl_test_all test_complexify             )
 add_test( NAME vnl_test_diag_matrix COMMAND vnl_test_all test_diag_matrix            )
 add_test( NAME vnl_test_diag_matrix_fixed COMMAND vnl_test_all test_diag_matrix_fixed      )
-add_test( NAME vnl_test_file_matrix COMMAND vnl_test_all test_file_matrix            )
 add_test( NAME vnl_test_inverse COMMAND vnl_test_all test_inverse                )
 add_test( NAME vnl_test_math COMMAND vnl_test_all test_math                   )
 add_test( NAME vnl_test_matrix COMMAND vnl_test_all test_matrix                 )

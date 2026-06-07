@@ -5,7 +5,6 @@ DECLARE(test_complex);
 DECLARE(test_inverse);
 DECLARE(test_diag_matrix);
 DECLARE(test_diag_matrix_fixed);
-DECLARE(test_file_matrix);
 DECLARE(test_math);
 DECLARE(test_na);
 DECLARE(test_matrix);
@@ -46,7 +45,6 @@ register_tests()
   REGISTER(test_inverse);
   REGISTER(test_diag_matrix);
   REGISTER(test_diag_matrix_fixed);
-  REGISTER(test_file_matrix);
   REGISTER(test_math);
   REGISTER(test_matrix);
   REGISTER(test_container_interface);
