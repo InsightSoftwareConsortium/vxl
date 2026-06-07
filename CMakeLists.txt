@@ -15,6 +15,17 @@
 
 cmake_minimum_required(VERSION 3.22.1...3.31.9)
 
+# Normalize a two-digit C/C++ standard token to its ISO release year so
+# ordering survives the C99(1999)/C11(2011) two-digit wraparound.
+function(vxl_standard_release_year _token _result)
+  if(_token LESS_EQUAL 50)
+    math(EXPR _year "2000 + ${_token}")
+  else()
+    math(EXPR _year "1900 + ${_token}")
+  endif()
+  set(${_result} "${_year}" PARENT_SCOPE)
+endfunction()
+
 if(NOT CMAKE_CXX_STANDARD)
    set(CMAKE_CXX_STANDARD "17")
 endif()
@@ -24,12 +35,10 @@ endif()
 if(NOT CMAKE_CXX_EXTENSIONS)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
-# VXL 7 requires C++17 or newer (inline constexpr variables, structured
-# bindings, ...), so reject the older standards rather than letting an
-# explicit CMAKE_CXX_STANDARD=11/14 pass validation and then fail to compile.
-set(VALID_CXX_STANDARDS "17" "20" "23")
-if(NOT CMAKE_CXX_STANDARD IN_LIST VALID_CXX_STANDARDS )
-   MESSAGE(FATAL_ERROR "CMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} is not a supported C++ standard; VXL requires one of: ${VALID_CXX_STANDARDS}.")
+# VXL 7 requires C++17 (2017) or newer.
+vxl_standard_release_year("${CMAKE_CXX_STANDARD}" VXL_CXX_STANDARD_YEAR)
+if(VXL_CXX_STANDARD_YEAR LESS 2017)
+   message(FATAL_ERROR "CMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} (ISO ${VXL_CXX_STANDARD_YEAR}) is older than the required C++17 (2017) minimum.")
 endif()
 
 if(NOT CMAKE_C_STANDARD)
@@ -41,9 +50,10 @@ endif()
 if(NOT CMAKE_C_EXTENSIONS)
   set(CMAKE_C_EXTENSIONS OFF)
 endif()
-set(VALID_C_STANDARDS "90" "99" "11" "17" "23")
-if(NOT CMAKE_C_STANDARD IN_LIST VALID_C_STANDARDS )
-   MESSAGE(FATAL_ERROR "CMAKE_C_STANDARD:STRING=${CMAKE_C_STANDARD} not in known standards list\n ${VALID_C_STANDARDS}.")
+# VXL 7 requires C11 (2011) or newer.
+vxl_standard_release_year("${CMAKE_C_STANDARD}" VXL_C_STANDARD_YEAR)
+if(VXL_C_STANDARD_YEAR LESS 2011)
+   message(FATAL_ERROR "CMAKE_C_STANDARD:STRING=${CMAKE_C_STANDARD} (ISO ${VXL_C_STANDARD_YEAR}) is older than the required C11 (2011) minimum.")
 endif()
 
 project(VXL #Project name must be all caps to have properly generated VXL_VERSION_* variables
