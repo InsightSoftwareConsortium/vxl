@@ -323,9 +323,6 @@ set(V3P_NETLIB_linalg_SOURCES
      linalg/lsmrBase.cxx linalg/lsmrBase.h
      linalg/lsmrDense.cxx linalg/lsmrDense.h
    )
-set(V3P_NETLIB_datapac_SOURCES
-     datapac/camsun.c datapac/camsun.h
-   )
 set(V3P_NETLIB_mathews_SOURCES
      mathews/simpson.c mathews/simpson.h
      mathews/trapezod.c mathews/trapezod.h
@@ -356,7 +353,6 @@ set(v3p_netlib_sources
      ${V3P_NETLIB_opt_SOURCES}
      ${V3P_NETLIB_linalg_SOURCES}
      ${V3P_NETLIB_toms_SOURCES}
-     ${V3P_NETLIB_datapac_SOURCES}
      ${V3P_NETLIB_mathews_SOURCES}
      ${V3P_NETLIB_sparse_SOURCES}
    )
