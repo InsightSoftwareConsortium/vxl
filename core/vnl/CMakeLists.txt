@@ -275,7 +275,3 @@ if( BUILD_TESTING )
 endif()
 
 add_subdirectory(algo)
-
-if (VXL_BUILD_OBJECT_LIBRARIES)
-  add_library(vnl-obj OBJECT ${vnl_sources})
-endif()

@@ -256,6 +256,3 @@ set(VXL_LIBRARY_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} CACHE STATIC "Where all t
 # Copy CTestCustom.cmake to top of build tree
 configure_file( ${VXL_CMAKE_DIR}/CTestCustom.cmake
   ${VXL_BINARY_DIR}/CTestCustom.cmake COPYONLY )
-
-option(VXL_BUILD_OBJECT_LIBRARIES "Build object libraries (to enable all in a single library)?" OFF)
-mark_as_advanced(VXL_BUILD_OBJECT_LIBRARIES)
