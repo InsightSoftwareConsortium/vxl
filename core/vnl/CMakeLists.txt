@@ -117,7 +117,6 @@ set( vnl_sources
   # Polyniomial representations
   vnl_polynomial.hxx           vnl_polynomial.h
   vnl_real_polynomial.cxx      vnl_real_polynomial.h
-  vnl_real_npolynomial.cxx     vnl_real_npolynomial.h
 
   # alternative number representations
 

@@ -23,7 +23,6 @@ add_executable( vnl_test_all
   test_quaternion.cxx
   test_polynomial.cxx
   test_real_polynomial.cxx
-  test_real_npolynomial.cxx
   test_resize.cxx
   test_rotation_matrix.cxx
   test_sym_matrix.cxx
@@ -68,7 +67,6 @@ add_test( NAME vnl_test_na COMMAND vnl_test_all test_na                     )
 add_test( NAME vnl_test_random COMMAND vnl_test_all test_random                 )
 add_test( NAME vnl_test_polynomial COMMAND vnl_test_all test_polynomial             )
 add_test( NAME vnl_test_real_polynomial COMMAND vnl_test_all test_real_polynomial        )
-add_test( NAME vnl_test_real_npolynomial COMMAND vnl_test_all test_real_npolynomial       )
 add_test( NAME vnl_test_resize COMMAND vnl_test_all test_resize                 )
 add_test( NAME vnl_test_rotation_matrix COMMAND vnl_test_all test_rotation_matrix        )
 add_test( NAME vnl_test_sym_matrix COMMAND vnl_test_all test_sym_matrix             )

@@ -18,7 +18,6 @@ DECLARE(test_power);
 DECLARE(test_quaternion);
 DECLARE(test_polynomial);
 DECLARE(test_real_polynomial);
-DECLARE(test_real_npolynomial);
 DECLARE(test_resize);
 DECLARE(test_rotation_matrix);
 DECLARE(test_sym_matrix);
@@ -57,7 +56,6 @@ register_tests()
   REGISTER(test_quaternion);
   REGISTER(test_polynomial);
   REGISTER(test_real_polynomial);
-  REGISTER(test_real_npolynomial);
   REGISTER(test_resize);
   REGISTER(test_rotation_matrix);
   REGISTER(test_sym_matrix);
