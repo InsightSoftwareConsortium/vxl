@@ -238,9 +238,6 @@ include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/VXLIntrospectionConfig.cma
 # Options for selecting the core core libraries
 option( VXL_BUILD_CORE_NUMERICS "Build VXL's numerics libraries" ON )
 
-option( VXL_BUILD_NONDEPRECATED_ONLY "Build only nondeprecated libraries (Experimental)" ON )
-mark_as_advanced(VXL_BUILD_NONDEPRECATED_ONLY)
-
 option(VXL_USE_GEOTIFF "Use the GEOTIFF Library if available" ON)
 mark_as_advanced(VXL_USE_GEOTIFF)
 
