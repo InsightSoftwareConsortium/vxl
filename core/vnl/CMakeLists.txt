@@ -76,7 +76,6 @@ set( vnl_sources
                                vnl_vector_ref.h
   vnl_vector_fixed.hxx         vnl_vector_fixed.h
   vnl_vector_fixed_ref.hxx     vnl_vector_fixed_ref.h
-  vnl_file_vector.hxx          vnl_file_vector.h
   vnl_matrix.hxx               vnl_matrix.h
                                vnl_matrix_ref.h
   vnl_matrix_fixed.hxx         vnl_matrix_fixed.h
