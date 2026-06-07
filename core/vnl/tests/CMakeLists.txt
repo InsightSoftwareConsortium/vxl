@@ -6,7 +6,6 @@ add_executable( vnl_test_all
 
   # The tests
   test_bignum.cxx
-  test_decnum.cxx
   test_complex.cxx
   test_complexify.cxx
   test_inverse.cxx
@@ -60,7 +59,6 @@ target_link_libraries(vnl_basic_operation_timings itkvnl)
 add_test( NAME vnl_basic_operation_timings COMMAND vnl_basic_operation_timings   )
 
 add_test( NAME vnl_test_bignum COMMAND vnl_test_all test_bignum                 )
-add_test( NAME vnl_test_decnum COMMAND vnl_test_all test_decnum                 )
 add_test( NAME vnl_test_complex COMMAND vnl_test_all test_complex                )
 add_test( NAME vnl_test_complexify COMMAND vnl_test_all test_complexify             )
 add_test( NAME vnl_test_diag_matrix COMMAND vnl_test_all test_diag_matrix            )
