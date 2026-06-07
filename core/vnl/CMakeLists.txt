@@ -250,11 +250,11 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   endif()
 endif()
 
-vxl_add_library(LIBRARY_NAME ${VXL_LIB_PREFIX}vnl
+vxl_add_library(LIBRARY_NAME itkvnl
   LIBRARY_SOURCES ${vnl_sources}
   HEADER_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}"  # vnl_config.h
   HEADER_INSTALL_DIR vnl)
-target_link_libraries( ${VXL_LIB_PREFIX}vnl ${VXL_LIB_PREFIX}vcl )
+target_link_libraries( itkvnl itkvcl )
 set(_curr_lib_name vnl)
 # If VXL_INSTALL_INCLUDE_DIR is the default value
 if("${VXL_INSTALL_INCLUDE_DIR}" STREQUAL "include/vxl")
@@ -263,7 +263,7 @@ else()
   set(_install_dir ${VXL_INSTALL_INCLUDE_DIR}/${_curr_lib_name})
 endif()
 set_vxl_library_properties(
-     TARGET_NAME ${VXL_LIB_PREFIX}${_curr_lib_name}
+     TARGET_NAME itk${_curr_lib_name}
      BASE_NAME ${_curr_lib_name}
      EXPORT_HEADER_FILE ${VXLCORE_BINARY_INCLUDE_DIR}/${_curr_lib_name}/${_curr_lib_name}_export.h
      INSTALL_DIR ${_install_dir}

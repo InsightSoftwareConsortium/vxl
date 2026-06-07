@@ -30,10 +30,10 @@ set(testlib_sources
   testlib_root_dir.h            testlib_root_dir.cxx
 )
 
-vxl_add_library(LIBRARY_NAME ${VXL_LIB_PREFIX}testlib
+vxl_add_library(LIBRARY_NAME itktestlib
   LIBRARY_SOURCES ${testlib_sources}
   HEADER_INSTALL_DIR core/testlib)
-target_link_libraries(${VXL_LIB_PREFIX}testlib ${VXL_LIB_PREFIX}vcl)
+target_link_libraries(itktestlib itkvcl)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

@@ -26,10 +26,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     COMPILE_FLAGS -ftemplate-depth-50)
 endif()
 
-vxl_add_library(LIBRARY_NAME ${VXL_LIB_PREFIX}vnl_io
+vxl_add_library(LIBRARY_NAME itkvnl_io
   LIBRARY_SOURCES ${vnl_io_sources}
   HEADER_INSTALL_DIR vnl/io)
-target_link_libraries(${VXL_LIB_PREFIX}vnl_io ${VXL_LIB_PREFIX}vnl ${VXL_LIB_PREFIX}vsl)
+target_link_libraries(itkvnl_io itkvnl itkvsl)
 
 if(BUILD_TESTING)
   add_subdirectory(tests)

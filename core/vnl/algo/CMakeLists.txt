@@ -106,13 +106,13 @@ if(NETLIB_FOUND)
   else()
     set(_algo_install_dir ${VXL_INSTALL_INCLUDE_DIR}/vnl/algo)
   endif()
-  vxl_add_library(LIBRARY_NAME ${VXL_LIB_PREFIX}vnl_algo
+  vxl_add_library(LIBRARY_NAME itkvnl_algo
     LIBRARY_SOURCES ${vnl_algo_sources}
     HEADER_INSTALL_DIR vnl/algo)
-  target_link_libraries( ${VXL_LIB_PREFIX}vnl_algo ${NETLIB_LIBRARIES} ${VXL_LIB_PREFIX}vnl )
+  target_link_libraries( itkvnl_algo ${NETLIB_LIBRARIES} itkvnl )
   set(CURR_LIB_NAME vnl_algo)
   set_vxl_library_properties(
-     TARGET_NAME ${VXL_LIB_PREFIX}${CURR_LIB_NAME}
+     TARGET_NAME itk${CURR_LIB_NAME}
      BASE_NAME ${CURR_LIB_NAME}
      EXPORT_HEADER_FILE ${VXLCORE_BINARY_INCLUDE_DIR}/vnl/algo/${CURR_LIB_NAME}_export.h
      INSTALL_DIR   ${_algo_install_dir}

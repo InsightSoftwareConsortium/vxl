@@ -114,9 +114,6 @@ SETIFEMPTY(VXL_INSTALL_INCLUDE_DIR include/vxl)
 # to fold the vxl targets into its own export set; standalone builds use it
 # as a local export set name (no standalone VXLConfig is generated).
 SETIFEMPTY(VXL_INSTALL_EXPORT_NAME VXLTargets)
-if(NOT VXL_LIB_PREFIX)
-  set( VXL_LIB_PREFIX "") # This is typically empty
-endif()
 
 # CMake support directory.
 set(VXL_ROOT_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})

@@ -55,10 +55,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
  set_source_files_properties(test_finite.cxx PROPERTIES COMPILE_FLAGS -O0)
 endif()
 
-target_link_libraries(vnl_test_all ${VXL_LIB_PREFIX}vnl ${VXL_LIB_PREFIX}testlib ${CMAKE_THREAD_LIBS})
+target_link_libraries(vnl_test_all itkvnl itktestlib ${CMAKE_THREAD_LIBS})
 
 add_executable(vnl_basic_operation_timings basic_operation_timings.cxx)
-target_link_libraries(vnl_basic_operation_timings ${VXL_LIB_PREFIX}vnl)
+target_link_libraries(vnl_basic_operation_timings itkvnl)
 add_test( NAME vnl_basic_operation_timings COMMAND vnl_basic_operation_timings   )
 
 add_test( NAME vnl_test_bignum COMMAND vnl_test_all test_bignum                 )
@@ -105,6 +105,6 @@ add_test( NAME test_pow_log COMMAND vnl_test_all test_pow_log                )
 add_test( NAME test_vnl_index_sort COMMAND vnl_test_all test_vnl_index_sort         )
 
 add_executable(vnl_test_include test_include.cxx)
-target_link_libraries(vnl_test_include ${VXL_LIB_PREFIX}vnl)
+target_link_libraries(vnl_test_include itkvnl)
 add_executable(vnl_test_template_include test_template_include.cxx)
-target_link_libraries(vnl_test_template_include ${VXL_LIB_PREFIX}vnl)
+target_link_libraries(vnl_test_template_include itkvnl)

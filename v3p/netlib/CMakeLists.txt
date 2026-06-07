@@ -420,12 +420,12 @@ endif()
 
 # Create a netlib library with mangled symbols.
 vxl_add_library(
-    LIBRARY_NAME ${VXL_LIB_PREFIX}v3p_netlib
+    LIBRARY_NAME itkv3p_netlib
     LIBRARY_SOURCES ${v3p_netlib_sources}
     DISABLE_MSVC_MP
 )
 
-target_link_libraries(${VXL_LIB_PREFIX}v3p_netlib PRIVATE vxl_platform_math)
+target_link_libraries(itkv3p_netlib PRIVATE vxl_platform_math)
 
 if(BUILD_TESTING)
   add_subdirectory(tests)

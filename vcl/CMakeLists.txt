@@ -52,10 +52,10 @@ set( vcl_sources
 # This also avoid trouble where the instantiation hack conflict
 # with modern, more compliant compilers.
 #aux_source_directory(Templates vcl_sources)
-vxl_add_library(LIBRARY_NAME ${VXL_LIB_PREFIX}vcl
+vxl_add_library(LIBRARY_NAME itkvcl
   LIBRARY_SOURCES ${vcl_sources}
   )
-target_link_libraries(${VXL_LIB_PREFIX}vcl PRIVATE vxl_platform_math )
+target_link_libraries(itkvcl PRIVATE vxl_platform_math )
 
 if( BUILD_TESTING)
   add_subdirectory(tests)

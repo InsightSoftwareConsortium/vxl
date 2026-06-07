@@ -10,10 +10,10 @@ set(vnl_xio_sources
 
 aux_source_directory(Templates vnl_xio_sources)
 
-vxl_add_library(LIBRARY_NAME ${VXL_LIB_PREFIX}vnl_xio
+vxl_add_library(LIBRARY_NAME itkvnl_xio
   LIBRARY_SOURCES ${vnl_xio_sources}
   HEADER_INSTALL_DIR vnl/xio)
-target_link_libraries(${VXL_LIB_PREFIX}vnl_xio ${VXL_LIB_PREFIX}vnl ${VXL_LIB_PREFIX}vsl)
+target_link_libraries(itkvnl_xio itkvnl itkvsl)
 
 if(BUILD_TESTING)
   add_subdirectory(tests)
