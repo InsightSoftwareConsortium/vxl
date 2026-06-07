@@ -38,7 +38,6 @@
 #endif
 #include <cassert>
 #include "vnl/vnl_export.h"
-#include "vnl/vnl_rational_traits.h"
 #include "vnl/vnl_decnum_traits.h"
 
 //: Evaluation of polynomials.

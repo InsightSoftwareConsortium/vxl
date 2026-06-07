@@ -123,46 +123,4 @@ struct VNL_EXPORT vnl_complex_traits<std::complex<vnl_bignum>>
   }
 };
 
-#include "vnl_rational.h"
-
-template <>
-struct VNL_EXPORT vnl_complex_traits<vnl_rational>
-{
-  enum
-  {
-    isreal = true
-  };
-  static vnl_rational
-  conjugate(vnl_rational x)
-  {
-    return x;
-  }
-  static std::complex<float>
-  complexify(vnl_rational /* x */)
-  {
-    throw std::runtime_error("Can not call complexify on non floating point data type");
-    return std::complex<float>(0., 0.);
-  }
-};
-
-template <>
-struct VNL_EXPORT vnl_complex_traits<std::complex<vnl_rational>>
-{
-  enum
-  {
-    isreal = false
-  };
-  static std::complex<float>
-  conjugate(std::complex<float> /* x */)
-  {
-    throw std::runtime_error("Can not call complexify on non floating point data type");
-    return std::complex<float>(0., 0.);
-  }
-  static std::complex<vnl_rational>
-  complexify(std::complex<vnl_rational> x)
-  {
-    return x;
-  }
-};
-
 #endif // vnl_complex_traits_h_

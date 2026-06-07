@@ -126,8 +126,6 @@ set( vnl_sources
 
   # Quaternions
   vnl_quaternion.hxx           vnl_quaternion.h
-  # Rational number arithmetic; represented by two long integers
-  vnl_rational.cxx             vnl_rational.h
   # Arbitrary precision integers
   vnl_bignum.cxx               vnl_bignum.h
   # Arbitrary precision decimal numbers
@@ -146,7 +144,6 @@ set( vnl_sources
                                vnl_complex_traits.h
   vnl_bignum_traits.cxx        vnl_bignum_traits.h
   vnl_decnum_traits.cxx        vnl_decnum_traits.h
-  vnl_rational_traits.cxx      vnl_rational_traits.h
 
   # matrix and vector specialisations
   vnl_int_matrix.cxx           vnl_int_matrix.h

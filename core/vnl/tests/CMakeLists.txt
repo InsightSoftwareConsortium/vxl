@@ -25,7 +25,6 @@ add_executable( vnl_test_all
   test_numeric_traits.cxx
   test_power.cxx
   test_quaternion.cxx
-  test_rational.cxx
   test_polynomial.cxx
   test_real_polynomial.cxx
   test_real_npolynomial.cxx
@@ -50,7 +49,6 @@ add_executable( vnl_test_all
 )
 
 if(CMAKE_COMPILER_IS_GNUCXX)
- set_source_files_properties(test_rational.cxx PROPERTIES COMPILE_FLAGS -O1)
  set_source_files_properties(test_bignum.cxx PROPERTIES COMPILE_FLAGS -O3)
  set_source_files_properties(test_finite.cxx PROPERTIES COMPILE_FLAGS -O0)
 endif()
@@ -80,7 +78,6 @@ add_test( NAME vnl_test_matrix_fixed_ref COMMAND vnl_test_all test_matrix_fixed_
 add_test( NAME vnl_test_numeric_traits COMMAND vnl_test_all test_numeric_traits         )
 add_test( NAME vnl_test_na COMMAND vnl_test_all test_na                     )
 add_test( NAME vnl_test_random COMMAND vnl_test_all test_random                 )
-add_test( NAME vnl_test_rational COMMAND vnl_test_all test_rational               )
 add_test( NAME vnl_test_polynomial COMMAND vnl_test_all test_polynomial             )
 add_test( NAME vnl_test_real_polynomial COMMAND vnl_test_all test_real_polynomial        )
 add_test( NAME vnl_test_real_npolynomial COMMAND vnl_test_all test_real_npolynomial       )
