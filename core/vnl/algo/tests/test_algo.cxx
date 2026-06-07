@@ -7,7 +7,6 @@
 // This file contains short tests for several algorithms in vnl/algo
 // that are not tested more extensively in separate test files.
 // Currently, the following classes or functions are tested here:
-// - vnl_adjugate
 // - vnl_svd_economy
 // - vnl_matrix_inverse
 // - vnl_fft_1d
@@ -24,7 +23,6 @@
 // \author Peter Vanroose, KULeuven/ESAT.
 // \date 20 September 2003
 
-#include <vnl/algo/vnl_adjugate.h>
 #include <vnl/algo/vnl_conjugate_gradient.h>
 #include <vnl/algo/vnl_discrete_diff.h>
 #include <vnl/algo/vnl_fft_1d.h>
@@ -40,17 +38,6 @@
 #include <vnl/algo/vnl_svd.h>
 #include "vnl/vnl_sparse_matrix_linear_system.h"
 #include "vnl/vnl_least_squares_function.h"
-
-static void
-test_adjugate()
-{
-  int data[] = { 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1 };
-  const vnl_matrix<int> m(data, 4, 4);
-  const vnl_matrix<int> m_adj = vnl_adjugate(m);
-  vnl_matrix<int> identity(4, 4);
-  identity.set_identity();
-  TEST("vnl_adjugate", (m * m_adj - 16 * identity).array_inf_norm(), 0);
-}
 
 static void
 test_matrix_inverse()
@@ -255,7 +242,6 @@ test_generalized_schur()
 void
 test_algo()
 {
-  test_adjugate();
   test_matrix_inverse();
   test_fft();
   test_orthogonal_complement();
