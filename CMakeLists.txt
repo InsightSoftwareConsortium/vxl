@@ -266,8 +266,6 @@ endif()
 #-------------------------------------------------------------------
 #-- BUILD SELECTION OPTIONS
 # Options for selecting the core core libraries
-option( VXL_BUILD_CORE_NUMERICS_ONLY "Turn off everything except the core numerics" OFF)
-mark_as_advanced(VXL_BUILD_CORE_NUMERICS_ONLY)
 option( VXL_BUILD_CORE_NUMERICS "Build VXL's numerics libraries" ON )
 
 option( VXL_BUILD_NONDEPRECATED_ONLY "Build only nondeprecated libraries (Experimental)" ON )
