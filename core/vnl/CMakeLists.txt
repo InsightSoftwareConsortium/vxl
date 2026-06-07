@@ -198,7 +198,6 @@ set( vnl_sources
   vnl_crs_index.cxx            vnl_crs_index.h
 
   # Special functions
-  vnl_bessel.cxx               vnl_bessel.h
                                vnl_cross.h
   vnl_gamma.cxx                vnl_gamma.h
                                vnl_beta.h

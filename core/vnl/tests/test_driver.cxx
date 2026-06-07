@@ -33,7 +33,6 @@ DECLARE(test_random);
 DECLARE(test_arithmetic);
 DECLARE(test_alignment);
 DECLARE(test_integrant);
-DECLARE(test_bessel);
 DECLARE(test_crs_index);
 DECLARE(test_sparse_lst_sqr_function);
 DECLARE(test_sparse_matrix);
@@ -75,7 +74,6 @@ register_tests()
   REGISTER(test_arithmetic);
   REGISTER(test_alignment);
   REGISTER(test_integrant);
-  REGISTER(test_bessel);
   REGISTER(test_crs_index);
   REGISTER(test_sparse_lst_sqr_function);
   REGISTER(test_sparse_matrix);
