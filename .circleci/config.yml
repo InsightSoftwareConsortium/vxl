@@ -11,8 +11,6 @@ version: 2.1
 #   default empty
 # CTEST_BUILD_CONFIGURATION : build configuration
 #   default "Release"
-# VXL_BUILD_CONTRIB : build contrib
-#   default 0 (off)
 # VXL_BUILD_CORE_VIDEO : build core video
 #   default 1 (on)
 # VXL_BUILD_VGUI : build vgui
@@ -190,7 +188,6 @@ jobs:
 
             # config variables (override in project settings)
             : ${CTEST_BUILD_CONFIGURATION=Release}
-            : ${VXL_BUILD_CONTRIB=0}
             : ${VXL_BUILD_CORE_VIDEO=1}
             : ${VXL_BUILD_VGUI=1}
             : ${CTEST_EXTRA_BUILD_OPTIONS=}

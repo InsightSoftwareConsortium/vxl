@@ -18,7 +18,6 @@
 //  Creates a large image by putting smaller images into an approximately
 //  square grid.
 //  If there are n small images, the grid will have sqrt(n) columns.
-// \sa contrib/mul/tools/tile_images_2d
 // \relatesalso vil_image_view
 template <class T>
 inline void

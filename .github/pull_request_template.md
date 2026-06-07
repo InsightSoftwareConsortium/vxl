@@ -37,7 +37,6 @@ If either of the above two items is true,
     VERSION 2.0.2.0 # defines #VXL_VERSION{,MAJOR,MINOR,PATCH,TWEAK}
     Follow the conventions described at https://semver.org
 -->
-- <!-- [X] or :no_entry_sign: --> Makes changes to the contributed directory API DOES NOT require semantic versioning increase
 - <!-- [X] or :no_entry_sign: --> Adds tests and baseline comparison (quantitative).
 - <!-- [X] or :no_entry_sign: --> Adds Documentation.
 

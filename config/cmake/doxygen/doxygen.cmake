@@ -16,13 +16,13 @@ if(VXL_BUILD_DOCUMENTATION)
   #-------------------------------------------------------------------
   # doxygen_add_book(<package> <description>)
   #
-  # - package     : package or site (e.g., core, contrib/mul, etc.)
+  # - package     : package or site (e.g., core, etc.)
   # - description : comment describing the package
   #
   # Example usage:
   #
-  #   doxygen_add_package(contrib/mul
-  #     "Manchester University Libraries overview documentation"
+  #   doxygen_add_package(core
+  #     "VXL Core Libraries overview documentation"
   #     )
   function(doxygen_add_book _book _description)
     if(TEXI2HTML_EXECUTABLE)
@@ -37,13 +37,13 @@ if(VXL_BUILD_DOCUMENTATION)
 
   # doxygen_add_package(<package> <description>)
   #
-  # - package     : package or site (e.g., core, contrib/mul, etc.)
+  # - package     : package or site (e.g., core, etc.)
   # - description : comment describing the package
   #
   # Example usage:
   #
-  #   doxygen_add_package(contrib/mul
-  #     "Manchester University Libraries"
+  #   doxygen_add_package(core
+  #     "VXL Core Libraries"
   #     )
   function(doxygen_add_package _package _description)
     string(REPLACE / _ packname ${_package})
@@ -66,10 +66,10 @@ if(VXL_BUILD_DOCUMENTATION)
   #
   # Example usage:
   #
-  #   doxygen_add_library(contrib/gel/mrc/vpgl
-  #     DEPENDS core/vcsl core/vgl core/vnl core/vbl
-  #     PACKAGE contrib/gel
-  #     DESCRIPTION "Photogrammetry Library"
+  #   doxygen_add_library(core/vnl
+  #     DEPENDS core/vcl
+  #     PACKAGE core
+  #     DESCRIPTION "Numerics Library"
   #     )
   function(doxygen_add_library _library)
     # parse arguments

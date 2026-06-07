@@ -31,10 +31,6 @@
 //   S vil_bilin_interp_safe(const vil_image_view<T>&, double, double, unsigned)
 // \endcode
 //
-// Note that if you want to store a warp with an image to create a registered image,
-// the vimt library (in contrib/mul/vimt) provides efficient registered images
-// with transforms up to projective.
-//
 // \relatesalso vil_image_view
 template <class sType, class dType, class MapFunctor, class InterpFunctor>
 void

@@ -6,16 +6,16 @@ Usage
 In package directory CMakeList.txt, use doxygen_add_package(...) to describe the package.
 
 e.g.:
-doxygen_add_package(contrib/mul
-     "Manchester University Libraries"
+doxygen_add_package(core
+     "VXL Core Libraries"
      )
 
 In each library director CMakeLists.txt, use doxygen_add_library(...) to describe the library
 e.g.:
-doxygen_add_library(contrib/gel/mrc/vpgl
-     DEPENDS core/vcsl core/vgl core/vnl core/vbl
-     PACKAGE contrib/gel
-     DESCRIPTION "Photogrammetry Library"
+doxygen_add_library(core/vnl
+     DEPENDS core/vcl
+     PACKAGE core
+     DESCRIPTION "Numerics Library"
      )
 
 ------------

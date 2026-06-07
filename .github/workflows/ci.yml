@@ -4,11 +4,12 @@
 #   * itk-core: Build only the libraries ITK vendors from VXL
 #     (vnl + testlib + their dependencies via VXL_BUILD_CORE_NUMERICS_ONLY=ON).
 #     Runs on ubuntu-24.04, macos-14, windows-2022.
-#   * full-modules: Ubuntu 24.04 only. Builds full core + every contrib
-#     module that compiles cleanly with VXL_BUILD_NONDEPRECATED_ONLY=ON
-#     using the system packages available in the GitHub Actions runner
-#     image. Optional dependencies that need rare libraries (DCMTK,
-#     FFmpeg, Qt/VGUI, OpenCL) are intentionally left off.
+#   * full-modules: Ubuntu 24.04 only. Builds the full core (every core
+#     component, not just numerics) that compiles cleanly with
+#     VXL_BUILD_NONDEPRECATED_ONLY=ON using the system packages available
+#     in the GitHub Actions runner image. Optional dependencies that need
+#     rare libraries (DCMTK, FFmpeg, Qt/VGUI, OpenCL) are intentionally
+#     left off.
 #
 # Output minimization (modeled on ITK's arm.yml):
 #   * ctest -S drives configure/build/test/submit; per-target output stays
@@ -195,7 +196,6 @@ jobs:
             echo 'BUILD_TESTING:BOOL=ON'
             echo 'BUILD_SHARED_LIBS:BOOL=OFF'
             echo 'VXL_BUILD_CORE_NUMERICS_ONLY:BOOL=ON'
-            echo 'VXL_BUILD_CONTRIB:BOOL=OFF'
             echo 'VXL_BUILD_VGUI:BOOL=OFF'
             echo 'VXL_BUILD_CORE_VIDEO:BOOL=OFF'
             echo 'VXL_BUILD_NONDEPRECATED_ONLY:BOOL=ON'
@@ -236,10 +236,10 @@ jobs:
           fetch-depth: 5
           clean: true
 
-      - name: Install build & contrib system deps
+      - name: Install build system deps
         run: |
           # Packages chosen for breadth: every external library that any
-          # non-deprecated VXL contrib module can use, where the package
+          # non-deprecated VXL core module can use, where the package
           # exists in the noble (24.04) main/universe repos.
           # DCMTK, FFmpeg, Qt/VGUI, OpenCL are intentionally NOT installed
           # because they pull in either deprecated paths or large
@@ -312,7 +312,7 @@ jobs:
 
       - name: Configure dashboard cache (full-modules)
         run: |
-          # Full core + every contrib module that VXL_BUILD_NONDEPRECATED_ONLY
+          # Full core (every core component) that VXL_BUILD_NONDEPRECATED_ONLY
           # leaves enabled. We do NOT enable: VGUI (Qt/X11 headache),
           # CORE_VIDEO (FFmpeg API drift, see vxl/vxl#515), DCMTK module,
           # OpenCL. Adjust here when more system packages become reliable.
@@ -333,7 +333,6 @@ jobs:
             echo 'VXL_BUILD_CORE_SERIALISATION:BOOL=ON'
             echo 'VXL_BUILD_CORE_UTILITIES:BOOL=ON'
             echo 'VXL_BUILD_CORE_VIDEO:BOOL=OFF'
-            echo 'VXL_BUILD_CONTRIB:BOOL=ON'
             echo 'VXL_BUILD_VGUI:BOOL=OFF'
             echo 'VXL_BUILD_DCMTK:BOOL=OFF'
             echo 'VXL_BUILD_NONDEPRECATED_ONLY:BOOL=ON'
