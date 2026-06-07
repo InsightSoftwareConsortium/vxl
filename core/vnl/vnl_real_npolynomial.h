@@ -66,7 +66,6 @@ private:
   //: max. degree of polynomial
   unsigned int ideg_{ 0 };
 
-  friend class vnl_rnpoly_solve;
 
 public:
   // Constructor-----------------------------------------------------------------

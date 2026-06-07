@@ -74,7 +74,6 @@ if(NETLIB_FOUND)
 
     # equation solvers
     vnl_cpoly_roots.cxx vnl_cpoly_roots.h
-    vnl_rnpoly_solve.cxx vnl_rnpoly_solve.h
     vnl_fit_parabola.h
 
     # fft
