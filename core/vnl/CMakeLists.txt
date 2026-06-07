@@ -127,7 +127,6 @@ set( vnl_sources
   # Quaternions
   vnl_quaternion.hxx           vnl_quaternion.h
   # Finite field and finite ring numbers and arithmetic
-  vnl_finite.h
 
   # ops
   vnl_fastops.cxx              vnl_fastops.h
