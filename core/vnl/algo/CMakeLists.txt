@@ -88,7 +88,6 @@ if(NETLIB_FOUND)
     vnl_convolve.hxx vnl_convolve.h
     vnl_determinant.cxx vnl_determinant.hxx vnl_determinant.h
     vnl_chi_squared.hxx vnl_chi_squared.h
-    vnl_gaussian_kernel_1d.cxx vnl_gaussian_kernel_1d.h
     vnl_adjugate.hxx vnl_adjugate.h
     vnl_orthogonal_complement.hxx vnl_orthogonal_complement.h
     vnl_matrix_update.h
