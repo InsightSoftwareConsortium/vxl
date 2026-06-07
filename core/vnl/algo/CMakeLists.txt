@@ -22,7 +22,6 @@ if(NETLIB_FOUND)
 # vnl_lsqr                         lsqr_
 # vnl_qr                           cqrdc_ cqrsl_ dqrdc_ dqrsl_ sqrdc_ sqrsl_ zqrdc_ zqrsl_
 # vnl_real_eigensystem             rg_
-# vnl_sparse_symmetric_eigensystem dnlaso_
 # vnl_svd                          csvdc_ dsvdc_ ssvdc_ zsvdc_
 # vnl_svd_economy                  csvdc_ dsvdc_ ssvdc_ zsvdc_
 # vnl_svd_fixed                    csvdc_ dsvdc_ ssvdc_ zsvdc_
@@ -50,7 +49,6 @@ if(NETLIB_FOUND)
     vnl_real_eigensystem.cxx vnl_real_eigensystem.h
     vnl_symmetric_eigensystem.hxx vnl_symmetric_eigensystem.h
     vnl_generalized_eigensystem.cxx vnl_generalized_eigensystem.h
-    vnl_sparse_symmetric_eigensystem.cxx vnl_sparse_symmetric_eigensystem.h
     vnl_generalized_schur.cxx vnl_generalized_schur.h
     vnl_complex_generalized_schur.cxx vnl_complex_generalized_schur.h
 
