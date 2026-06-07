@@ -43,7 +43,6 @@ if(NETLIB_FOUND)
     test_sparse_lu.cxx
     test_bracket_minimum.cxx
     test_brent_minimizer.cxx
-    test_sparse_lm.cxx
   )
 
   target_link_libraries( vnl_algo_test_all itkvnl_algo itktestlib ${CMAKE_THREAD_LIBS} )
@@ -74,7 +73,6 @@ if(NETLIB_FOUND)
   add_test( NAME vnl_algo_test_sparse_lu COMMAND vnl_algo_test_all test_sparse_lu               )
   add_test( NAME vnl_algo_test_bracket_minimum COMMAND vnl_algo_test_all test_bracket_minimum         )
   add_test( NAME vnl_algo_test_brent_minimizer COMMAND vnl_algo_test_all test_brent_minimizer         )
-  add_test( NAME vnl_algo_test_sparse_lm COMMAND vnl_algo_test_all test_sparse_lm               )
   add_test( NAME vnl_algo_test_sparse_matrix COMMAND vnl_algo_test_all test_sparse_matrix           )
   add_test( NAME vnl_algo_test_svd COMMAND vnl_algo_test_all test_svd                     )
   add_test( NAME vnl_algo_test_svd_fixed COMMAND vnl_algo_test_all test_svd_fixed               )

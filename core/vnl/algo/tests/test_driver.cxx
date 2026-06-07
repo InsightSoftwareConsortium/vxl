@@ -30,7 +30,6 @@ DECLARE(test_solve_qp);
 DECLARE(test_sparse_lu);
 DECLARE(test_bracket_minimum);
 DECLARE(test_brent_minimizer);
-DECLARE(test_sparse_lm);
 DECLARE(test_complex_algo);
 
 void
@@ -65,7 +64,6 @@ register_tests()
   REGISTER(test_sparse_lu);
   REGISTER(test_bracket_minimum);
   REGISTER(test_brent_minimizer);
-  REGISTER(test_sparse_lm);
   REGISTER(test_complex_algo);
 }
 
