@@ -276,10 +276,6 @@ endif()
 
 add_subdirectory(algo)
 
-if( VXL_BUILD_EXAMPLES )
-  add_subdirectory(examples)
-endif()
-
 if (VXL_BUILD_OBJECT_LIBRARIES)
   add_library(vnl-obj OBJECT ${vnl_sources})
 endif()

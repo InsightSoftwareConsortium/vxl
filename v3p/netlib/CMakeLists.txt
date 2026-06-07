@@ -2,21 +2,6 @@
 
 project( netlib C )
 
-set(netlib_sources
-     # The "Triangle" program of Jonathan Richard Shewchuk
-     triangle.c triangle.h
-   )
-
-vxl_add_library(
-    LIBRARY_NAME ${VXL_LIB_PREFIX}netlib
-    LIBRARY_SOURCES ${netlib_sources}
-    DISABLE_MSVC_MP
-)
-
-if(UNIX)
-  target_link_libraries( ${VXL_LIB_PREFIX}netlib m )
-endif()
-
 # Allow sources in subdirectories to see the include files.
 include_directories(${netlib_SOURCE_DIR})
 
@@ -444,10 +429,6 @@ target_link_libraries(${VXL_LIB_PREFIX}v3p_netlib PRIVATE vxl_platform_math)
 
 if(BUILD_TESTING)
   add_subdirectory(tests)
-endif()
-
-if(VXL_BUILD_EXAMPLES)
-  add_subdirectory(examples)
 endif()
 
 if (VXL_BUILD_OBJECT_LIBRARIES)

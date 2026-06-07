@@ -57,17 +57,6 @@ endif()
 
 target_link_libraries(vnl_test_all ${VXL_LIB_PREFIX}vnl ${VXL_LIB_PREFIX}testlib ${CMAKE_THREAD_LIBS})
 
-if(VXL_BUILD_CORE_UTILITIES)
-  add_executable( vnl_test_with_core_utils
-    test_driver_with_core_utils.cxx
-    test_matlab.cxx
-    test_sample.cxx
-  )
-  target_link_libraries(vnl_test_with_core_utils ${VXL_LIB_PREFIX}vnl ${VXL_LIB_PREFIX}vpl ${VXL_LIB_PREFIX}vul ${VXL_LIB_PREFIX}testlib ${CMAKE_THREAD_LIBS})
-  add_test( NAME vnl_test_matlab COMMAND vnl_test_with_core_utils test_matlab                 )
-  add_test( NAME vnl_test_sample COMMAND vnl_test_with_core_utils test_sample                 )
-endif()
-
 add_executable(vnl_basic_operation_timings basic_operation_timings.cxx)
 target_link_libraries(vnl_basic_operation_timings ${VXL_LIB_PREFIX}vnl)
 add_test( NAME vnl_basic_operation_timings COMMAND vnl_basic_operation_timings   )

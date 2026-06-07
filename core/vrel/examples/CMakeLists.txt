@@ -1,8 +1,0 @@
-add_executable( r_homography2d_fit   robust_homography2d_fit.cxx )
-target_link_libraries(r_homography2d_fit vrel)
-add_executable( r_homography2d_gen   robust_homography2d_gen.cxx )
-target_link_libraries(r_homography2d_gen vrel )
-add_executable( r_robust_line_fit           robust_line_fit.cxx )
-target_link_libraries(r_robust_line_fit vrel )
-add_executable( r_robust_line_gen           robust_line_gen.cxx )
-target_link_libraries(r_robust_line_gen vrel )
