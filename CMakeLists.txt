@@ -269,21 +269,9 @@ endif()
 option( VXL_BUILD_CORE_NUMERICS_ONLY "Turn off everything except the core numerics" OFF)
 mark_as_advanced(VXL_BUILD_CORE_NUMERICS_ONLY)
 option( VXL_BUILD_CORE_NUMERICS "Build VXL's numerics libraries" ON )
-CMAKE_DEPENDENT_OPTION( VXL_BUILD_CORE_GEOMETRY "Build VXL's geometry libraries" ON "NOT VXL_BUILD_CORE_NUMERICS_ONLY" OFF)
-CMAKE_DEPENDENT_OPTION( VXL_BUILD_CORE_SERIALISATION "Build VXL's serialisation libraries" ON "NOT VXL_BUILD_CORE_NUMERICS_ONLY" OFF)
-CMAKE_DEPENDENT_OPTION( VXL_BUILD_CORE_UTILITIES "Build VXL's utility libraries" ON "NOT VXL_BUILD_CORE_NUMERICS_ONLY" OFF)
-CMAKE_DEPENDENT_OPTION( VXL_BUILD_CORE_IMAGING "Build VXL's imaging libraries" ON "NOT VXL_BUILD_CORE_NUMERICS_ONLY" OFF)
-
-# By default, build examples when building tests. Examples require most of the core libraries
-CMAKE_DEPENDENT_OPTION( VXL_BUILD_EXAMPLES "Should the examples be built?" ${BUILD_TESTING}
-                      "VXL_BUILD_CORE_GEOMETRY;VXL_BUILD_CORE_NUMERICS;VXL_BUILD_CORE_UTILITIES;VXL_BUILD_CORE_SERIALISATION;VXL_BUILD_CORE_IMAGING" OFF)
-mark_as_advanced(VXL_BUILD_EXAMPLES)
 
 option( VXL_BUILD_NONDEPRECATED_ONLY "Build only nondeprecated libraries (Experimental)" ON )
 mark_as_advanced(VXL_BUILD_NONDEPRECATED_ONLY)
-
-CMAKE_DEPENDENT_OPTION(VXL_BUILD_CORE_PROBABILITY "Build VXL's probability libraries (Experimental)" ON
-                       "VXL_BUILD_CORE_NUMERICS;NOT VXL_BUILD_CORE_NUMERICS_ONLY" OFF)
 
 option(VXL_USE_GEOTIFF "Use the GEOTIFF Library if available" ON)
 mark_as_advanced(VXL_USE_GEOTIFF)
