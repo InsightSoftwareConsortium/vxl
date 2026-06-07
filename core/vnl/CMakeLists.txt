@@ -1,12 +1,6 @@
 # vxl/core/vnl/CMakeLists.txt
 project(vnl)
 
-doxygen_add_library(core/vnl
-  DEPENDS core/vsl
-  PACKAGE core
-  DESCRIPTION "Numerics Library"
-  )
-
 # Create vnl_config.h
 option(VNL_CONFIG_CHECK_BOUNDS
   "Whether vnl_vector/vnl_matrix accessor methods check index bounds." ON)

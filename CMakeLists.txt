@@ -122,7 +122,6 @@ set(VXL_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules)
 include( ${VXL_CMAKE_DIR}/VXLStandardOptions.cmake )
 include( GenerateExportHeader )
 include( ${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/vxl_utils.cmake )
-include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/doxygen/doxygen.cmake)
 # set the vxl_platform_math target
 include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules/ConfigurePlatformMathTarget.cmake)
 

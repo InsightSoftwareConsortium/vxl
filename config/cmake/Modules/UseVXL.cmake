@@ -79,10 +79,6 @@ if(VXL_CONFIG_CMAKE)
   # Add link directories needed to use VXL.
   link_directories(${VXL_LIBRARY_DIR})
 
-  if(VXL_CMAKE_DOXYGEN_DIR)
-    # Allow use of VXL's cmake/doxygen framework
-    include(${VXL_CMAKE_DOXYGEN_DIR}/doxygen.cmake)
-  endif()
 
   if(VXL_PROVIDE_STANDARD_OPTIONS)
     # Provide the standard set of VXL CMake options to the project.
