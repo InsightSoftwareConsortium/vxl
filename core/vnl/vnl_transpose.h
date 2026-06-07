@@ -48,21 +48,11 @@ public:
   //: Noisily convert a vnl_transpose to a matrix
 
 
-#if !VXL_USE_HISTORICAL_IMPLICIT_CONVERSIONS
   explicit
   operator vnl_matrix<double>() const
   {
     return M_.transpose();
   }
-#else
-  [[deprecated(
-    "Implicit cast conversion is dangerous.\nUSE: .as_matrix() or .as_ref() member function for clarity.")]]
-  operator vnl_matrix<double>() const
-  {
-    std::cerr << "vnl_transpose being converted to matrix -- help! I don't wanna go!\n";
-    return M_.transpose();
-  }
-#endif
 
   //: Quietly convert a vnl_transpose to a matrix
   vnl_matrix<double>

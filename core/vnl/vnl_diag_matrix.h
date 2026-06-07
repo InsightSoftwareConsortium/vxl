@@ -267,17 +267,11 @@ public:
   as_matrix() const;
 
   // This is as good as a vnl_diag_matrix ctor for vnl_matrix:
-#if !VXL_USE_HISTORICAL_IMPLICIT_CONVERSIONS
   explicit
   operator vnl_matrix<T>() const
   {
     return this->as_matrix();
   }
-#else
-  [[deprecated(
-    "Implicit cast conversion is dangerous.\nUSE: .as_matrix() or .as_ref() member function for clarity.")]]
-  operator vnl_matrix<T>() const { return this->as_matrix(); }
-#endif
 
   inline void
   set_size(int n)

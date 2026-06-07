@@ -863,17 +863,11 @@ public:
   // Sometimes, such as with templated functions, the compiler cannot
   // use this user-defined conversion. For those cases, use the
   // explicit as_ref() method instead.
-#if !VXL_USE_HISTORICAL_IMPLICIT_CONVERSIONS
   explicit
   operator const vnl_matrix_ref<T>() const
   {
     return this->as_ref();
   }
-#else
-  [[deprecated(
-    "Implicit cast conversion is dangerous.\nUSE: .as_matrix() or .as_ref() member function for clarity.")]]
-  operator const vnl_matrix_ref<T>() const { return this->as_ref(); }
-#endif
   explicit
   operator vnl_matrix<T>() const
   {

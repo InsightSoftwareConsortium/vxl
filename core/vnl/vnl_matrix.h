@@ -1010,9 +1010,7 @@ protected:
     swap(this->m_LetArrayManageMemory, other.m_LetArrayManageMemory);
   }
 
-#if !VXL_USE_HISTORICAL_PROTECTED_IVARS
 private:
-#endif
   unsigned num_rows{ 0 }; // Number of rows
   unsigned num_cols{ 0 }; // Number of columns
   T ** data{ nullptr };   // Pointer to the vnl_matrix

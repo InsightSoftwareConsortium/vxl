@@ -139,20 +139,11 @@ public:
   {
     return this->as_ref();
   }
-#if !VXL_USE_HISTORICAL_IMPLICIT_CONVERSIONS
   explicit
   operator const vnl_vector_ref<T>() const
   {
     return vnl_vector_ref<T>(n, const_cast<T *>(data_));
   }
-#else
-  [[deprecated(
-    "Implicit cast conversion is dangerous.\nUSE: .as_vector() or .as_ref() member function for clarity.")]]
-  operator const vnl_vector_ref<T>() const
-  {
-    return vnl_vector_ref<T>(n, const_cast<T *>(data_));
-  } // Implicit for backwards compatibility
-#endif
   explicit
   operator vnl_vector<T>() const
   {
