@@ -80,47 +80,4 @@ struct VNL_EXPORT vnl_complex_traits<std::complex<T>, std::enable_if_t<std::is_f
   }
 };
 
-#include "vnl_bignum.h"
-
-template <>
-struct VNL_EXPORT vnl_complex_traits<vnl_bignum>
-{
-  enum
-  {
-    isreal = true
-  };
-  static vnl_bignum
-  conjugate(vnl_bignum x)
-  {
-    return x;
-  }
-  static std::complex<float>
-  complexify(vnl_bignum /* x */)
-  {
-    throw std::runtime_error("Can not call complexify on non floating point data type");
-    return std::complex<float>(0., 0.);
-  }
-};
-
-template <>
-struct VNL_EXPORT vnl_complex_traits<std::complex<vnl_bignum>>
-{
-  enum
-  {
-    isreal = false
-  };
-  static std::complex<float>
-  conjugate(std::complex<vnl_bignum> /* x */)
-  {
-    throw std::runtime_error("Can not call complexify on non floating point data type");
-    return std::complex<float>(0., 0.);
-  }
-  static std::complex<float>
-  complexify(std::complex<float> /* x */)
-  {
-    throw std::runtime_error("Can not call complexify on non floating point data type");
-    return std::complex<float>(0., 0.);
-  }
-};
-
 #endif // vnl_complex_traits_h_

@@ -18,6 +18,3 @@ VNL_VECTOR_REF_INSTANTIATE(signed long);
 VNL_VECTOR_REF_INSTANTIATE(unsigned long long);
 VNL_VECTOR_REF_INSTANTIATE(signed long long);
 
-#include "vnl/vnl_bignum.h"
-#include "vnl/vnl_bignum_traits.h"
-VNL_VECTOR_REF_INSTANTIATE(vnl_bignum);

@@ -5,7 +5,6 @@ add_executable( vnl_test_all
   test_driver.cxx
 
   # The tests
-  test_bignum.cxx
   test_complex.cxx
   test_complexify.cxx
   test_inverse.cxx
@@ -48,7 +47,6 @@ add_executable( vnl_test_all
 )
 
 if(CMAKE_COMPILER_IS_GNUCXX)
- set_source_files_properties(test_bignum.cxx PROPERTIES COMPILE_FLAGS -O3)
  set_source_files_properties(test_finite.cxx PROPERTIES COMPILE_FLAGS -O0)
 endif()
 
@@ -58,7 +56,6 @@ add_executable(vnl_basic_operation_timings basic_operation_timings.cxx)
 target_link_libraries(vnl_basic_operation_timings itkvnl)
 add_test( NAME vnl_basic_operation_timings COMMAND vnl_basic_operation_timings   )
 
-add_test( NAME vnl_test_bignum COMMAND vnl_test_all test_bignum                 )
 add_test( NAME vnl_test_complex COMMAND vnl_test_all test_complex                )
 add_test( NAME vnl_test_complexify COMMAND vnl_test_all test_complexify             )
 add_test( NAME vnl_test_diag_matrix COMMAND vnl_test_all test_diag_matrix            )
