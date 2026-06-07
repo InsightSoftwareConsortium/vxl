@@ -176,7 +176,6 @@ set( vnl_sources
   vnl_cost_function.cxx               vnl_cost_function.h
   vnl_least_squares_function.cxx      vnl_least_squares_function.h
   vnl_least_squares_cost_function.cxx vnl_least_squares_cost_function.h
-  vnl_sparse_lst_sqr_function.cxx     vnl_sparse_lst_sqr_function.h
   vnl_nonlinear_minimizer.cxx         vnl_nonlinear_minimizer.h
 
 
