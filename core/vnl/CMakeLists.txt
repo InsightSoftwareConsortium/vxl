@@ -97,7 +97,6 @@ set( vnl_sources
                                vnl_power.h
                                vnl_trace.h
   vnl_rank.hxx                 vnl_rank.h
-  vnl_scalar_join_iterator.hxx vnl_scalar_join_iterator.h
 
   #
   vnl_alloc.cxx                vnl_alloc.h
