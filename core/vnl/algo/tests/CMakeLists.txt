@@ -23,7 +23,6 @@ if(NETLIB_FOUND)
     test_fft.cxx
     test_fft1d.cxx
     test_fft2d.cxx
-    test_functions.cxx
     test_generalized_eigensystem.cxx
     test_ldl_cholesky.cxx
     test_levenberg_marquardt.cxx
@@ -57,7 +56,6 @@ if(NETLIB_FOUND)
   add_test( NAME vnl_algo_test_fft COMMAND vnl_algo_test_all test_fft                     )
   add_test( NAME vnl_algo_test_fft1d COMMAND vnl_algo_test_all test_fft1d                   )
   add_test( NAME vnl_algo_test_fft2d COMMAND vnl_algo_test_all test_fft2d                   )
-  add_test( NAME vnl_algo_test_functions COMMAND vnl_algo_test_all test_functions               )
   add_test( NAME vnl_algo_test_generalized_eigensystem COMMAND vnl_algo_test_all test_generalized_eigensystem )
   add_test( NAME vnl_algo_test_ldl_cholesky COMMAND vnl_algo_test_all test_ldl_cholesky            )
   add_test( NAME vnl_algo_test_levenberg_marquardt COMMAND vnl_algo_test_all test_levenberg_marquardt     )

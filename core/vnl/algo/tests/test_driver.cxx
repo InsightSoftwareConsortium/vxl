@@ -9,7 +9,6 @@ DECLARE(test_rank);
 DECLARE(test_fft);
 DECLARE(test_fft1d);
 DECLARE(test_fft2d);
-DECLARE(test_functions);
 DECLARE(test_generalized_eigensystem);
 DECLARE(test_ldl_cholesky);
 DECLARE(test_levenberg_marquardt);
@@ -44,7 +43,6 @@ register_tests()
   REGISTER(test_fft);
   REGISTER(test_fft1d);
   REGISTER(test_fft2d);
-  REGISTER(test_functions);
   REGISTER(test_generalized_eigensystem);
   REGISTER(test_ldl_cholesky);
   REGISTER(test_levenberg_marquardt);

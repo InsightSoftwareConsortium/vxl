@@ -9,7 +9,6 @@ include( ${VXL_CMAKE_DIR}/FindNetlib.cmake )
 if(NETLIB_FOUND)
 
 # Direct netlib dependencies are:
-# vnl_chi_squared                  dchscdf_
 # vnl_cholesky                     dpoco_ dpodi_ dpofa_ dposl_
 # vnl_ldl_cholesky                 dpoco_ dpodi_ dpofa_ dposl_
 # vnl_complex_eigensystem          zgeev_
@@ -84,7 +83,6 @@ if(NETLIB_FOUND)
     # stuff
     vnl_convolve.hxx vnl_convolve.h
     vnl_determinant.cxx vnl_determinant.hxx vnl_determinant.h
-    vnl_chi_squared.hxx vnl_chi_squared.h
     vnl_matrix_update.h
 
     # integral
