@@ -17,7 +17,6 @@ if(NETLIB_FOUND)
     test_amoeba.cxx
     test_cholesky.cxx
     test_complex_algo.cxx
-    test_complex_eigensystem.cxx
     test_convolve.cxx
     test_determinant.cxx
     test_fft.cxx
@@ -50,7 +49,6 @@ if(NETLIB_FOUND)
   add_test( NAME vnl_algo_test_amoeba COMMAND vnl_algo_test_all test_amoeba                  )
   add_test( NAME vnl_algo_test_cholesky COMMAND vnl_algo_test_all test_cholesky                )
   add_test( NAME vnl_algo_test_complex_algo COMMAND vnl_algo_test_all test_complex_algo            )
-  add_test( NAME vnl_algo_test_complex_eigensystem COMMAND vnl_algo_test_all test_complex_eigensystem     )
   add_test( NAME vnl_algo_test_convolve COMMAND vnl_algo_test_all test_convolve                )
   add_test( NAME vnl_algo_test_determinant COMMAND vnl_algo_test_all test_determinant             )
   add_test( NAME vnl_algo_test_fft COMMAND vnl_algo_test_all test_fft                     )

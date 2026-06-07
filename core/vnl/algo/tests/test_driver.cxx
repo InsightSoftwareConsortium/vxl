@@ -2,7 +2,6 @@
 
 DECLARE(test_amoeba);
 DECLARE(test_cholesky);
-DECLARE(test_complex_eigensystem);
 DECLARE(test_convolve);
 DECLARE(test_determinant);
 DECLARE(test_rank);
@@ -36,7 +35,6 @@ register_tests()
 {
   REGISTER(test_amoeba);
   REGISTER(test_cholesky);
-  REGISTER(test_complex_eigensystem);
   REGISTER(test_convolve);
   REGISTER(test_determinant);
   REGISTER(test_rank);
