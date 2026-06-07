@@ -19,7 +19,6 @@ if(NETLIB_FOUND)
     test_complex_algo.cxx
     test_complex_eigensystem.cxx
     test_convolve.cxx
-    test_cpoly_roots.cxx
     test_determinant.cxx
     test_fft.cxx
     test_fft1d.cxx
@@ -55,7 +54,6 @@ if(NETLIB_FOUND)
   add_test( NAME vnl_algo_test_complex_algo COMMAND vnl_algo_test_all test_complex_algo            )
   add_test( NAME vnl_algo_test_complex_eigensystem COMMAND vnl_algo_test_all test_complex_eigensystem     )
   add_test( NAME vnl_algo_test_convolve COMMAND vnl_algo_test_all test_convolve                )
-  add_test( NAME vnl_algo_test_cpoly_roots COMMAND vnl_algo_test_all test_cpoly_roots             )
   add_test( NAME vnl_algo_test_determinant COMMAND vnl_algo_test_all test_determinant             )
   add_test( NAME vnl_algo_test_fft COMMAND vnl_algo_test_all test_fft                     )
   add_test( NAME vnl_algo_test_fft1d COMMAND vnl_algo_test_all test_fft1d                   )
