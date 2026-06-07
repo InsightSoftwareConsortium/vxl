@@ -175,20 +175,6 @@ set(V3P_NETLIB_laso_SOURCES
      laso/dvsort.c laso/dvsort.h
      laso/urand.c laso/urand.h
    )
-set(V3P_NETLIB_arpack_SOURCES
-     arpack/dgetv0.c arpack/dgetv0.h
-     arpack/dsaitr.c arpack/dsaitr.h
-     arpack/dsapps.c arpack/dsapps.h
-     arpack/dsaup2.c arpack/dsaup2.h
-     arpack/dsaupd.c arpack/dsaupd.h
-     arpack/dsconv.c arpack/dsconv.h
-     arpack/dseigt.c arpack/dseigt.h
-     arpack/dsesrt.c arpack/dsesrt.h
-     arpack/dseupd.c arpack/dseupd.h
-     arpack/dsgets.c arpack/dsgets.h
-     arpack/dsortr.c arpack/dsortr.h
-     arpack/dstqrb.c arpack/dstqrb.h
-   )
 set(V3P_NETLIB_lapack_SOURCES
      lapack/complex16/zgebak.c lapack/complex16/zgebak.h
      lapack/complex16/zgebal.c lapack/complex16/zgebal.h
@@ -375,7 +361,6 @@ set(v3p_netlib_sources
      ${V3P_NETLIB_base_SOURCES}
      ${V3P_NETLIB_libf2c_SOURCES}
      ${V3P_NETLIB_blas_SOURCES}
-     ${V3P_NETLIB_arpack_SOURCES}
      ${V3P_NETLIB_linpack_SOURCES}
      ${V3P_NETLIB_temperton_SOURCES}
      ${V3P_NETLIB_eispack_SOURCES}
