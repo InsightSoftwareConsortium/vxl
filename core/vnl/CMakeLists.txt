@@ -193,7 +193,6 @@ set( vnl_sources
   # Special functions
                                vnl_cross.h
   vnl_gamma.cxx                vnl_gamma.h
-                               vnl_beta.h
   vnl_erf.cxx                  vnl_erf.h
   vnl_drand48.cpp              vnl_drand48.h
   vnl_sample.cxx               vnl_sample.h
