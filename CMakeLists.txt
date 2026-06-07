@@ -106,15 +106,14 @@ SETIFEMPTY(CMAKE_INSTALL_LIBRARY_DESTINATION lib)
 SETIFEMPTY(CMAKE_INSTALL_ARCHIVE_DESTINATION lib)
 SETIFEMPTY(CMAKE_INSTALL_RUNTIME_DESTINATION bin)
 
-# Allow external project to override the export target
-if(NOT VXL_NO_EXPORT)
-  SETIFEMPTY(VXL_INSTALL_EXPORT_NAME VXLTargets)
-endif()
-
 SETIFEMPTY(VXL_INSTALL_RUNTIME_DIR bin)
 SETIFEMPTY(VXL_INSTALL_LIBRARY_DIR lib)
 SETIFEMPTY(VXL_INSTALL_ARCHIVE_DIR lib)
 SETIFEMPTY(VXL_INSTALL_INCLUDE_DIR include/vxl)
+# Export-set name for install(TARGETS ... EXPORT ...). ITK overrides this
+# to fold the vxl targets into its own export set; standalone builds use it
+# as a local export set name (no standalone VXLConfig is generated).
+SETIFEMPTY(VXL_INSTALL_EXPORT_NAME VXLTargets)
 if(NOT VXL_LIB_PREFIX)
   set( VXL_LIB_PREFIX "") # This is typically empty
 endif()
@@ -260,11 +259,6 @@ set(VXL_LIBRARY_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} CACHE STATIC "Where all t
 # Copy CTestCustom.cmake to top of build tree
 configure_file( ${VXL_CMAKE_DIR}/CTestCustom.cmake
   ${VXL_BINARY_DIR}/CTestCustom.cmake COPYONLY )
-
-# This command must be the last command in this file
-if(NOT VXL_NO_EXPORT)
-  include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/export/VXLCreateProject.cmake)
-endif()
 
 option(VXL_BUILD_OBJECT_LIBRARIES "Build object libraries (to enable all in a single library)?" OFF)
 mark_as_advanced(VXL_BUILD_OBJECT_LIBRARIES)

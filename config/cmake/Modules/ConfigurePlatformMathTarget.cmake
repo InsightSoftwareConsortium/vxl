@@ -1,13 +1,8 @@
 # Create a canonical vxl_platform_math target for downstream use
 add_library(vxl_platform_math INTERFACE)
-# Ensure the interface target participates in the export set so that
-# exported libraries depending on it do not trigger CMake export errors.
-# INTERFACE libraries have no artifacts, but can and must be exported if
-# referenced by other exported targets -- including when VXL_NO_EXPORT is ON.
-# In that mode VXL is embedded in a host project (e.g. ITK) that exports its
-# own targets; itkvcl/itkv3p_netlib link vxl_platform_math while being part of
-# the host's export set, so the interface target must join that set or
-# install(EXPORT ...) fails to generate.
+# Join the install export set unconditionally so exported consumers
+# (itkvcl, itkv3p_netlib) do not trip "target not in any export set"
+# when this tree is embedded in ITK with VXL_NO_EXPORT=ON.
 set_property(GLOBAL APPEND PROPERTY VXLTargets_MODULES vxl_platform_math)
 install(TARGETS vxl_platform_math EXPORT ${VXL_INSTALL_EXPORT_NAME})
 if(CMAKE_VERSION VERSION_LESS 3.14.0)

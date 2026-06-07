@@ -101,7 +101,9 @@ function( vxl_add_library )
        set_target_properties(${vxl_add_LIBRARY_NAME} PROPERTIES ${VXL_LIBRARY_PROPERTIES})
     endif()
 
-    # Installation
+    # Installation. The EXPORT association is retained even though the
+    # standalone VXLConfig generation is dropped: when embedded in ITK,
+    # ITK folds these targets into its own ITKTargets export set.
     install(TARGETS ${vxl_add_LIBRARY_NAME}
       EXPORT ${VXL_INSTALL_EXPORT_NAME}
       RUNTIME DESTINATION ${VXL_INSTALL_RUNTIME_DIR} COMPONENT RuntimeLibraries
