@@ -32,7 +32,6 @@ DECLARE(test_gamma);
 DECLARE(test_random);
 DECLARE(test_arithmetic);
 DECLARE(test_alignment);
-DECLARE(test_hungarian_algorithm);
 DECLARE(test_integrant);
 DECLARE(test_bessel);
 DECLARE(test_crs_index);
@@ -75,7 +74,6 @@ register_tests()
   REGISTER(test_random);
   REGISTER(test_arithmetic);
   REGISTER(test_alignment);
-  REGISTER(test_hungarian_algorithm);
   REGISTER(test_integrant);
   REGISTER(test_bessel);
   REGISTER(test_crs_index);

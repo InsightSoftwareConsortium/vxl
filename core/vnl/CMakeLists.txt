@@ -184,7 +184,6 @@ set( vnl_sources
   vnl_sparse_lst_sqr_function.cxx     vnl_sparse_lst_sqr_function.h
   vnl_nonlinear_minimizer.cxx         vnl_nonlinear_minimizer.h
 
-  vnl_hungarian_algorithm.hxx         vnl_hungarian_algorithm.h
 
   # linear systems
   vnl_linear_system.cxx               vnl_linear_system.h

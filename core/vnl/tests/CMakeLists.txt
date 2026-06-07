@@ -36,7 +36,6 @@ add_executable( vnl_test_all
   test_random.cxx
   test_alignment.cxx
   test_arithmetic.cxx  test_arithmetic_body.h
-  test_hungarian_algorithm.cxx
   test_integrant.cxx
   test_bessel.cxx
   test_crs_index.cxx
@@ -85,7 +84,6 @@ add_test( NAME vnl_test_vector COMMAND vnl_test_all test_vector                 
 add_test( NAME vnl_test_gamma COMMAND vnl_test_all test_gamma                  )
 add_test( NAME vnl_test_arithmetic COMMAND vnl_test_all test_arithmetic             )
 add_test( NAME vnl_test_alignment COMMAND vnl_test_all test_alignment              )
-add_test( NAME vnl_test_hungarian_algorithm COMMAND vnl_test_all test_hungarian_algorithm    )
 add_test( NAME vnl_test_integrant COMMAND vnl_test_all test_integrant              )
 add_test( NAME vnl_test_bessel COMMAND vnl_test_all test_bessel                 )
 add_test( NAME vnl_test_quaternion COMMAND vnl_test_all test_quaternion             )
