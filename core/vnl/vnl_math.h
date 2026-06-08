@@ -46,17 +46,6 @@
 #include <vnl/vnl_config.h>
 #include <vnl/vnl_export.h>
 
-// SSE2 is a mandatory baseline of the x86-64 ABI, so __SSE2__ is the
-// authoritative compile-time gate (defined on x86-64, never on ARM).
-#if defined(__SSE2__)
-#  if __has_include(<emmintrin.h>)
-#    include <emmintrin.h> // sse 2 intrinsics
-#  else
-#    error "Required file emmintrin.h for SSE2 not found"
-#  endif
-#endif
-
-
 //: Type-accessible infinities for use in templates.
 template <class T>
 VNL_EXPORT T vnl_huge_val(T);
@@ -220,8 +209,6 @@ using std::min;
 using std::cbrt;
 using std::hypot;
 
-#if defined(__SSE2__) // Fast sse2 implementation
-
 // rnd_halfinttoeven  -- round towards nearest integer
 //         halfway cases are rounded towards the nearest even integer, e.g.
 //         rnd_halfinttoeven( 1.5) ==  2
@@ -235,63 +222,15 @@ using std::hypot;
 inline int
 rnd_halfinttoeven(float x)
 {
-  return _mm_cvtss_si32(_mm_set_ss(x));
+  return static_cast<int>(std::lrint(x));
 }
 
 inline int
 rnd_halfinttoeven(double x)
 {
-  return _mm_cvtsd_si32(_mm_set_sd(x));
+  return static_cast<int>(std::lrint(x));
 }
 
-#else // Vanilla implementation
-
-inline int
-rnd_halfinttoeven(float x)
-{
-  if (x >= 0.f)
-  {
-    x += 0.5f;
-    const int r = static_cast<int>(x);
-    if (x != static_cast<float>(r))
-      return r;
-    return 2 * (r / 2);
-  }
-  else
-  {
-    x -= 0.5f;
-    const int r = static_cast<int>(x);
-    if (x != static_cast<float>(r))
-      return r;
-    return 2 * (r / 2);
-  }
-}
-
-inline int
-rnd_halfinttoeven(double x)
-{
-  if (x >= 0.)
-  {
-    x += 0.5;
-    const int r = static_cast<int>(x);
-    if (x != static_cast<double>(r))
-      return r;
-    return 2 * (r / 2);
-  }
-  else
-  {
-    x -= 0.5;
-    const int r = static_cast<int>(x);
-    if (x != static_cast<double>(r))
-      return r;
-    return 2 * (r / 2);
-  }
-}
-
-#endif
-
-
-#if defined(__SSE2__)
 
 // rnd_halfintup  -- round towards nearest integer
 //         halfway cases are rounded upward, e.g.
@@ -315,25 +254,6 @@ rnd_halfintup(double x)
   return rnd_halfinttoeven(2 * x + 0.5) >> 1;
 }
 
-#else // Vanilla implementation
-
-inline int
-rnd_halfintup(float x)
-{
-  x += 0.5f;
-  return static_cast<int>(x >= 0.f ? x : (x == static_cast<int>(x) ? x : x - 1.f));
-}
-
-inline int
-rnd_halfintup(double x)
-{
-  x += 0.5;
-  return static_cast<int>(x >= 0. ? x : (x == static_cast<int>(x) ? x : x - 1.));
-}
-
-#endif
-
-#if defined(__SSE2__)
 // rnd  -- round towards nearest integer
 //         halfway cases such as 0.5 may be rounded either up or down
 //         so as to maximize the efficiency, e.g.
@@ -355,81 +275,32 @@ rnd(double x)
   return static_cast<int>(std::lrint(x));
 }
 
-#else // Vanilla implementation
-
-inline int
-rnd(float x)
-{
-  return x >= 0.f ? static_cast<int>(x + .5f) : static_cast<int>(x - .5f);
-}
-inline int
-rnd(double x)
-{
-  return x >= 0.0 ? static_cast<int>(x + 0.5) : static_cast<int>(x - 0.5);
-}
-
-#endif
-
-#if defined(__SSE2__) // Fast sse2 implementation
 // floor -- round towards minus infinity
 inline int
 floor(float x)
 {
-  return _mm_cvtss_si32(_mm_set_ss(2 * x - .5f)) >> 1;
+  return static_cast<int>(std::floor(x));
 }
 
 inline int
 floor(double x)
 {
-  return _mm_cvtsd_si32(_mm_set_sd(2 * x - .5)) >> 1;
+  return static_cast<int>(std::floor(x));
 }
 
-#else // Vanilla implementation
 
-inline int
-floor(float x)
-{
-  return static_cast<int>(x >= 0.f ? x : (x == static_cast<int>(x) ? x : x - 1.f));
-}
-
-inline int
-floor(double x)
-{
-  return static_cast<int>(x >= 0.0 ? x : (x == static_cast<int>(x) ? x : x - 1.0));
-}
-
-#endif
-
-
-#if defined(__SSE2__) // Fast sse2 implementation
 // ceil -- round towards plus infinity
 inline int
 ceil(float x)
 {
-  return -(_mm_cvtss_si32(_mm_set_ss(-.5f - 2 * x)) >> 1);
+  return static_cast<int>(std::ceil(x));
 }
 
 inline int
 ceil(double x)
 {
-  return -(_mm_cvtsd_si32(_mm_set_sd(-.5 - 2 * x)) >> 1);
+  return static_cast<int>(std::ceil(x));
 }
-
-#else // Vanilla implementation
-
-inline int
-ceil(float x)
-{
-  return static_cast<int>(x < 0.f ? x : (x == static_cast<int>(x) ? x : x + 1.f));
-}
-
-inline int
-ceil(double x)
-{
-  return static_cast<int>(x < 0.0 ? x : (x == static_cast<int>(x) ? x : x + 1.0));
-}
-
-#endif
 
 // abs
 inline bool
