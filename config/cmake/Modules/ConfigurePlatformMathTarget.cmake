@@ -1,9 +1,8 @@
-# Create a canonical vxl_platform_math target for downstream use
+# Create a canonical vxl_platform_math target for downstream use.
+# Join the install export set so exported consumers (itkv3p_netlib,
+# itkvnl_algo) do not trip "target not in any export set" when this tree
+# is embedded in ITK.
 add_library(vxl_platform_math INTERFACE)
-# Join the install export set unconditionally so exported consumers
-# (itkv3p_netlib, itkvnl_algo) do not trip "target not in any export set"
-# when this tree is embedded in ITK with VXL_NO_EXPORT=ON.
-set_property(GLOBAL APPEND PROPERTY VXLTargets_MODULES vxl_platform_math)
 install(TARGETS vxl_platform_math EXPORT ${VXL_INSTALL_EXPORT_NAME})
 include(CheckCSourceCompiles)
 set(_MATH_TEST_SOURCE "

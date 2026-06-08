@@ -96,7 +96,6 @@ function( vxl_add_library )
           $<$<COMPILE_LANGUAGE:CXX>:/MP> )
     endif()
 
-    set_property(GLOBAL APPEND PROPERTY VXLTargets_MODULES ${vxl_add_LIBRARY_NAME})
     if(VXL_LIBRARY_PROPERTIES)
        set_target_properties(${vxl_add_LIBRARY_NAME} PROPERTIES ${VXL_LIBRARY_PROPERTIES})
     endif()
