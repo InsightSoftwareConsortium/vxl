@@ -85,6 +85,11 @@ function( vxl_add_library )
   if( ${num_src_files} GREATER 0 )
     add_library(${vxl_add_LIBRARY_NAME} ${vxl_add_LIBRARY_SOURCES} )
 
+    # Express (and propagate to consumers) the C++ standard the library is
+    # built with. Tracks CMAKE_CXX_STANDARD so raising it (e.g. to C++20) needs
+    # no change here.
+    target_compile_features(${vxl_add_LIBRARY_NAME} PUBLIC cxx_std_${CMAKE_CXX_STANDARD})
+
     # This enables object-level build parallelism in VNL libraries for MSVC
     # - disabled for MSVC simulators such as clang-cl
     #     https://github.com/vxl/vxl/issues/863

@@ -2,17 +2,9 @@
 
 cmake_minimum_required(VERSION 3.22.1...3.31.9)
 
-# Normalize a two-digit C/C++ standard token to its ISO release year so
-# ordering survives the C99(1999)/C11(2011) two-digit wraparound.
-function(vxl_standard_release_year _token _result)
-  if(_token LESS_EQUAL 50)
-    math(EXPR _year "2000 + ${_token}")
-  else()
-    math(EXPR _year "1900 + ${_token}")
-  endif()
-  set(${_result} "${_year}" PARENT_SCOPE)
-endfunction()
-
+# Default the C++/C standards; the per-target C++ requirement is expressed
+# with target_compile_features(... cxx_std_${CMAKE_CXX_STANDARD}) in
+# vxl_add_library, which propagates to consumers.
 if(NOT CMAKE_CXX_STANDARD)
    set(CMAKE_CXX_STANDARD "17")
 endif()
@@ -21,11 +13,6 @@ if(NOT CMAKE_CXX_STANDARD_REQUIRED)
 endif()
 if(NOT CMAKE_CXX_EXTENSIONS)
   set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
-# VXL 7 requires C++17 (2017) or newer.
-vxl_standard_release_year("${CMAKE_CXX_STANDARD}" VXL_CXX_STANDARD_YEAR)
-if(VXL_CXX_STANDARD_YEAR LESS 2017)
-   message(FATAL_ERROR "CMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} (ISO ${VXL_CXX_STANDARD_YEAR}) is older than the required C++17 (2017) minimum.")
 endif()
 
 if(NOT CMAKE_C_STANDARD)
@@ -36,11 +23,6 @@ if(NOT CMAKE_C_STANDARD_REQUIRED)
 endif()
 if(NOT CMAKE_C_EXTENSIONS)
   set(CMAKE_C_EXTENSIONS OFF)
-endif()
-# VXL 7 requires C11 (2011) or newer.
-vxl_standard_release_year("${CMAKE_C_STANDARD}" VXL_C_STANDARD_YEAR)
-if(VXL_C_STANDARD_YEAR LESS 2011)
-   message(FATAL_ERROR "CMAKE_C_STANDARD:STRING=${CMAKE_C_STANDARD} (ISO ${VXL_C_STANDARD_YEAR}) is older than the required C11 (2011) minimum.")
 endif()
 
 project(VXL #Project name must be all caps to have properly generated VXL_VERSION_* variables
