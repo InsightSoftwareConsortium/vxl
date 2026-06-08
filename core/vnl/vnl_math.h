@@ -45,9 +45,6 @@
 #include <vxl_config.h>
 #include <vnl/vnl_config.h>
 #include <vnl/vnl_export.h>
-#ifdef VNL_CHECK_FPU_ROUNDING_MODE
-#  include <cassert>
-#endif
 
 // SSE2 is a mandatory baseline of the x86-64 ABI, so __SSE2__ is the
 // authoritative compile-time gate (defined on x86-64, never on ARM).
@@ -259,14 +256,105 @@ using std::hypot;
 inline int
 rnd_halfinttoeven(float x)
 {
-  return static_cast<int>(std::lrint(x));
+  return _mm_cvtss_si32(_mm_set_ss(x));
 }
 
 inline int
 rnd_halfinttoeven(double x)
 {
-  return static_cast<int>(std::lrint(x));
+  return _mm_cvtsd_si32(_mm_set_sd(x));
 }
+
+#elif GCC_USE_FAST_IMPL // Fast gcc asm implementation
+
+inline int
+rnd_halfinttoeven(float x)
+{
+  int r;
+  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
+  return r;
+}
+
+inline int
+rnd_halfinttoeven(double x)
+{
+  int r;
+  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
+  return r;
+}
+
+#elif VC_USE_FAST_IMPL // Fast msvc asm implementation
+
+inline int
+rnd_halfinttoeven(float x)
+{
+  int r;
+  __asm {
+    fld x
+    fistp r
+  }
+  return r;
+}
+
+inline int
+rnd_halfinttoeven(double x)
+{
+  int r;
+  __asm {
+    fld x
+    fistp r
+  }
+  return r;
+}
+
+#else // Vanilla implementation
+
+inline int
+rnd_halfinttoeven(float x)
+{
+  if (x >= 0.f)
+  {
+    x += 0.5f;
+    const int r = static_cast<int>(x);
+    if (x != static_cast<float>(r))
+      return r;
+    return 2 * (r / 2);
+  }
+  else
+  {
+    x -= 0.5f;
+    const int r = static_cast<int>(x);
+    if (x != static_cast<float>(r))
+      return r;
+    return 2 * (r / 2);
+  }
+}
+
+inline int
+rnd_halfinttoeven(double x)
+{
+  if (x >= 0.)
+  {
+    x += 0.5;
+    const int r = static_cast<int>(x);
+    if (x != static_cast<double>(r))
+      return r;
+    return 2 * (r / 2);
+  }
+  else
+  {
+    x -= 0.5;
+    const int r = static_cast<int>(x);
+    if (x != static_cast<double>(r))
+      return r;
+    return 2 * (r / 2);
+  }
+}
+
+#endif
+
+
+#if USE_SSE2_IMPL || GCC_USE_FAST_IMPL || VC_USE_FAST_IMPL
 
 // rnd_halfintup  -- round towards nearest integer
 //         halfway cases are rounded upward, e.g.
@@ -315,27 +403,153 @@ rnd(double x)
 inline int
 floor(float x)
 {
-  return static_cast<int>(std::floor(x));
+  return _mm_cvtss_si32(_mm_set_ss(2 * x - .5f)) >> 1;
 }
 
 inline int
 floor(double x)
 {
-  return static_cast<int>(std::floor(x));
+  return _mm_cvtsd_si32(_mm_set_sd(2 * x - .5)) >> 1;
 }
 
+#elif GCC_USE_FAST_IMPL // Fast gcc asm implementation
+
+inline int
+floor(float x)
+{
+  int r;
+  x = 2 * x - .5f;
+  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
+  return r >> 1;
+}
+
+inline int
+floor(double x)
+{
+  int r;
+  x = 2 * x - .5;
+  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
+  return r >> 1;
+}
+
+#elif VC_USE_FAST_IMPL // Fast msvc asm implementation
+
+inline int
+floor(float x)
+{
+  int r;
+  x = 2 * x - .5f;
+  __asm {
+    fld x
+    fistp r
+  }
+  return r >> 1;
+}
+
+inline int
+floor(double x)
+{
+  int r;
+  x = 2 * x - .5;
+  __asm {
+    fld x
+    fistp r
+  }
+  return r >> 1;
+}
+
+#else // Vanilla implementation
+
+inline int
+floor(float x)
+{
+  return static_cast<int>(x >= 0.f ? x : (x == static_cast<int>(x) ? x : x - 1.f));
+}
+
+inline int
+floor(double x)
+{
+  return static_cast<int>(x >= 0.0 ? x : (x == static_cast<int>(x) ? x : x - 1.0));
+}
+
+#endif
+
+
+#if USE_SSE2_IMPL // Fast sse2 implementation
 // ceil -- round towards plus infinity
 inline int
 ceil(float x)
 {
-  return static_cast<int>(std::ceil(x));
+  return -(_mm_cvtss_si32(_mm_set_ss(-.5f - 2 * x)) >> 1);
 }
 
 inline int
 ceil(double x)
 {
-  return static_cast<int>(std::ceil(x));
+  return -(_mm_cvtsd_si32(_mm_set_sd(-.5 - 2 * x)) >> 1);
 }
+
+#elif GCC_USE_FAST_IMPL // Fast gcc asm implementation
+
+inline int
+ceil(float x)
+{
+  int r;
+  x = -.5f - 2 * x;
+  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
+  return -(r >> 1);
+}
+
+inline int
+ceil(double x)
+{
+  int r;
+  x = -.5 - 2 * x;
+  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
+  return -(r >> 1);
+}
+
+#elif VC_USE_FAST_IMPL // Fast msvc asm implementation
+
+inline int
+ceil(float x)
+{
+  int r;
+  x = -.5f - 2 * x;
+  __asm {
+    fld x
+    fistp r
+  }
+  return -(r >> 1);
+}
+
+inline int
+ceil(double x)
+{
+  int r;
+  x = -.5 - 2 * x;
+  __asm {
+    fld x
+    fistp r
+  }
+  return -(r >> 1);
+}
+
+#else // Vanilla implementation
+
+inline int
+ceil(float x)
+{
+  return static_cast<int>(x < 0.f ? x : (x == static_cast<int>(x) ? x : x + 1.f));
+}
+
+inline int
+ceil(double x)
+{
+  return static_cast<int>(x < 0.0 ? x : (x == static_cast<int>(x) ? x : x + 1.0));
+}
+
+#endif
 
 // abs
 inline bool
