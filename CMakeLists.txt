@@ -70,10 +70,6 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/config/cmake/VXLInitializeBuildType.cmake)
 
 #Disable overzealous compiler warning.  If the definition is truely missing a link error will be created.
 include(CheckCXXCompilerFlag)
-#CHECK_CXX_COMPILER_FLAG(-Wno-undefined-var-template HAS_NO_UNDEFINED_VAR_TEMPLATE)
-#if( HAS_NO_UNDEFINED_VAR_TEMPLATE )
-#  add_definitions( -Wno-undefined-var-template )
-#endif()
 include(CheckPIESupported)
 check_pie_supported()
 
