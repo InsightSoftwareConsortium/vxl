@@ -28,7 +28,6 @@ set(testlib_sources
 vxl_add_library(LIBRARY_NAME itktestlib
   LIBRARY_SOURCES ${testlib_sources}
   HEADER_INSTALL_DIR core/testlib)
-target_link_libraries(itktestlib itkvcl)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

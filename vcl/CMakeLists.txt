@@ -1,16 +1,9 @@
 # vcl/CMakeLists.txt
-
-if(WIN32)
-  # MSVC.NET produces lots of warnings like
-  # "warning LNK4221: no public symbols found; archive member will be inaccessible"
-  # that depend on subtle logic at compile time.
-  # This is a bit indescriminate, but it may be the only feasible way to suppress them.
-  if(CMAKE_CXX_COMPILER MATCHES "^cl$")
-    set( CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /WARN:0")
-    set( CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /WARN:0")
-  endif()
-endif()
-
+#
+# vcl is now header-only: it provides the configured vcl_compiler.h /
+# vcl_where_root_dir.h and the vcl_msvc_warnings.h shim. The include
+# directories are propagated globally from the top-level CMakeLists, so
+# no library target is built and consumers do not link anything for vcl.
 
 project( vcl )
 
@@ -23,22 +16,10 @@ endif()
 vxl_configure_file(${CMAKE_CURRENT_LIST_DIR}/vcl_compiler.h.in ${PROJECT_BINARY_DIR}/vcl_compiler.h ${_config_destination})
 vxl_configure_file(${CMAKE_CURRENT_LIST_DIR}/vcl_where_root_dir.h.in ${PROJECT_BINARY_DIR}/vcl_where_root_dir.h  ${_config_destination})
 
-include_directories(${PROJECT_BINARY_DIR})
-set( vcl_sources
-  vcl.cxx
-  vcl_msvc_warnings.h
-)
-
-
-# We use implicit instantiation of the standard library now,
-# so we shouldn't be explicitly instantiating anything.
-# This also avoid trouble where the instantiation hack conflict
-# with modern, more compliant compilers.
-#aux_source_directory(Templates vcl_sources)
-vxl_add_library(LIBRARY_NAME itkvcl
-  LIBRARY_SOURCES ${vcl_sources}
-  )
-target_link_libraries(itkvcl PRIVATE vxl_platform_math )
+install(FILES vcl_msvc_warnings.h
+    DESTINATION ${_config_destination}
+    PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
+    COMPONENT Development )
 
 if( BUILD_TESTING)
   add_subdirectory(tests)

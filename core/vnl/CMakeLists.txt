@@ -229,7 +229,6 @@ vxl_add_library(LIBRARY_NAME itkvnl
   LIBRARY_SOURCES ${vnl_sources}
   HEADER_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}"  # vnl_config.h
   HEADER_INSTALL_DIR vnl)
-target_link_libraries( itkvnl itkvcl )
 set(_curr_lib_name vnl)
 # If VXL_INSTALL_INCLUDE_DIR is the default value
 if("${VXL_INSTALL_INCLUDE_DIR}" STREQUAL "include/vxl")
