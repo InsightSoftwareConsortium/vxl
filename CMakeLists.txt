@@ -1,17 +1,4 @@
-#message(FATAL_ERROR "VXL has moved!
-#VXL is now hosted in a GitHub repository at:
-# https://github.com/vxl/vxl
-#Run:
-# git config --unset remote.origin.pushurl
-# git remote set-url origin https://github.com/vxl/vxl.git
-# git fetch origin
-# git checkout master
-# git reset --hard origin/master
-#")
-#
 # Root vxl
-#
-#   vxl-maintainers@lists.sf.net
 
 cmake_minimum_required(VERSION 3.22.1...3.31.9)
 
@@ -119,10 +106,6 @@ include( ${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/vxl_utils.cmake )
 include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules/ConfigurePlatformMathTarget.cmake)
 
 
-# Location of VXL's FindXXX.cmake CMake modules.
-# This is identical to VXL_CMAKE_DIR.  Perhaps we should eliminate MODULE_PATH?
-set( MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules CACHE STATIC "VXL module path" )
-
 if(MSVC)
   # Force synchronous writes of .pdb files (/FS) to avoid PDB contention.
   add_compile_options( "/FS" )
@@ -139,25 +122,6 @@ mark_as_advanced(VXL_RUN_FAILING_TESTS)
 # into shared libraries (as ITK does). CMake emits the correct per-compiler
 # flag across platforms.
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
-
-# Some types of path names can cause havoc with regular expressions,
-# so avoid those.
-if( ${PROJECT_BINARY_DIR} MATCHES  \\+ )
-  message(SEND_ERROR "You cannot have a + in your binary path")
-endif()
-if( ${CMAKE_CURRENT_LIST_DIR} MATCHES  \\+ )
-  message(SEND_ERROR "You cannot have a + in your source path")
-endif()
-
-# include CMakeListsLocal.txt from source directory if it exists
-# also include it from the binary dir if different from source dir
-if( ${PROJECT_BINARY_DIR} MATCHES ${CMAKE_CURRENT_LIST_DIR} )
-  include( ${CMAKE_CURRENT_LIST_DIR}/CMakeListsLocal.txt OPTIONAL )
-else()
-  include( ${CMAKE_CURRENT_LIST_DIR}/CMakeListsLocal.txt OPTIONAL )
-  include( ${PROJECT_BINARY_DIR}/CMakeListsLocal.txt OPTIONAL )
-endif()
 
 # Standard include directories.
 set(VXLCORE_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/core)    #Source includes
