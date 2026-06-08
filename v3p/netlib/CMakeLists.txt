@@ -2,8 +2,6 @@
 
 project( netlib C )
 
-# Allow sources in subdirectories to see the include files.
-include_directories(${netlib_SOURCE_DIR})
 
 
 # Inform header files they are being included from a source inside the

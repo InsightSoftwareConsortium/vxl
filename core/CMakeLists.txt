@@ -19,7 +19,6 @@ INSTALL_NOBASE_HEADER_FILES(${prefix} ${global_sources})
 # configure files
 #
 vxl_configure_file(${CMAKE_CURRENT_LIST_DIR}/vxl_config.h.in ${PROJECT_BINARY_DIR}/vxl_config.h ${prefix})
-include_directories(${PROJECT_BINARY_DIR})
 
 # numerics
 if(VXL_BUILD_CORE_NUMERICS)

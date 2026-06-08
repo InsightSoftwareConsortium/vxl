@@ -131,8 +131,6 @@ set(VCL_BINARY_INCLUDE_DIR ${PROJECT_BINARY_DIR}/vcl) #Generated includes
 set(VCL_INCLUDE_DIRS ${VCL_BINARY_INCLUDE_DIR} ${VCL_INCLUDE_DIR})
 set(VCL_INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include/vxl/vcl)
 
-include_directories(${VCL_INCLUDE_DIRS} ${VXLCORE_INCLUDE_DIRS})
-
 # Record the C++ standard VXL was built with as its __cplusplus value, so
 # vxl_config.h can warn when a consumer compiles against an older standard.
 # The floor is C++17 (enforced above), so map the standard level directly.

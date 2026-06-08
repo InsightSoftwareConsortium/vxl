@@ -1,9 +1,10 @@
 # vcl/CMakeLists.txt
 #
-# vcl is now header-only: it provides the configured vcl_compiler.h /
-# vcl_where_root_dir.h and the vcl_msvc_warnings.h shim. The include
-# directories are propagated globally from the top-level CMakeLists, so
-# no library target is built and consumers do not link anything for vcl.
+# vcl is header-only: it provides the configured vcl_compiler.h /
+# vcl_where_root_dir.h and the vcl_msvc_warnings.h shim. The "vcl" INTERFACE
+# target carries the vcl and core include roots (source and generated) so any
+# target that links it resolves <vcl_compiler.h>, <vxl_config.h> and <vnl/...>
+# without a global include_directories.
 
 project( vcl )
 
@@ -20,6 +21,26 @@ install(FILES vcl_msvc_warnings.h
     DESTINATION ${_config_destination}
     PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
     COMPONENT Development )
+
+# Header-only target carrying the vcl + core include roots. Linked PUBLIC by
+# the vxl libraries so the include paths propagate transitively.
+add_library(vcl INTERFACE)
+target_include_directories(vcl INTERFACE
+    "$<BUILD_INTERFACE:${VCL_INCLUDE_DIR}>"
+    "$<BUILD_INTERFACE:${VCL_BINARY_INCLUDE_DIR}>"
+    "$<BUILD_INTERFACE:${VXLCORE_INCLUDE_DIR}>"
+    "$<BUILD_INTERFACE:${VXLCORE_BINARY_INCLUDE_DIR}>")
+if("${VXL_INSTALL_INCLUDE_DIR}" STREQUAL "include/vxl")
+  target_include_directories(vcl INTERFACE
+      "$<INSTALL_INTERFACE:${VXL_INSTALL_INCLUDE_DIR}/vcl>"
+      "$<INSTALL_INTERFACE:${VXL_INSTALL_INCLUDE_DIR}/core>")
+else()
+  target_include_directories(vcl INTERFACE
+      "$<INSTALL_INTERFACE:${VXL_INSTALL_INCLUDE_DIR}>")
+endif()
+# Join the install export set so exported consumers do not trip
+# "target not in any export set" when this tree is embedded in ITK.
+install(TARGETS vcl EXPORT ${VXL_INSTALL_EXPORT_NAME})
 
 if( BUILD_TESTING)
   add_subdirectory(tests)
