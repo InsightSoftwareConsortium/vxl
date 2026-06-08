@@ -68,12 +68,8 @@ if(WIN32)
              -D_SCL_SECURE_NO_DEPRECATE
              )
          endif()
-         # With MS compilers on Win64, we need the /bigobj switch, else generated
-         # code results in objects with number of sections exceeding object file
-         # format.
-         # see http://msdn.microsoft.com/en-us/library/ms173499.aspx
-         if(MSVC_VERSION GREATER 1310)
-           set(VXL_REQUIRED_CXX_FLAGS "${VXL_REQUIRED_CXX_FLAGS} /bigobj")
-         endif()
+         # MS compilers need /bigobj, else generated code exceeds the object
+         # file format's section count.
+         set(VXL_REQUIRED_CXX_FLAGS "${VXL_REQUIRED_CXX_FLAGS} /bigobj")
        endif()
 endif()
