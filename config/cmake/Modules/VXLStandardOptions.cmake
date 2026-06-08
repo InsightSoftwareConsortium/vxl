@@ -26,17 +26,17 @@ mark_as_advanced(BUILD_SHARED_LIBS)
 if(WIN32)
        if(NOT MINGW)
          if(NOT VXL_ENABLE_VISUAL_STUDIO_DEPRECATED_C_WARNINGS)
-           add_definitions(
-             -D_CRT_FAR_MAPPINGS_NO_DEPRECATE
-             -D_CRT_IS_WCTYPE_NO_DEPRECATE
-             -D_CRT_MANAGED_FP_NO_DEPRECATE
-             -D_CRT_NONSTDC_NO_DEPRECATE
-             -D_CRT_SECURE_NO_DEPRECATE
-             -D_CRT_SECURE_NO_DEPRECATE_GLOBALS
-             -D_CRT_SETERRORMODE_BEEP_SLEEP_NO_DEPRECATE
-             -D_CRT_TIME_FUNCTIONS_NO_DEPRECATE
-             -D_CRT_VCCLRIT_NO_DEPRECATE
-             -D_SCL_SECURE_NO_DEPRECATE
+           add_compile_definitions(
+             _CRT_FAR_MAPPINGS_NO_DEPRECATE
+             _CRT_IS_WCTYPE_NO_DEPRECATE
+             _CRT_MANAGED_FP_NO_DEPRECATE
+             _CRT_NONSTDC_NO_DEPRECATE
+             _CRT_SECURE_NO_DEPRECATE
+             _CRT_SECURE_NO_DEPRECATE_GLOBALS
+             _CRT_SETERRORMODE_BEEP_SLEEP_NO_DEPRECATE
+             _CRT_TIME_FUNCTIONS_NO_DEPRECATE
+             _CRT_VCCLRIT_NO_DEPRECATE
+             _SCL_SECURE_NO_DEPRECATE
              )
          endif()
          # MS compilers need /bigobj, else generated code exceeds the object

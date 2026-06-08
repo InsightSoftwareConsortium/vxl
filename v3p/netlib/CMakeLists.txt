@@ -7,8 +7,9 @@ include_directories(${netlib_SOURCE_DIR})
 
 
 # Inform header files they are being included from a source inside the
-# v3p_netlib library.
-add_definitions(-DV3P_NETLIB_SRC)
+# v3p_netlib library. Directory-scoped so the netlib sources and their
+# tests see the internal f2c view; consumers get the public C++ view.
+add_compile_definitions(V3P_NETLIB_SRC)
 
 # List sources for each library component.
 set(V3P_NETLIB_base_SOURCES

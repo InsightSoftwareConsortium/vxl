@@ -5,7 +5,7 @@ find_file(TESTLIB_VCL_WHERE_ROOT_DIR_H
           ${VXL_BINARY_DIR}/vcl )
 
 if(TESTLIB_VCL_WHERE_ROOT_DIR_H)
-  add_definitions(-DVCL_WHERE_ROOT_DIR_H_EXISTS)
+  add_compile_definitions(VCL_WHERE_ROOT_DIR_H_EXISTS)
 else()
   unset(TESTLIB_VCL_WHERE_ROOT_DIR_H)
 endif()
