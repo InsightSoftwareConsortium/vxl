@@ -218,13 +218,6 @@ isnormal(TArg arg)
 using std::max;
 using std::min;
 using std::cbrt;
-#if 0 // Use std::cbrt
-  template <typename TArg>
-  TArg cuberoot(TArg&& arg)
-    {
-    return std::cbrt(std::forward<TArg>(arg));
-    }
-#endif
 using std::hypot;
 
 #if defined(__SSE2__) // Fast sse2 implementation
