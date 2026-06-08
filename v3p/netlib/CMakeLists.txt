@@ -337,6 +337,10 @@ vxl_add_library(
 )
 
 target_link_libraries(itkv3p_netlib PRIVATE vxl_platform_math)
+# The linalg/ subdirectory holds the lsqr/lsmr C++ headers that consumers
+# (e.g. vnl_lsqr) include directly; expose it so they need no manual path.
+target_include_directories(itkv3p_netlib PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linalg>")
 
 if(BUILD_TESTING)
   add_subdirectory(tests)
