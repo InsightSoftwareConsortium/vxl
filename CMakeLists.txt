@@ -135,20 +135,10 @@ endif()
 option(VXL_RUN_FAILING_TESTS "Enable long-time failing tests. If tests are failing for a long time, turn them off by default." OFF)
 mark_as_advanced(VXL_RUN_FAILING_TESTS)
 
-# In order to be able to link vxl libraries into shared libraries on 64 bit linux, the -fPIC
-# compiler flag must be added.  Only do this if we are on a x86_64 *nix platform, we're building
-# static libraries, and the user has not explicitly requested position dependent code.
-if(UNIX)
-  if(NOT BUILD_SHARED_LIBS AND CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
-    option(VXL_BUILD_POSITION_DEPENDENT_CODE "Generate position dependent code (i.e. code cannot be used in shared library)" OFF)
-    mark_as_advanced(VXL_BUILD_POSITION_DEPENDENT_CODE)
-    if(NOT VXL_BUILD_POSITION_DEPENDENT_CODE)
-      message(STATUS "Adding -fPIC compiler flag to generate position independent code.")
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-      set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
-    endif()
-  endif()
-endif()
+# Build position-independent code so the static vxl libraries can be linked
+# into shared libraries (as ITK does). CMake emits the correct per-compiler
+# flag across platforms.
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 
 # Some types of path names can cause havoc with regular expressions,
