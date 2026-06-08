@@ -27,9 +27,6 @@ typedef std::int64_t  vxl_sint_64;
 typedef std::uint64_t vxl_uint_64;
 #define VXL_HAS_INT_64 1
 
-/* true if <emmintrin.h> is available */
-#define VXL_HAS_EMMINTRIN_H   @VXL_HAS_EMMINTRIN_H@
-
 /* true if VXL is built shared */
 #cmakedefine BUILD_SHARED_LIBS
 

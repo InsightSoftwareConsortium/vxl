@@ -388,9 +388,6 @@ endmacro()
 
 set(CMAKE_REQUIRED_FLAGS)
 
-# <emmintrin.h> availability gates the vnl_math SSE path.
-PERFORM_CHECK_HEADER(emmintrin.h VXL_HAS_EMMINTRIN_H)
-
 # check for hardware support for sse2 with the current compiler flags
 PERFORM_CMAKE_TEST_RUN(${VXL_PLFM_TEST_FILE} VXL_HAS_SSE2_HARDWARE_SUPPORT)
 

@@ -45,6 +45,34 @@
 #include <vxl_config.h>
 #include <vnl/vnl_config.h> // for VNL_CONFIG_ENABLE_SSE2_ROUNDING
 #include <vnl/vnl_export.h>
+#ifdef VNL_CHECK_FPU_ROUNDING_MODE
+#  include <cassert>
+#endif
+
+// Figure out when the fast implementation can be used
+#if VNL_CONFIG_ENABLE_SSE2_ROUNDING && defined(__SSE2__)
+#  if __has_include(<emmintrin.h>)
+#    include <emmintrin.h> // sse 2 intrinsics
+#    define USE_SSE2_IMPL 1
+#  else
+#    error "Required file emmintrin.h for SSE2 not found"
+#  endif
+#else
+#  define USE_SSE2_IMPL 0
+#endif
+
+// Turn on fast impl when using GCC on Intel-based machines with the following exception:
+#if defined(__GNUC__) && ((defined(__i386__) || defined(__i386) || defined(__x86_64__) || defined(__x86_64)))
+#  define GCC_USE_FAST_IMPL 1
+#else
+#  define GCC_USE_FAST_IMPL 0
+#endif
+// Turn on fast impl when using msvc on 32 bits windows
+#if defined(_MSC_VER) && !defined(_WIN64)
+#  define VC_USE_FAST_IMPL 1
+#else
+#  define VC_USE_FAST_IMPL 0
+#endif
 
 
 //: Type-accessible infinities for use in templates.
