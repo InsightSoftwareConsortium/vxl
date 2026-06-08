@@ -5,12 +5,8 @@ add_library(vxl_platform_math INTERFACE)
 # when this tree is embedded in ITK with VXL_NO_EXPORT=ON.
 set_property(GLOBAL APPEND PROPERTY VXLTargets_MODULES vxl_platform_math)
 install(TARGETS vxl_platform_math EXPORT ${VXL_INSTALL_EXPORT_NAME})
-if(CMAKE_VERSION VERSION_LESS 3.14.0)
-  # Revert to previous behavior of requiring libm
-  target_link_libraries(vxl_platform_math INTERFACE m)
-else()
-  include(CheckCSourceCompiles)
-  set(_MATH_TEST_SOURCE "
+include(CheckCSourceCompiles)
+set(_MATH_TEST_SOURCE "
 #include <math.h>
 int main() {
   volatile double x = 0.5;
@@ -19,24 +15,23 @@ int main() {
   return 0;
 }
 ")
-  # Probe: does the toolchain link math without extra libs?
-  set(CMAKE_REQUIRED_LIBRARIES "")
-  check_c_source_compiles("${_MATH_TEST_SOURCE}" HAVE_IMPLICIT_MATH)
+# Probe: does the toolchain link math without extra libs?
+set(CMAKE_REQUIRED_LIBRARIES "")
+check_c_source_compiles("${_MATH_TEST_SOURCE}" HAVE_IMPLICIT_MATH)
 
-  if(HAVE_IMPLICIT_MATH)
-    # Darwin and Windows typically have implicit math
+if(HAVE_IMPLICIT_MATH)
+  # Darwin and Windows typically have implicit math
+else()
+  # Probe: if not implicit, does -lm fix it?
+  set(CMAKE_REQUIRED_LIBRARIES "m")
+  check_c_source_compiles("${_MATH_TEST_SOURCE}" HAVE_EXPLICIT_LIBM)
+  if(HAVE_EXPLICIT_LIBM)
+    # Most Linux toolchains that require libm to be explicitly linked
+    target_link_libraries(vxl_platform_math INTERFACE m)
   else()
-    # Probe: if not implicit, does -lm fix it?
-    set(CMAKE_REQUIRED_LIBRARIES "m")
-    check_c_source_compiles("${_MATH_TEST_SOURCE}" HAVE_EXPLICIT_LIBM)
-    if(HAVE_EXPLICIT_LIBM)
-      # Most Linux toolchains that require libm to be explicitly linked
-      target_link_libraries(vxl_platform_math INTERFACE m)
-    else()
-      message(FATAL_ERROR
-        "Math linking probe failed: toolchain cannot link cos() implicitly or via -lm. "
-        "This indicates a broken/misconfigured compiler/linker setup.")
-    endif()
+    message(FATAL_ERROR
+      "Math linking probe failed: toolchain cannot link cos() implicitly or via -lm. "
+      "This indicates a broken/misconfigured compiler/linker setup.")
   endif()
-  unset(_MATH_TEST_SOURCE)
 endif()
+unset(_MATH_TEST_SOURCE)
