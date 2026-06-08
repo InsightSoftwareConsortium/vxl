@@ -66,7 +66,6 @@ SET(VXL_LIBRARY_PROPERTIES ${VXL_LIBRARY_PROPERTIES} VERSION "${VXL_VERSION}"
     SOVERSION "${VXL_API_VERSION}")
 
 include(CMakeDependentOption)
-include(${CMAKE_CURRENT_SOURCE_DIR}/config/cmake/VXLInitializeBuildType.cmake)
 
 #Disable overzealous compiler warning.  If the definition is truely missing a link error will be created.
 include(CheckCXXCompilerFlag)
