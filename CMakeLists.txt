@@ -136,8 +136,16 @@ set(VCL_INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include/vxl/vcl)
 
 include_directories(${VCL_INCLUDE_DIRS} ${VXLCORE_INCLUDE_DIRS})
 
-# Do platform-specific configuration.
-include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/VXLIntrospectionConfig.cmake)
+# Record the C++ standard VXL was built with as its __cplusplus value, so
+# vxl_config.h can warn when a consumer compiles against an older standard.
+# The floor is C++17 (enforced above), so map the standard level directly.
+if(CMAKE_CXX_STANDARD GREATER_EQUAL 23)
+  set(VXL_COMPILED_CXX_STANDARD_VERSION 202302L)
+elseif(CMAKE_CXX_STANDARD GREATER_EQUAL 20)
+  set(VXL_COMPILED_CXX_STANDARD_VERSION 202002L)
+else()
+  set(VXL_COMPILED_CXX_STANDARD_VERSION 201703L)
+endif()
 
 
 #-------------------------------------------------------------------
