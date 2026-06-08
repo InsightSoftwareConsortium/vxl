@@ -16,26 +16,13 @@ if(DEFINED CACHE{VNL_CONFIG_LEGACY_METHODS} OR DEFINED VNL_CONFIG_LEGACY_METHODS
   unset(VNL_CONFIG_LEGACY_METHODS CACHE)
 endif()
 
-
-option(VNL_CONFIG_ENABLE_SSE2_ROUNDING
-  "Enable Streaming SIMD Extensions 2 implementation of rounding (hardware dependant)."
-  ${VXL_HAS_SSE2_HARDWARE_SUPPORT} )
-if( VNL_CONFIG_ENABLE_SSE2_ROUNDING )
-  if( NOT VXL_HAS_SSE2_HARDWARE_SUPPORT )
-    if( VXL_SSE2_HARDWARE_SUPPORT_POSSIBLE )
-      message( ${VXL_SSE2_HARDWARE_SUPPORT_POSSIBLE_HELP} )
-    endif()
-    message( SEND_ERROR "Cannot have VNL_CONFIG_ENABLE_SSE2_ROUNDING because"
-                        " there is no SSE2 hardware support" )
-    set(VNL_CONFIG_ENABLE_SSE2_ROUNDING 0)
-  endif()
-endif()
-
+# SSE2 rounding in vnl_math is gated purely by the compiler's __SSE2__ macro
+# (mandatory on x86-64, never on ARM), so no configure-time option or probe
+# is needed.
 
 mark_as_advanced(
   VNL_CONFIG_CHECK_BOUNDS
   VNL_CONFIG_THREAD_SAFE
-  VNL_CONFIG_ENABLE_SSE2_ROUNDING
   )
 # Need to enforce 1/0 values for configuration.
 if(VNL_CONFIG_CHECK_BOUNDS)
@@ -47,12 +34,6 @@ if(VNL_CONFIG_THREAD_SAFE)
   set(VNL_CONFIG_THREAD_SAFE 1)
 else()
   set(VNL_CONFIG_THREAD_SAFE 0)
-endif()
-
-if(VNL_CONFIG_ENABLE_SSE2_ROUNDING)
-  set(VNL_CONFIG_ENABLE_SSE2_ROUNDING 1)
-else()
-  set(VNL_CONFIG_ENABLE_SSE2_ROUNDING 0)
 endif()
 
 # If VXL_INSTALL_INCLUDE_DIR is the default value
@@ -211,19 +192,6 @@ set( vnl_sources
 )
 
 aux_source_directory(Templates vnl_sources)
-
-if(CMAKE_COMPILER_IS_GNUCXX)
-  if(VNL_CONFIG_ENABLE_SSE2_ROUNDING)
-    if( NOT VXL_HAS_SSE2_HARDWARE_SUPPORT )
-      if( VXL_SSE2_HARDWARE_SUPPORT_POSSIBLE )
-        message( ${VXL_SSE2_HARDWARE_SUPPORT_POSSIBLE_HELP} )
-      endif()
-      message( SEND_ERROR "Cannot have VNL_CONFIG_ENABLE_SSE2_ROUNDING because"
-                          " there is no SSE2 hardware support" )
-      set(VNL_CONFIG_ENABLE_SSE2_ROUNDING FALSE)
-    endif()
-  endif()
-endif()
 
 vxl_add_library(LIBRARY_NAME itkvnl
   LIBRARY_SOURCES ${vnl_sources}

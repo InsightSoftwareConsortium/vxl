@@ -43,14 +43,15 @@
 #endif
 #include "dll.h"
 #include <vxl_config.h>
-#include <vnl/vnl_config.h> // for VNL_CONFIG_ENABLE_SSE2_ROUNDING
+#include <vnl/vnl_config.h>
 #include <vnl/vnl_export.h>
 #ifdef VNL_CHECK_FPU_ROUNDING_MODE
 #  include <cassert>
 #endif
 
-// Figure out when the fast implementation can be used
-#if VNL_CONFIG_ENABLE_SSE2_ROUNDING && defined(__SSE2__)
+// SSE2 is a mandatory baseline of the x86-64 ABI, so __SSE2__ is the
+// authoritative compile-time gate (defined on x86-64, never on ARM).
+#if defined(__SSE2__)
 #  if __has_include(<emmintrin.h>)
 #    include <emmintrin.h> // sse 2 intrinsics
 #    define USE_SSE2_IMPL 1
