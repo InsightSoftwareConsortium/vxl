@@ -27,17 +27,6 @@ include_directories(${PROJECT_BINARY_DIR})
 set( vcl_sources
   vcl.cxx
   vcl_msvc_warnings.h
-
-  # The following shall not be used other than as reference count for smart pointers
-  vcl_atomic_count.h
-  internal/vcl_atomic_count_gcc.h
-  internal/vcl_atomic_count_gcc_x86.h
-  internal/vcl_atomic_count_pthreads.h
-  internal/vcl_atomic_count_solaris.h
-  internal/vcl_atomic_count_sync.h
-  internal/vcl_atomic_count_win32.h
-  internal/vcl_interlocked.h
-
 )
 
 
