@@ -9,16 +9,6 @@
 #  WARN_DEPRECATED_ONCE
 #  WARN_DEPRECATED_ABORT
 #
-# These options may be introduced into client projects with this line:
-#
-#  include(${VXL_CMAKE_DIR}/VXLStandardOptions.cmake)
-#
-# This module may be automatically included by UseVXL.cmake.
-# See vxl/config/cmake/UseVXL.cmake for details.
-#
-
-# Everything here should be valid for both the vxl source and for
-# client projects.
 
 include(CTest)
 

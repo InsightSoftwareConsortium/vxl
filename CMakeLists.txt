@@ -215,17 +215,6 @@ add_subdirectory(vcl)
 add_subdirectory(v3p)
 add_subdirectory(core)
 
-# Generate Project files dependacy generation for now for downstream packages
-
-# Copy the UseVXL.cmake file to the binary directory so that client
-# projects don't need to find the source directory first. They can run
-# the UseVXL.cmake from the vxl binary directory, and determine the
-# vxl source directory by loading the cache.
-configure_file( ${VXL_CMAKE_DIR}/UseVXL.cmake
-                ${VXL_BINARY_DIR}/UseVXL.cmake COPYONLY )
-# For use in client projects that call UseVXL.cmake
-set(VXL_LIBRARY_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} CACHE STATIC "Where all the vxl libraries are, for clients to use." )
-
 # Copy CTestCustom.cmake to top of build tree
 configure_file( ${VXL_CMAKE_DIR}/CTestCustom.cmake
   ${VXL_BINARY_DIR}/CTestCustom.cmake COPYONLY )
