@@ -26,13 +26,7 @@ vxl_configure_file(${CMAKE_CURRENT_LIST_DIR}/vcl_where_root_dir.h.in ${PROJECT_B
 include_directories(${PROJECT_BINARY_DIR})
 set( vcl_sources
   vcl.cxx
-  vcl_legacy_aliases.h
-
-  vcl_deque.h
   vcl_msvc_warnings.h
-  vcl_vector.h
-  vcl_sys/time.h
-  vcl_sys/types.h
 
   # The following shall not be used other than as reference count for smart pointers
   vcl_atomic_count.h
