@@ -59,19 +59,6 @@
 #  define USE_SSE2_IMPL 0
 #endif
 
-// Turn on fast impl when using GCC on Intel-based machines with the following exception:
-#if defined(__GNUC__) && ((defined(__i386__) || defined(__i386) || defined(__x86_64__) || defined(__x86_64)))
-#  define GCC_USE_FAST_IMPL 1
-#else
-#  define GCC_USE_FAST_IMPL 0
-#endif
-// Turn on fast impl when using msvc on 32 bits windows
-#if defined(_MSC_VER) && !defined(_WIN64)
-#  define VC_USE_FAST_IMPL 1
-#else
-#  define VC_USE_FAST_IMPL 0
-#endif
-
 
 //: Type-accessible infinities for use in templates.
 template <class T>
@@ -265,48 +252,6 @@ rnd_halfinttoeven(double x)
   return _mm_cvtsd_si32(_mm_set_sd(x));
 }
 
-#elif GCC_USE_FAST_IMPL // Fast gcc asm implementation
-
-inline int
-rnd_halfinttoeven(float x)
-{
-  int r;
-  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
-  return r;
-}
-
-inline int
-rnd_halfinttoeven(double x)
-{
-  int r;
-  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
-  return r;
-}
-
-#elif VC_USE_FAST_IMPL // Fast msvc asm implementation
-
-inline int
-rnd_halfinttoeven(float x)
-{
-  int r;
-  __asm {
-    fld x
-    fistp r
-  }
-  return r;
-}
-
-inline int
-rnd_halfinttoeven(double x)
-{
-  int r;
-  __asm {
-    fld x
-    fistp r
-  }
-  return r;
-}
-
 #else // Vanilla implementation
 
 inline int
@@ -354,7 +299,7 @@ rnd_halfinttoeven(double x)
 #endif
 
 
-#if USE_SSE2_IMPL || GCC_USE_FAST_IMPL || VC_USE_FAST_IMPL
+#if USE_SSE2_IMPL
 
 // rnd_halfintup  -- round towards nearest integer
 //         halfway cases are rounded upward, e.g.
@@ -378,6 +323,25 @@ rnd_halfintup(double x)
   return rnd_halfinttoeven(2 * x + 0.5) >> 1;
 }
 
+#else // Vanilla implementation
+
+inline int
+rnd_halfintup(float x)
+{
+  x += 0.5f;
+  return static_cast<int>(x >= 0.f ? x : (x == static_cast<int>(x) ? x : x - 1.f));
+}
+
+inline int
+rnd_halfintup(double x)
+{
+  x += 0.5;
+  return static_cast<int>(x >= 0. ? x : (x == static_cast<int>(x) ? x : x - 1.));
+}
+
+#endif
+
+#if USE_SSE2_IMPL
 // rnd  -- round towards nearest integer
 //         halfway cases such as 0.5 may be rounded either up or down
 //         so as to maximize the efficiency, e.g.
@@ -412,52 +376,6 @@ floor(double x)
   return _mm_cvtsd_si32(_mm_set_sd(2 * x - .5)) >> 1;
 }
 
-#elif GCC_USE_FAST_IMPL // Fast gcc asm implementation
-
-inline int
-floor(float x)
-{
-  int r;
-  x = 2 * x - .5f;
-  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
-  return r >> 1;
-}
-
-inline int
-floor(double x)
-{
-  int r;
-  x = 2 * x - .5;
-  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
-  return r >> 1;
-}
-
-#elif VC_USE_FAST_IMPL // Fast msvc asm implementation
-
-inline int
-floor(float x)
-{
-  int r;
-  x = 2 * x - .5f;
-  __asm {
-    fld x
-    fistp r
-  }
-  return r >> 1;
-}
-
-inline int
-floor(double x)
-{
-  int r;
-  x = 2 * x - .5;
-  __asm {
-    fld x
-    fistp r
-  }
-  return r >> 1;
-}
-
 #else // Vanilla implementation
 
 inline int
@@ -487,52 +405,6 @@ inline int
 ceil(double x)
 {
   return -(_mm_cvtsd_si32(_mm_set_sd(-.5 - 2 * x)) >> 1);
-}
-
-#elif GCC_USE_FAST_IMPL // Fast gcc asm implementation
-
-inline int
-ceil(float x)
-{
-  int r;
-  x = -.5f - 2 * x;
-  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
-  return -(r >> 1);
-}
-
-inline int
-ceil(double x)
-{
-  int r;
-  x = -.5 - 2 * x;
-  __asm__ __volatile__("fistpl %0" : "=m"(r) : "t"(x) : "st");
-  return -(r >> 1);
-}
-
-#elif VC_USE_FAST_IMPL // Fast msvc asm implementation
-
-inline int
-ceil(float x)
-{
-  int r;
-  x = -.5f - 2 * x;
-  __asm {
-    fld x
-    fistp r
-  }
-  return -(r >> 1);
-}
-
-inline int
-ceil(double x)
-{
-  int r;
-  x = -.5 - 2 * x;
-  __asm {
-    fld x
-    fistp r
-  }
-  return -(r >> 1);
 }
 
 #else // Vanilla implementation
