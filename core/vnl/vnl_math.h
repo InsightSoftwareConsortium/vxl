@@ -51,12 +51,9 @@
 #if defined(__SSE2__)
 #  if __has_include(<emmintrin.h>)
 #    include <emmintrin.h> // sse 2 intrinsics
-#    define USE_SSE2_IMPL 1
 #  else
 #    error "Required file emmintrin.h for SSE2 not found"
 #  endif
-#else
-#  define USE_SSE2_IMPL 0
 #endif
 
 
@@ -230,6 +227,8 @@ using std::cbrt;
 #endif
 using std::hypot;
 
+#if defined(__SSE2__) // Fast sse2 implementation
+
 // rnd_halfinttoeven  -- round towards nearest integer
 //         halfway cases are rounded towards the nearest even integer, e.g.
 //         rnd_halfinttoeven( 1.5) ==  2
@@ -299,7 +298,7 @@ rnd_halfinttoeven(double x)
 #endif
 
 
-#if USE_SSE2_IMPL
+#if defined(__SSE2__)
 
 // rnd_halfintup  -- round towards nearest integer
 //         halfway cases are rounded upward, e.g.
@@ -341,7 +340,7 @@ rnd_halfintup(double x)
 
 #endif
 
-#if USE_SSE2_IMPL
+#if defined(__SSE2__)
 // rnd  -- round towards nearest integer
 //         halfway cases such as 0.5 may be rounded either up or down
 //         so as to maximize the efficiency, e.g.
@@ -363,6 +362,22 @@ rnd(double x)
   return static_cast<int>(std::lrint(x));
 }
 
+#else // Vanilla implementation
+
+inline int
+rnd(float x)
+{
+  return x >= 0.f ? static_cast<int>(x + .5f) : static_cast<int>(x - .5f);
+}
+inline int
+rnd(double x)
+{
+  return x >= 0.0 ? static_cast<int>(x + 0.5) : static_cast<int>(x - 0.5);
+}
+
+#endif
+
+#if defined(__SSE2__) // Fast sse2 implementation
 // floor -- round towards minus infinity
 inline int
 floor(float x)
@@ -393,7 +408,7 @@ floor(double x)
 #endif
 
 
-#if USE_SSE2_IMPL // Fast sse2 implementation
+#if defined(__SSE2__) // Fast sse2 implementation
 // ceil -- round towards plus infinity
 inline int
 ceil(float x)
