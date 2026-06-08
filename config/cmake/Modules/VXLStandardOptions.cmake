@@ -39,8 +39,5 @@ if(WIN32)
              _SCL_SECURE_NO_DEPRECATE
              )
          endif()
-         # MS compilers need /bigobj, else generated code exceeds the object
-         # file format's section count.
-         set(VXL_REQUIRED_CXX_FLAGS "${VXL_REQUIRED_CXX_FLAGS} /bigobj")
        endif()
 endif()
