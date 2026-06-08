@@ -386,23 +386,10 @@ endmacro()
 # Perform all the specific tests
 #
 
-PERFORM_CMAKE_TEST(${VXL_PLFM_TEST_FILE} VXL_UNISTD_USLEEP_IS_VOID)
-  SET_INVERT(VXL_UNISTD_USLEEP_IS_VOID "${VXL_UNISTD_USLEEP_IS_VOID}")
-PERFORM_CMAKE_TEST(${VXL_PLFM_TEST_FILE} VXL_HAS_DBGHELP_H)
-
 set(CMAKE_REQUIRED_FLAGS)
 
-# Check if Windows have wchar_t defined
-if(WIN32)
-  PERFORM_CMAKE_TEST(${VXL_PLFM_TEST_FILE} VXL_HAS_WIN_WCHAR_T)
-endif()
-
-#
-# Find header files
-#
+# <emmintrin.h> availability gates the vnl_math SSE path.
 PERFORM_CHECK_HEADER(emmintrin.h VXL_HAS_EMMINTRIN_H)
-PERFORM_CHECK_C_HEADER(pthread.h   VXL_HAS_PTHREAD_H)
-PERFORM_CHECK_C_HEADER(semaphore.h VXL_HAS_SEMAPHORE_H)
 
 # check for hardware support for sse2 with the current compiler flags
 PERFORM_CMAKE_TEST_RUN(${VXL_PLFM_TEST_FILE} VXL_HAS_SSE2_HARDWARE_SUPPORT)
@@ -426,107 +413,6 @@ if(NOT VXL_HAS_SSE2_HARDWARE_SUPPORT)
     unset(VXL_SSE_TEST_FLAG_BACKUP)
   endif()
 endif()
-
-
-#
-# Check for aligned dynamic memory allocation support, useful for sse
-#
-
-if(VXL_HAS_EMMINTRIN_H)
-  # check for memory allocation operations
-  PERFORM_CMAKE_TEST(${VXL_PLFM_TEST_FILE} VXL_HAS_MM_MALLOC)
-  PERFORM_CMAKE_TEST(${VXL_PLFM_TEST_FILE} VXL_HAS_ALIGNED_MALLOC)
-  PERFORM_CMAKE_TEST(${VXL_PLFM_TEST_FILE} VXL_HAS_MINGW_ALIGNED_MALLOC)
-  PERFORM_CMAKE_TEST(${VXL_PLFM_TEST_FILE} VXL_HAS_POSIX_MEMALIGN)
-
-else()
-  set( VXL_HAS_MM_MALLOC 0 )
-  set( VXL_HAS_ALIGNED_MALLOC 0 )
-  set( VXL_HAS_MINGW_ALIGNED_MALLOC 0 )
-  set( VXL_HAS_POSIX_MEMALIGN 0 )
-endif()
-
-
-# Tests of math.h may need math library on UNIX.
-if(UNIX)
-  list(APPEND CMAKE_REQUIRED_LIBRARIES m)
-endif()
-
-# Check C++ <cmath> first, where the C++11 standard says these must be.
-include(${CMAKE_CURRENT_LIST_DIR}/CheckCXXExpressionCompiles.cmake) ## From VTK
-
-if(UNIX)
-  list(REMOVE_ITEM CMAKE_REQUIRED_LIBRARIES m)
-endif()
-
-TEST_BIG_ENDIAN(VXL_BIG_ENDIAN)
-SET_INVERT(VXL_LITTLE_ENDIAN "${VXL_BIG_ENDIAN}")
-
-#
-# Check type sizes
-#
-
-set(CMAKE_REQUIRED_FLAGS ${CMAKE_ANSI_CFLAGS})
-
-# The types are listed in reverse order of preference. That is, the
-# last type is should be the most preferred type name.
-#
-DETERMINE_TYPE(BYTE     1 8   "char")
-DETERMINE_TYPE(INT_8    1 8   "short;char")
-DETERMINE_TYPE(INT_16   1 16  "char;int;short")
-DETERMINE_TYPE(INT_32   1 32  "short;long;int")
-DETERMINE_TYPE(INT_64   1 64  "__int64;long long;long")
-DETERMINE_TYPE(IEEE_32  0 32  "long double;double;float")
-DETERMINE_TYPE(IEEE_64  0 64  "float;long double;double")
-DETERMINE_TYPE(IEEE_96  0 96  "float;double;long double")
-DETERMINE_TYPE(IEEE_128 0 128 "float;double;long double")
-if(${VXL_INT_64} MATCHES "^long long$")
-  set(VXL_INT_64_IS_LONGLONG 1)
-else()
-  set(VXL_INT_64_IS_LONGLONG 0)
-endif()
-if(${VXL_INT_64} MATCHES "^long$" AND NOT ${VXL_INT_64_IS_LONGLONG})
-  set(VXL_INT_64_IS_LONG 1)
-else()
-  set(VXL_INT_64_IS_LONG 0)
-endif()
-
-#
-# Check unistd stuff
-#
-
-CHECK_INCLUDE_FILE_CXX("unistd.h" HAVE_UNISTD_H)
-if(HAVE_UNISTD_H)
-  CHECK_TYPE_EXISTS_ZERO(useconds_t "unistd.h" VXL_UNISTD_HAS_USECONDS_T)
-  CHECK_TYPE_EXISTS_ZERO(intptr_t "unistd.h" VXL_UNISTD_HAS_INTPTR_T)
-  CHECK_FUNCTION_EXISTS_ZERO(ualarm VXL_UNISTD_HAS_UALARM)
-  CHECK_FUNCTION_EXISTS_ZERO(usleep VXL_UNISTD_HAS_USLEEP)
-  CHECK_FUNCTION_EXISTS_ZERO(lchown VXL_UNISTD_HAS_LCHOWN)
-  CHECK_FUNCTION_EXISTS_ZERO(pread VXL_UNISTD_HAS_PREAD)
-  CHECK_FUNCTION_EXISTS_ZERO(pwrite VXL_UNISTD_HAS_PWRITE)
-  CHECK_FUNCTION_EXISTS_ZERO(tell VXL_UNISTD_HAS_TELL)
-  CHECK_FUNCTION_EXISTS_ZERO(getpid VXL_UNISTD_HAS_GETPID)
-  CHECK_FUNCTION_EXISTS_ZERO(gethostname VXL_UNISTD_HAS_GETHOSTNAME)
-else()
-  # If there is not unistd.h, assume windows and therefore hardcode results.
-  set(VXL_UNISTD_HAS_USECONDS_T 0)
-  set(VXL_UNISTD_HAS_INTPTR_T 0)
-  set(VXL_UNISTD_HAS_UALARM 1)
-  set(VXL_UNISTD_HAS_USLEEP 1)
-  set(VXL_UNISTD_HAS_LCHOWN 1)
-  set(VXL_UNISTD_HAS_PREAD 1)
-  set(VXL_UNISTD_HAS_PWRITE 1)
-  set(VXL_UNISTD_HAS_TELL 1)
-  set(VXL_UNISTD_HAS_GETPID 1)
-  set(VXL_UNISTD_HAS_GETHOSTNAME 1)
-endif()
-
-#
-# Check the address model of the build, i.e. 32-bit (4-byte) or 64-bit (8-byte).
-# The type of void * is directly related to address model on most machines and compilers.
-# Hence, we use the size of void * instead.
-#
-math(EXPR VXL_ADDRESS_BITS 8*${CMAKE_SIZEOF_VOID_P} )
 
 # Reset the update configuration flag
 set( VXL_UPDATE_CONFIGURATION "OFF" CACHE BOOL "Re-run the configuration tests?" FORCE )

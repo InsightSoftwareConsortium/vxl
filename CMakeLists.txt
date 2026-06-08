@@ -136,24 +136,6 @@ endif()
 option(VXL_RUN_FAILING_TESTS "Enable long-time failing tests. If tests are failing for a long time, turn them off by default." OFF)
 mark_as_advanced(VXL_RUN_FAILING_TESTS)
 
-# Option to build Windows Unicode support, the string
-# type of which is wchar_t, each character is a 16-bit unsigned integer.
-if(WIN32)
-  if(VXL_HAS_WIN_WCHAR_T)
-    option( VXL_USE_WIN_WCHAR_T "Build overloading functions that accept Windows wide char strings?" ON )
-    if(VXL_USE_WIN_WCHAR_T)   # Force it to be 0/1
-      set(VXL_USE_WIN_WCHAR_T 1)
-    else()
-      set(VXL_USE_WIN_WCHAR_T 0)
-    endif()
-  else()
-    set(VXL_USE_WIN_WCHAR_T 0)
-  endif()
-else()
-  # avoid empty macro definition
-  set(VXL_USE_WIN_WCHAR_T 0)
-endif()
-
 # In order to be able to link vxl libraries into shared libraries on 64 bit linux, the -fPIC
 # compiler flag must be added.  Only do this if we are on a x86_64 *nix platform, we're building
 # static libraries, and the user has not explicitly requested position dependent code.
