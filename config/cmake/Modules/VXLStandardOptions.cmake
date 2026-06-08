@@ -5,9 +5,6 @@
 #
 #  BUILD_SHARED_LIBS
 #  BUILD_TESTING
-#  WARN_DEPRECATED
-#  WARN_DEPRECATED_ONCE
-#  WARN_DEPRECATED_ABORT
 #
 
 include(CTest)
@@ -23,22 +20,6 @@ else()
 endif()
 set( BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS} )
 mark_as_advanced(BUILD_SHARED_LIBS)
-
-option( WARN_DEPRECATED "Enable runtime warnings for deprecated functions?" ON )
-option( WARN_DEPRECATED_ONCE "Only warn once per function (if runtime warnings are enabled)?" ON )
-option( WARN_DEPRECATED_ABORT "Abort on executing a deprecated function (if runtime warnings are enabled)?" OFF )
-
-mark_as_advanced( WARN_DEPRECATED WARN_DEPRECATED_ONCE WARN_DEPRECATED_ABORT )
-
-if(WARN_DEPRECATED)
-  add_definitions( -DVXL_WARN_DEPRECATED )
-  if(WARN_DEPRECATED_ONCE)
-    add_definitions( -DVXL_WARN_DEPRECATED_ONCE )
-  endif()
-  if(WARN_DEPRECATED_ABORT)
-    add_definitions( -DVXL_WARN_DEPRECATED_ABORT )
-  endif()
-endif()
 
 # Taken from ITK build environment
 # On Visual Studio 8 MS deprecated C. This removes many security warnings
