@@ -2,9 +2,6 @@
 project(vnl)
 
 # Create vnl_config.h
-option(VNL_CONFIG_THREAD_SAFE
-  "Whether thread-safe vnl implementations are used." ON)
-
 # VNL_CONFIG_LEGACY_METHODS was retired in vxl 7.0; warn if the user
 # still has it set so build scripts can be cleaned up.
 if(DEFINED CACHE{VNL_CONFIG_LEGACY_METHODS} OR DEFINED VNL_CONFIG_LEGACY_METHODS)
@@ -17,16 +14,6 @@ endif()
 # SSE2 rounding in vnl_math is gated purely by the compiler's __SSE2__ macro
 # (mandatory on x86-64, never on ARM), so no configure-time option or probe
 # is needed.
-
-mark_as_advanced(
-  VNL_CONFIG_THREAD_SAFE
-  )
-# Need to enforce 1/0 values for configuration.
-if(VNL_CONFIG_THREAD_SAFE)
-  set(VNL_CONFIG_THREAD_SAFE 1)
-else()
-  set(VNL_CONFIG_THREAD_SAFE 0)
-endif()
 
 # If VXL_INSTALL_INCLUDE_DIR is the default value
 if("${VXL_INSTALL_INCLUDE_DIR}" STREQUAL "include/vxl")
