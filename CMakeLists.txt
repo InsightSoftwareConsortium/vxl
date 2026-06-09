@@ -81,7 +81,7 @@ set(VXL_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules)
 include( ${VXL_CMAKE_DIR}/VXLStandardOptions.cmake )
 include( GenerateExportHeader )
 include( ${CMAKE_CURRENT_LIST_DIR}/config/cmake/config/vxl_utils.cmake )
-# set the vxl_platform_math target
+# probe VXL_PLATFORM_MATH_LIBRARIES (system math libs needed to link)
 include(${CMAKE_CURRENT_LIST_DIR}/config/cmake/Modules/ConfigurePlatformMathTarget.cmake)
 
 
@@ -96,6 +96,18 @@ endif()
 # The main use is in vil which often uses/used null images to imply an error.
 option(VXL_RUN_FAILING_TESTS "Enable long-time failing tests. If tests are failing for a long time, turn them off by default." OFF)
 mark_as_advanced(VXL_RUN_FAILING_TESTS)
+
+# Legacy capability switches. When embedded in ITK these are already defined by
+# the host and its values are honored; for standalone builds default to keeping
+# legacy compatibility (e.g. the backward-compat vcl static archive).
+if(NOT DEFINED ITK_LEGACY_REMOVE)
+  option(ITK_LEGACY_REMOVE "Remove all legacy backward-compatibility code." OFF)
+  mark_as_advanced(ITK_LEGACY_REMOVE)
+endif()
+if(NOT DEFINED ITK_FUTURE_LEGACY_REMOVE)
+  option(ITK_FUTURE_LEGACY_REMOVE "Remove code scheduled to become legacy in a future release." OFF)
+  mark_as_advanced(ITK_FUTURE_LEGACY_REMOVE)
+endif()
 
 # Build position-independent code so the static vxl libraries can be linked
 # into shared libraries (as ITK does). CMake emits the correct per-compiler
