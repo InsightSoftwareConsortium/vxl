@@ -25,13 +25,7 @@
 #include <vnl/vnl_config.h>
 #include "vnl_error.h"
 #include "vnl/vnl_export.h"
-#ifndef NDEBUG
-#  if VNL_CONFIG_CHECK_BOUNDS
-#    include <cassert>
-#  endif
-#else
-#  undef VNL_CONFIG_CHECK_BOUNDS
-#  define VNL_CONFIG_CHECK_BOUNDS 0
+#ifdef NDEBUG
 #  undef ERROR_CHECKING
 #endif
 #include "vnl_sse.h"
@@ -187,9 +181,6 @@ public:
   T &
   operator()(size_t i)
   {
-#if VNL_CONFIG_CHECK_BOUNDS
-    assert(i < size()); // Check the index is valid.
-#endif
     return data[i];
   }
   //: Return reference to the element at specified index. No range checking.
@@ -197,9 +188,6 @@ public:
   const T &
   operator()(size_t i) const
   {
-#if VNL_CONFIG_CHECK_BOUNDS
-    assert(i < size()); // Check the index is valid
-#endif
     return data[i];
   }
 
@@ -728,10 +716,6 @@ template <class T>
 inline T
 vnl_vector<T>::get(size_t i) const
 {
-#if VNL_CONFIG_CHECK_BOUNDS
-  if (i >= this->size())              // If invalid index specified
-    vnl_error_vector_index("get", i); // Raise exception
-#endif
   return this->data[i];
 }
 
@@ -742,10 +726,6 @@ template <class T>
 inline void
 vnl_vector<T>::put(size_t i, const T & v)
 {
-#if VNL_CONFIG_CHECK_BOUNDS
-  if (i >= this->size())              // If invalid index specified
-    vnl_error_vector_index("put", i); // Raise exception
-#endif
   this->data[i] = v; // Assign data value
 }
 

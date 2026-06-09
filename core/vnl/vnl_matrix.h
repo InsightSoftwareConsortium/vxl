@@ -39,13 +39,7 @@
 #include "vnl_c_vector.h"
 #include <vnl/vnl_config.h>
 #include "vnl_error.h"
-#ifndef NDEBUG
-#  if VNL_CONFIG_CHECK_BOUNDS
-#    include <cassert>
-#  endif
-#else
-#  undef VNL_CONFIG_CHECK_BOUNDS
-#  define VNL_CONFIG_CHECK_BOUNDS 0
+#ifdef NDEBUG
 #  undef ERROR_CHECKING
 #endif
 #include "vnl/vnl_export.h"
@@ -1028,12 +1022,6 @@ template <class T>
 inline T
 vnl_matrix<T>::get(unsigned r, unsigned c) const
 {
-#if VNL_CONFIG_CHECK_BOUNDS
-  if (r >= this->num_rows)                // If invalid size specified
-    vnl_error_matrix_row_index("get", r); // Raise exception
-  if (c >= this->num_cols)                // If invalid size specified
-    vnl_error_matrix_col_index("get", c); // Raise exception
-#endif
   return this->data[r][c];
 }
 
@@ -1044,12 +1032,6 @@ template <class T>
 inline void
 vnl_matrix<T>::put(unsigned r, unsigned c, const T & v)
 {
-#if VNL_CONFIG_CHECK_BOUNDS
-  if (r >= this->num_rows)                // If invalid size specified
-    vnl_error_matrix_row_index("put", r); // Raise exception
-  if (c >= this->num_cols)                // If invalid size specified
-    vnl_error_matrix_col_index("put", c); // Raise exception
-#endif
   this->data[r][c] = v; // Assign data value
 }
 

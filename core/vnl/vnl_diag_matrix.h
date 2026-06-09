@@ -230,12 +230,6 @@ public:
   {
     assert(r == c);
     (void)c;
-#if VNL_CONFIG_CHECK_BOUNDS
-    if (r >= this->size()) // If invalid size specified
-    {
-      vnl_error_matrix_row_index("get", r); // Raise exception
-    }
-#endif
     diagonal_[r] = v;
   }
 
@@ -245,12 +239,6 @@ public:
   {
     assert(r == c);
     (void)c;
-#if VNL_CONFIG_CHECK_BOUNDS
-    if (r >= this->size()) // If invalid size specified
-    {
-      vnl_error_matrix_row_index("get", r); // Raise exception
-    }
-#endif
     return diagonal_[r];
   }
 

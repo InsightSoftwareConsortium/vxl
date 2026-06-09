@@ -86,9 +86,6 @@ public:
   const T &
   operator()(unsigned int i) const
   {
-#if VNL_CONFIG_CHECK_BOUNDS && (!defined NDEBUG)
-    assert(i < n); // Check the index is valid
-#endif
     return data_[i];
   }
 
@@ -543,9 +540,6 @@ public:
   T &
   operator()(unsigned int i) const
   {
-#if VNL_CONFIG_CHECK_BOUNDS && (!defined NDEBUG)
-    assert(i < n); // Check the index is valid.
-#endif
     return data_block()[i];
   }
 
