@@ -21,9 +21,7 @@ INSTALL_NOBASE_HEADER_FILES(${prefix} ${global_sources})
 vxl_configure_file(${CMAKE_CURRENT_LIST_DIR}/vxl_config.h.in ${PROJECT_BINARY_DIR}/vxl_config.h ${prefix})
 
 # numerics
-if(VXL_BUILD_CORE_NUMERICS)
-  add_subdirectory(vnl)
-endif()
+add_subdirectory(vnl)
 
 
 # common test executable

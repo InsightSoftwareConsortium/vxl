@@ -133,10 +133,6 @@ endif()
 
 
 #-------------------------------------------------------------------
-#-- BUILD SELECTION OPTIONS
-# Options for selecting the core core libraries
-option( VXL_BUILD_CORE_NUMERICS "Build VXL's numerics libraries" ON )
-
 # Build the core vxl + support libraries
 add_subdirectory(vcl)
 add_subdirectory(v3p)
