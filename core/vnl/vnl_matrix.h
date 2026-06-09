@@ -37,7 +37,6 @@
 #  include <vcl_msvc_warnings.h>
 #endif
 #include "vnl_c_vector.h"
-#include <vnl/vnl_config.h>
 #include "vnl_error.h"
 #ifdef NDEBUG
 #  undef ERROR_CHECKING

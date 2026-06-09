@@ -11,9 +11,14 @@ if("${VXL_INSTALL_INCLUDE_DIR}" STREQUAL "include/vxl")
 else()
   set(_config_install_dir ${VXL_INSTALL_INCLUDE_DIR}/vnl)
 endif()
-vxl_configure_file(${CMAKE_CURRENT_LIST_DIR}/vnl_config.h.in
-                   ${PROJECT_BINARY_DIR}/vnl_config.h
-                   ${_config_install_dir})
+# vnl_config.h is an obsolete backward-compatibility shim (its options are now
+# unconditional). Generate it only when future-legacy code is retained; under
+# ITK_FUTURE_LEGACY_REMOVE it is omitted so stale includes fail fast.
+if(NOT ITK_FUTURE_LEGACY_REMOVE)
+  vxl_configure_file(${CMAKE_CURRENT_LIST_DIR}/vnl_config.h.in
+                     ${PROJECT_BINARY_DIR}/vnl_config.h
+                     ${_config_install_dir})
+endif()
 
 set( vnl_sources
   dll.h

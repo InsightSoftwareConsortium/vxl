@@ -43,7 +43,6 @@
 #endif
 #include "dll.h"
 #include <vxl_config.h>
-#include <vnl/vnl_config.h>
 #include <vnl/vnl_export.h>
 
 //: Type-accessible infinities for use in templates.

@@ -22,7 +22,6 @@
 #endif
 
 #include "vnl_c_vector.h"
-#include <vnl/vnl_config.h>
 #include "vnl_error.h"
 #include "vnl/vnl_export.h"
 #ifdef NDEBUG
