@@ -1,9 +1,7 @@
-# Create a canonical vxl_platform_math target for downstream use.
-# Join the install export set so exported consumers (itkv3p_netlib,
-# itkvnl_algo) do not trip "target not in any export set" when this tree
-# is embedded in ITK.
-add_library(vxl_platform_math INTERFACE)
-install(TARGETS vxl_platform_math EXPORT ${VXL_INSTALL_EXPORT_NAME})
+# Probe the math libraries needed to link cos()/etc. and expose them as
+# VXL_PLATFORM_MATH_LIBRARIES ("" when math is implicit, "m" otherwise).
+# Consumers link the resolved system libs directly, so no named vxl target
+# leaks into ITK's embedded export set as a dangling -l flag.
 include(CheckCSourceCompiles)
 set(_MATH_TEST_SOURCE "
 #include <math.h>
@@ -14,19 +12,15 @@ int main() {
   return 0;
 }
 ")
-# Probe: does the toolchain link math without extra libs?
 set(CMAKE_REQUIRED_LIBRARIES "")
 check_c_source_compiles("${_MATH_TEST_SOURCE}" HAVE_IMPLICIT_MATH)
-
 if(HAVE_IMPLICIT_MATH)
-  # Darwin and Windows typically have implicit math
+  set(VXL_PLATFORM_MATH_LIBRARIES "" CACHE INTERNAL "Math libs required to link vxl")
 else()
-  # Probe: if not implicit, does -lm fix it?
   set(CMAKE_REQUIRED_LIBRARIES "m")
   check_c_source_compiles("${_MATH_TEST_SOURCE}" HAVE_EXPLICIT_LIBM)
   if(HAVE_EXPLICIT_LIBM)
-    # Most Linux toolchains that require libm to be explicitly linked
-    target_link_libraries(vxl_platform_math INTERFACE m)
+    set(VXL_PLATFORM_MATH_LIBRARIES "m" CACHE INTERNAL "Math libs required to link vxl")
   else()
     message(FATAL_ERROR
       "Math linking probe failed: toolchain cannot link cos() implicitly or via -lm. "

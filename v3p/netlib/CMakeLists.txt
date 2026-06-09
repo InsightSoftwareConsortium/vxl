@@ -335,7 +335,7 @@ vxl_add_library(
     DISABLE_MSVC_MP
 )
 
-target_link_libraries(itkv3p_netlib PRIVATE vxl_platform_math)
+target_link_libraries(itkv3p_netlib PRIVATE ${VXL_PLATFORM_MATH_LIBRARIES})
 # The linalg/ subdirectory holds the lsqr/lsmr C++ headers that consumers
 # (e.g. vnl_lsqr) include directly; expose it so they need no manual path.
 target_include_directories(itkv3p_netlib PUBLIC
