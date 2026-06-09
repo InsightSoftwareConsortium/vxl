@@ -1,16 +1,6 @@
 # vxl/core/vnl/CMakeLists.txt
 project(vnl)
 
-# Create vnl_config.h
-# VNL_CONFIG_LEGACY_METHODS was retired in vxl 7.0; warn if the user
-# still has it set so build scripts can be cleaned up.
-if(DEFINED CACHE{VNL_CONFIG_LEGACY_METHODS} OR DEFINED VNL_CONFIG_LEGACY_METHODS)
-  message(WARNING
-    "VNL_CONFIG_LEGACY_METHODS is no longer a valid configuration flag and has no effect. "
-    "Please remove it from your CMake cache or configuration scripts.")
-  unset(VNL_CONFIG_LEGACY_METHODS CACHE)
-endif()
-
 # SSE2 rounding in vnl_math is gated purely by the compiler's __SSE2__ macro
 # (mandatory on x86-64, never on ARM), so no configure-time option or probe
 # is needed.
