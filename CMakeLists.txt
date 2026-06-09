@@ -92,11 +92,6 @@ endif()
 #-------------------------------------------------------------------
 #-- BUILD CONFIG OPTIONS
 
-# Optionally use old error reporting methods, rather than exceptions.
-# The main use is in vil which often uses/used null images to imply an error.
-option(VXL_RUN_FAILING_TESTS "Enable long-time failing tests. If tests are failing for a long time, turn them off by default." OFF)
-mark_as_advanced(VXL_RUN_FAILING_TESTS)
-
 # Legacy capability switches. When embedded in ITK these are already defined by
 # the host and its values are honored; for standalone builds default to keeping
 # legacy compatibility (e.g. the backward-compat vcl static archive).

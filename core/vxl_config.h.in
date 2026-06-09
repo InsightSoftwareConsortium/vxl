@@ -55,8 +55,6 @@ typedef std::uint64_t vxl_uint_64;
 #endif
 #endif
 
-#cmakedefine01 VXL_RUN_FAILING_TESTS
-
 
 // -------------------- handy macros ---------------------------------------
 
