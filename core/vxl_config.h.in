@@ -205,7 +205,6 @@ typedef std::uint64_t vxl_uint_64;
 #pragma GCC poison VXL_COMPILER_IS_GNU_71                //"VXL no longer supplies aliases for compiler versions, use the compiler defines directly"
 #pragma GCC poison VXL_COMPILER_IS_GNU_72                //"VXL no longer supplies aliases for compiler versions, use the compiler defines directly"
 
-// TODO:  REMOVE LATER #pragma GCC poison VXL_LEGACY_ERROR_REPORTING            //"ERROR: Legacy error reporting no longer supported."
 #pragma GCC poison VCL_VC_DOTNET                         //"error: VXL no longer supplies aliases for compiler versions, use the compiler defines directly"
 #pragma GCC poison VCL_VC_9                              //"error: VXL no longer supplies aliases for compiler versions, use the compiler defines directly"
 #pragma GCC poison VCL_VC_10                             //"error: VXL no longer supplies aliases for compiler versions, use the compiler defines directly"
