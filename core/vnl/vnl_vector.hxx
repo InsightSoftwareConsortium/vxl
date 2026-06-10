@@ -739,7 +739,7 @@ angle(const vnl_vector<T> & a, const vnl_vector<T> & b)
   if (c >= 1.0)
     return 0;
   if (c <= -1.0)
-    return vnl_math::pi;
+    return vnl_math::detail::pi;
   return std::acos(c);
 }
 

@@ -69,6 +69,17 @@ vnl_huge_val(char);
 // internal-linkage copies produced by 'static constexpr'.
 namespace vnl_math
 {
+//: Undeprecated numeric constants for vnl's own internal use.
+// vnl source and headers reference these (e.g. vnl_math::detail::pi)
+// so they are unaffected by the deprecation of the public vnl_math:: aliases
+// below, even when vnl headers are instantiated in downstream translation units.
+//
+// NOT part of the public API: this namespace and its members are an
+// implementation detail, carry no stability guarantee, and may be renamed or
+// removed at any time. Downstream code must use std::numbers (C++20) or its
+// toolkit's constants (e.g. itk::Math), never these.
+namespace detail // unstable; not part of the public API
+{
 //: pi, e and all that.  Constants are rounded to the shown precision.
 inline constexpr double e = 2.71828182845904523536;                // http://oeis.org/A001113
 inline constexpr double log2e = 1.44269504088896340736;            // http://oeis.org/A007525
@@ -90,13 +101,52 @@ inline constexpr double sqrt2 = 1.41421356237309504880;            // http://oei
 inline constexpr double sqrt1_2 = 0.70710678118654752440;          // http://oeis.org/A010503
 inline constexpr double sqrt1_3 = 0.57735026918962576451;          // http://oeis.org/A020760
 inline constexpr double euler = 0.57721566490153286061;            // http://oeis.org/A001620
-
 //: IEEE double machine precision
 inline constexpr double eps = std::numeric_limits<double>::epsilon();
 inline constexpr double sqrteps = 0x1p-26; // sqrt(eps) = sqrt(2^-52) = 2^-26, exactly representable
 //: IEEE single machine precision
 inline constexpr float float_eps = std::numeric_limits<float>::epsilon();
 inline constexpr float float_sqrteps = 3.4526698300e-4f;
+} // namespace detail
+
+// Deprecated public aliases. Downstream consumers that reference vnl_math::pi
+// (etc.) get a compile-time deprecation warning and should migrate to
+// std::numbers (C++20) or their toolkit's constants (e.g. itk::Math in ITK).
+// Define VNL_MATH_DEPRECATE_CONSTANTS=0 to silence during migration.
+#ifndef VNL_MATH_DEPRECATE_CONSTANTS
+#  define VNL_MATH_DEPRECATE_CONSTANTS 1
+#endif
+#if VNL_MATH_DEPRECATE_CONSTANTS
+#  define VNL_MATH_CONSTANT_DEPRECATED \
+    [[deprecated("vnl_math:: numeric constants are deprecated; use std::numbers (C++20) or itk::Math (ITK)")]]
+#else
+#  define VNL_MATH_CONSTANT_DEPRECATED
+#endif
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double e = detail::e;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double log2e = detail::log2e;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double log10e = detail::log10e;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double ln2 = detail::ln2;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double ln10 = detail::ln10;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double pi = detail::pi;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double twopi = detail::twopi;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double pi_over_2 = detail::pi_over_2;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double pi_over_4 = detail::pi_over_4;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double pi_over_180 = detail::pi_over_180;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double one_over_pi = detail::one_over_pi;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double two_over_pi = detail::two_over_pi;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double deg_per_rad = detail::deg_per_rad;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double sqrt2pi = detail::sqrt2pi;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double two_over_sqrtpi = detail::two_over_sqrtpi;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double one_over_sqrt2pi = detail::one_over_sqrt2pi;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double sqrt2 = detail::sqrt2;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double sqrt1_2 = detail::sqrt1_2;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double sqrt1_3 = detail::sqrt1_3;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double euler = detail::euler;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double eps = detail::eps;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr double sqrteps = detail::sqrteps;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr float float_eps = detail::float_eps;
+VNL_MATH_CONSTANT_DEPRECATED inline constexpr float float_sqrteps = detail::float_sqrteps;
+#undef VNL_MATH_CONSTANT_DEPRECATED
 
 //: Convert an angle to [0, 2Pi) range
 VNL_EXPORT double

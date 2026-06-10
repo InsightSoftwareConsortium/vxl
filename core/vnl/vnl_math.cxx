@@ -56,11 +56,11 @@ namespace vnl_math
 double
 angle_0_to_2pi(double angle)
 {
-  angle = std::fmod(angle, vnl_math::twopi);
+  angle = std::fmod(angle, vnl_math::detail::twopi);
   if (angle >= 0)
     return angle;
-  const double a = angle + vnl_math::twopi;
-  if (a > 0 && a < vnl_math::twopi)
+  const double a = angle + vnl_math::detail::twopi;
+  if (a > 0 && a < vnl_math::detail::twopi)
     return a;
   // added by Nhon: this fixes a bug when angle >= -1.1721201390607859e-016 :
   // then after the above computation we get 6.2831853071795864769 == twopi
@@ -74,11 +74,11 @@ angle_0_to_2pi(double angle)
 double
 angle_minuspi_to_pi(double angle)
 {
-  angle = std::fmod(angle, vnl_math::twopi);
-  if (angle > vnl_math::pi)
-    angle -= vnl_math::twopi;
-  if (angle < -vnl_math::pi)
-    angle += vnl_math::twopi;
+  angle = std::fmod(angle, vnl_math::detail::twopi);
+  if (angle > vnl_math::detail::pi)
+    angle -= vnl_math::detail::twopi;
+  if (angle < -vnl_math::detail::pi)
+    angle += vnl_math::detail::twopi;
   return angle;
 }
 

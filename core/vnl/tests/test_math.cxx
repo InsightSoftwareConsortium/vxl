@@ -37,70 +37,70 @@ check_pointer(const void *)
 static void
 test_static_const_definition()
 {
-  check_pointer(&vnl_math::e);
-  check_pointer(&vnl_math::euler);
-  check_pointer(&vnl_math::log2e);
-  check_pointer(&vnl_math::log10e);
-  check_pointer(&vnl_math::ln2);
-  check_pointer(&vnl_math::ln10);
-  check_pointer(&vnl_math::pi);
-  check_pointer(&vnl_math::twopi);
-  check_pointer(&vnl_math::pi_over_2);
-  check_pointer(&vnl_math::pi_over_4);
-  check_pointer(&vnl_math::pi_over_180);
-  check_pointer(&vnl_math::one_over_pi);
-  check_pointer(&vnl_math::two_over_pi);
-  check_pointer(&vnl_math::sqrt2pi);
-  check_pointer(&vnl_math::one_over_sqrt2pi);
-  check_pointer(&vnl_math::two_over_sqrtpi);
-  check_pointer(&vnl_math::deg_per_rad);
-  check_pointer(&vnl_math::sqrt2);
-  check_pointer(&vnl_math::sqrt1_2);
-  check_pointer(&vnl_math::sqrt1_3);
-  check_pointer(&vnl_math::eps);
-  check_pointer(&vnl_math::sqrteps);
+  check_pointer(&vnl_math::detail::e);
+  check_pointer(&vnl_math::detail::euler);
+  check_pointer(&vnl_math::detail::log2e);
+  check_pointer(&vnl_math::detail::log10e);
+  check_pointer(&vnl_math::detail::ln2);
+  check_pointer(&vnl_math::detail::ln10);
+  check_pointer(&vnl_math::detail::pi);
+  check_pointer(&vnl_math::detail::twopi);
+  check_pointer(&vnl_math::detail::pi_over_2);
+  check_pointer(&vnl_math::detail::pi_over_4);
+  check_pointer(&vnl_math::detail::pi_over_180);
+  check_pointer(&vnl_math::detail::one_over_pi);
+  check_pointer(&vnl_math::detail::two_over_pi);
+  check_pointer(&vnl_math::detail::sqrt2pi);
+  check_pointer(&vnl_math::detail::one_over_sqrt2pi);
+  check_pointer(&vnl_math::detail::two_over_sqrtpi);
+  check_pointer(&vnl_math::detail::deg_per_rad);
+  check_pointer(&vnl_math::detail::sqrt2);
+  check_pointer(&vnl_math::detail::sqrt1_2);
+  check_pointer(&vnl_math::detail::sqrt1_3);
+  check_pointer(&vnl_math::detail::eps);
+  check_pointer(&vnl_math::detail::sqrteps);
 }
 
 // Test that the vnl_math constants don't have weird values
 static void
 test_math_constants()
 {
-#define TEST_CONSTANT(a, v) TEST_NEAR("value: ", vnl_math::a, v, 0);
-  TEST_NEAR("log of e is 1", log(vnl_math::e), 1.0, 1e-15);
+#define TEST_CONSTANT(a, v) TEST_NEAR("value: ", vnl_math::detail::a, v, 0);
+  TEST_NEAR("log of e is 1", log(vnl_math::detail::e), 1.0, 1e-15);
   TEST_CONSTANT(e, 2.7182818284590452353602874713526624977572470936999);
-  TEST_NEAR("log2e * ln2 = 1", vnl_math::log2e * vnl_math::ln2, 1.0, 1e-15);
+  TEST_NEAR("log2e * ln2 = 1", vnl_math::detail::log2e * vnl_math::detail::ln2, 1.0, 1e-15);
   TEST_CONSTANT(log2e, 1.4426950408889634073599246810018921374266459541529);
   TEST_CONSTANT(ln2, 0.69314718055994530941723212145817656807550013436025);
-  TEST_NEAR("log10e * ln10 = 1", vnl_math::log10e * vnl_math::ln10, 1.0, 1e-15);
+  TEST_NEAR("log10e * ln10 = 1", vnl_math::detail::log10e * vnl_math::detail::ln10, 1.0, 1e-15);
   TEST_CONSTANT(log10e, 0.43429448190325182765112891891660508229439700580366);
   TEST_CONSTANT(ln10, 2.3025850929940456840179914546843642076011014886287);
-  TEST_NEAR("cos(pi) = -1", cos(vnl_math::pi), -1.0, 1e-15);
+  TEST_NEAR("cos(pi) = -1", cos(vnl_math::detail::pi), -1.0, 1e-15);
   TEST_CONSTANT(pi, 3.1415926535897932384626433832795028841971693993751);
-  TEST_NEAR("twopi = 2*pi", vnl_math::twopi, 2.0 * vnl_math::pi, 1e-15);
+  TEST_NEAR("twopi = 2*pi", vnl_math::detail::twopi, 2.0 * vnl_math::detail::pi, 1e-15);
   TEST_CONSTANT(twopi, 6.2831853071795864769252867665590057683943387987502);
-  TEST_NEAR("pi_over_2 = pi/2", vnl_math::pi_over_2, 0.5 * vnl_math::pi, 1e-15);
+  TEST_NEAR("pi_over_2 = pi/2", vnl_math::detail::pi_over_2, 0.5 * vnl_math::detail::pi, 1e-15);
   TEST_CONSTANT(pi_over_2, 1.5707963267948966192313216916397514420985846996875);
-  TEST_NEAR("pi_over_4 = pi/4", vnl_math::pi_over_4, 0.25 * vnl_math::pi, 1e-15);
+  TEST_NEAR("pi_over_4 = pi/4", vnl_math::detail::pi_over_4, 0.25 * vnl_math::detail::pi, 1e-15);
   TEST_CONSTANT(pi_over_4, 0.78539816339744830961566084581987572104929234984377);
-  TEST_NEAR("pi_over_180=pi/180", vnl_math::pi_over_180, vnl_math::pi / 180.0, 1e-15);
+  TEST_NEAR("pi_over_180=pi/180", vnl_math::detail::pi_over_180, vnl_math::detail::pi / 180.0, 1e-15);
   TEST_CONSTANT(pi_over_180, 0.017453292519943295769236907684886127134428718885417);
-  TEST_NEAR("pi*one_over_pi=1", vnl_math::pi * vnl_math::one_over_pi, 1.0, 1e-15);
+  TEST_NEAR("pi*one_over_pi=1", vnl_math::detail::pi * vnl_math::detail::one_over_pi, 1.0, 1e-15);
   TEST_CONSTANT(one_over_pi, 0.31830988618379067153776752674502872406891929148091);
-  TEST_NEAR("pi*two_over_pi=2", vnl_math::pi * vnl_math::two_over_pi, 2.0, 1e-15);
+  TEST_NEAR("pi*two_over_pi=2", vnl_math::detail::pi * vnl_math::detail::two_over_pi, 2.0, 1e-15);
   TEST_CONSTANT(two_over_pi, 0.63661977236758134307553505349005744813783858296182);
-  TEST_NEAR("deg_per_rad=180/pi", vnl_math::deg_per_rad, 180.0 / vnl_math::pi, 1e-15);
+  TEST_NEAR("deg_per_rad=180/pi", vnl_math::detail::deg_per_rad, 180.0 / vnl_math::detail::pi, 1e-15);
   TEST_CONSTANT(deg_per_rad, 57.295779513082320876798154814105170332405472466564);
-  TEST_NEAR("sqrt2pi^2", vnl_math::sqrt2pi * vnl_math::sqrt2pi, vnl_math::twopi, 1e-15);
+  TEST_NEAR("sqrt2pi^2", vnl_math::detail::sqrt2pi * vnl_math::detail::sqrt2pi, vnl_math::detail::twopi, 1e-15);
   TEST_CONSTANT(sqrt2pi, 2.5066282746310005024157652848110452530069867406099);
-  TEST_NEAR("two_over_sqrtpi", vnl_math::two_over_sqrtpi, 2.0 / sqrt(vnl_math::pi), 1e-15);
+  TEST_NEAR("two_over_sqrtpi", vnl_math::detail::two_over_sqrtpi, 2.0 / sqrt(vnl_math::detail::pi), 1e-15);
   TEST_CONSTANT(two_over_sqrtpi, 1.1283791670955125738961589031215451716881012586579);
-  TEST_NEAR("one_over_sqrt2pi", vnl_math::one_over_sqrt2pi, 1.0 / sqrt(vnl_math::twopi), 1e-15);
+  TEST_NEAR("one_over_sqrt2pi", vnl_math::detail::one_over_sqrt2pi, 1.0 / sqrt(vnl_math::detail::twopi), 1e-15);
   TEST_CONSTANT(one_over_sqrt2pi, 0.39894228040143267793994605993438186847585863116493);
-  TEST_NEAR("sqrt2*sqrt2=2", vnl_math::sqrt2 * vnl_math::sqrt2, 2.0, 1e-15);
+  TEST_NEAR("sqrt2*sqrt2=2", vnl_math::detail::sqrt2 * vnl_math::detail::sqrt2, 2.0, 1e-15);
   TEST_CONSTANT(sqrt2, 1.4142135623730950488016887242096980785696718753769);
-  TEST_NEAR("sqrt1_2*sqrt2=1", vnl_math::sqrt1_2 * vnl_math::sqrt2, 1.0, 1e-15);
+  TEST_NEAR("sqrt1_2*sqrt2=1", vnl_math::detail::sqrt1_2 * vnl_math::detail::sqrt2, 1.0, 1e-15);
   TEST_CONSTANT(sqrt1_2, 0.70710678118654752440084436210484903928483593768847);
-  TEST_NEAR("sqrt1_3^2=1/3", vnl_math::sqrt1_3 * vnl_math::sqrt1_3, 1.0 / 3.0, 1e-15);
+  TEST_NEAR("sqrt1_3^2=1/3", vnl_math::detail::sqrt1_3 * vnl_math::detail::sqrt1_3, 1.0 / 3.0, 1e-15);
   TEST_CONSTANT(sqrt1_3, 0.57735026918962576450914878050195745564760175127012);
   TEST_CONSTANT(euler, 0.57721566490153286060651209008240243104215933593992);
 #undef TEST_CONSTANT
@@ -115,7 +115,7 @@ test_math()
 
   constexpr int n = -11;
   constexpr float f = -7.5f;
-  constexpr double d = -vnl_math::pi;
+  constexpr double d = -vnl_math::detail::pi;
   const std::complex<double> i(0, 1);
   const std::complex<double> z(-1, 2);
   const std::complex<double> e_ipi = std::exp(d * i);
@@ -138,7 +138,7 @@ test_math()
 
   TEST("abs(n) == 11", vnl_math::abs(n), 11);
   TEST("abs(f) == 7.5f", vnl_math::abs(f), 7.5f);
-  TEST("abs(d) == pi", vnl_math::abs(d), vnl_math::pi);
+  TEST("abs(d) == pi", vnl_math::abs(d), vnl_math::detail::pi);
   TEST("abs(i) == 1", vnl_math::abs(i), 1.0);
   TEST_NEAR("abs(-1+2i)~=sqrt(5)", vnl_math::abs(z), std::sqrt(5.0), 1e-12);
   TEST_NEAR("norm(-1+2i) ~= 5", vnl_math::squared_magnitude(z), 5, 1e-12);
@@ -396,29 +396,29 @@ test_math()
   std::cout << std::endl;
 
   // test vnl_math::angle_0_to_2pi() for "extreme values":
-  TEST("vnl_math::angle_0_to_2pi(2pi)", vnl_math::angle_0_to_2pi(vnl_math::twopi), 0.0);
-  double eps = vnl_math_test_2_epsilon; // which is smaller than the precision of vnl_math::pi
+  TEST("vnl_math::angle_0_to_2pi(2pi)", vnl_math::angle_0_to_2pi(vnl_math::detail::twopi), 0.0);
+  double eps = vnl_math_test_2_epsilon; // which is smaller than the precision of vnl_math::detail::pi
   double conv_eps = vnl_math::angle_0_to_2pi(-eps);
-  std::cout << "conv_eps = " << conv_eps << " = 2pi - " << vnl_math::twopi - conv_eps << std::endl;
-  TEST("vnl_math::angle_0_to_2pi(-eps)", conv_eps < vnl_math::twopi && conv_eps > 6.283, true);
-  eps = vnl_math_test_20_epsilon; // which is larger than the precision of vnl_math::pi
+  std::cout << "conv_eps = " << conv_eps << " = 2pi - " << vnl_math::detail::twopi - conv_eps << std::endl;
+  TEST("vnl_math::angle_0_to_2pi(-eps)", conv_eps < vnl_math::detail::twopi && conv_eps > 6.283, true);
+  eps = vnl_math_test_20_epsilon; // which is larger than the precision of vnl_math::detail::pi
   conv_eps = vnl_math::angle_0_to_2pi(-eps);
-  std::cout << "conv_eps = " << conv_eps << " = 2pi - " << vnl_math::twopi - conv_eps << std::endl;
+  std::cout << "conv_eps = " << conv_eps << " = 2pi - " << vnl_math::detail::twopi - conv_eps << std::endl;
   TEST(
-    "vnl_math::angle_0_to_2pi(-10eps)", conv_eps < vnl_math::twopi - vnl_math_test_2_epsilon && conv_eps > 6.283, true);
-  const double ang = vnl_math::twopi - eps;
+    "vnl_math::angle_0_to_2pi(-10eps)", conv_eps < vnl_math::detail::twopi - vnl_math_test_2_epsilon && conv_eps > 6.283, true);
+  const double ang = vnl_math::detail::twopi - eps;
   const double conv_ang = vnl_math::angle_0_to_2pi(ang);
-  std::cout << "conv_ang = " << conv_ang << " = 2pi - " << vnl_math::twopi - conv_ang << std::endl;
+  std::cout << "conv_ang = " << conv_ang << " = 2pi - " << vnl_math::detail::twopi - conv_ang << std::endl;
   TEST("vnl_math::angle_0_to_2pi(2pi-10eps)", conv_ang, ang);
   // test vnl_math::angle_minuspi_to_pi() for "extreme values":
-  TEST("vnl_math::angle_minuspi_to_pi(2pi)", vnl_math::angle_minuspi_to_pi(vnl_math::twopi), 0.0);
-  TEST("vnl_math::angle_minuspi_to_pi(pi)", vnl_math::angle_minuspi_to_pi(vnl_math::pi), vnl_math::pi);
-  TEST("vnl_math::angle_minuspi_to_pi(-pi)", vnl_math::angle_minuspi_to_pi(-vnl_math::pi), -vnl_math::pi);
-  eps = vnl_math_test_2_epsilon; // which is smaller than the precision of vnl_math::pi
+  TEST("vnl_math::angle_minuspi_to_pi(2pi)", vnl_math::angle_minuspi_to_pi(vnl_math::detail::twopi), 0.0);
+  TEST("vnl_math::angle_minuspi_to_pi(pi)", vnl_math::angle_minuspi_to_pi(vnl_math::detail::pi), vnl_math::detail::pi);
+  TEST("vnl_math::angle_minuspi_to_pi(-pi)", vnl_math::angle_minuspi_to_pi(-vnl_math::detail::pi), -vnl_math::detail::pi);
+  eps = vnl_math_test_2_epsilon; // which is smaller than the precision of vnl_math::detail::pi
   conv_eps = vnl_math::angle_minuspi_to_pi(-eps);
   std::cout << "conv_eps = " << conv_eps << std::endl;
   TEST("vnl_math::angle_minuspi_to_pi(-eps)", conv_eps, -eps);
-  eps = vnl_math_test_20_epsilon; // which is larger than the precision of vnl_math::pi
+  eps = vnl_math_test_20_epsilon; // which is larger than the precision of vnl_math::detail::pi
   conv_eps = vnl_math::angle_minuspi_to_pi(-eps);
   std::cout << "conv_eps = " << conv_eps << std::endl;
   TEST("vnl_math::angle_minuspi_to_pi(-10eps)", conv_eps, -eps);
