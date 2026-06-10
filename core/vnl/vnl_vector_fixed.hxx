@@ -13,7 +13,7 @@
 #ifdef _MSC_VER
 #  include <vcl_msvc_warnings.h>
 #endif
-#include "vnl_math.h" // for vnl_math::isfinite
+#include "vnl_math.h" // for vnl_math::numeric_predicates::isfinite
 
 template <class T, unsigned int n>
 T &
@@ -105,7 +105,7 @@ bool
 vnl_vector_fixed<T, n>::is_finite() const
 {
   for (size_type i = 0; i < this->size(); ++i)
-    if (!vnl_math::isfinite((*this)[i]))
+    if (!vnl_math::numeric_predicates::isfinite((*this)[i]))
       return false;
 
   return true;

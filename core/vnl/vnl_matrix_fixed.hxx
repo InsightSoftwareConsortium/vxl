@@ -718,7 +718,7 @@ vnl_matrix_fixed<T, nrows, ncols>::has_nans() const
 {
   for (unsigned int i = 0; i < nrows; ++i)
     for (unsigned int j = 0; j < ncols; ++j)
-      if (vnl_math::isnan(this->data_[i][j]))
+      if (vnl_math::numeric_predicates::isnan(this->data_[i][j]))
         return true;
 
   return false;
@@ -730,7 +730,7 @@ vnl_matrix_fixed<T, nrows, ncols>::is_finite() const
 {
   for (unsigned int i = 0; i < nrows; ++i)
     for (unsigned int j = 0; j < ncols; ++j)
-      if (!vnl_math::isfinite(this->data_[i][j]))
+      if (!vnl_math::numeric_predicates::isfinite(this->data_[i][j]))
         return false;
 
   return true;
@@ -756,7 +756,7 @@ vnl_matrix_fixed<T, nrows, ncols>::assert_finite_internal() const
     for (unsigned int i = 0; i < rows(); ++i)
     {
       for (unsigned int j = 0; j < cols(); ++j)
-        std::cerr << char(vnl_math::isfinite(this->data_[i][j]) ? '-' : '*');
+        std::cerr << char(vnl_math::numeric_predicates::isfinite(this->data_[i][j]) ? '-' : '*');
       std::cerr << '\n';
     }
   }

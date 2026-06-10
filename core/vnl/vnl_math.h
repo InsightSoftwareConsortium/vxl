@@ -156,11 +156,9 @@ VNL_EXPORT double
 angle_minuspi_to_pi(double angle);
 } // namespace vnl_math
 
-// Note that the three template functions below should not be declared "inline"
-// since that would override the non-inline specialisations. - PVr.
-//
-
 namespace vnl_math
+{
+namespace numeric_predicates
 {
 // Wrap the <cmath> classification functions to guarantee a bool return type;
 // some standard libraries returned a signed integer from these.
@@ -188,6 +186,44 @@ isnormal(TArg arg)
 {
   return bool(std::isnormal(arg));
 }
+} // namespace numeric_predicates
+
+// Deprecated public spellings; vnl-internal code uses numeric_predicates::.
+// Define VNL_MATH_DEPRECATE_PREDICATES=0 to silence during migration.
+#ifndef VNL_MATH_DEPRECATE_PREDICATES
+#  define VNL_MATH_DEPRECATE_PREDICATES 1
+#endif
+#if VNL_MATH_DEPRECATE_PREDICATES
+#  define VNL_MATH_PREDICATE_DEPRECATED \
+    [[deprecated("vnl_math:: classification functions are deprecated; use std::isnan/isinf/isfinite/isnormal or itk::Math")]]
+#else
+#  define VNL_MATH_PREDICATE_DEPRECATED
+#endif
+template <typename TArg>
+VNL_MATH_PREDICATE_DEPRECATED inline bool
+isinf(TArg arg)
+{
+  return numeric_predicates::isinf(arg);
+}
+template <typename TArg>
+VNL_MATH_PREDICATE_DEPRECATED inline bool
+isnan(TArg arg)
+{
+  return numeric_predicates::isnan(arg);
+}
+template <typename TArg>
+VNL_MATH_PREDICATE_DEPRECATED inline bool
+isfinite(TArg arg)
+{
+  return numeric_predicates::isfinite(arg);
+}
+template <typename TArg>
+VNL_MATH_PREDICATE_DEPRECATED inline bool
+isnormal(TArg arg)
+{
+  return numeric_predicates::isnormal(arg);
+}
+#undef VNL_MATH_PREDICATE_DEPRECATED
 using std::max;
 using std::min;
 using std::cbrt;

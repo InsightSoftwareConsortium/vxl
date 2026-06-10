@@ -748,7 +748,7 @@ bool
 vnl_vector<T>::is_finite() const
 {
   for (size_t i = 0; i < this->size(); ++i)
-    if (!vnl_math::isfinite((*this)[i]))
+    if (!vnl_math::numeric_predicates::isfinite((*this)[i]))
       return false;
 
   return true;

@@ -275,10 +275,10 @@ test_math()
   TEST("ceil(-9.0001)  == -9", vnl_math::ceil(-9.0001), -9);
   TEST("ceil(-9.0001f) == -9", vnl_math::ceil(-9.0001f), -9);
 
-  TEST(" isfinite(f)    ", vnl_math::isfinite(f), true);
-  TEST(" isfinite(d)    ", vnl_math::isfinite(d), true);
-  TEST(" isfinite(i)    ", vnl_math::isfinite(i), true);
-  TEST(" isfinite(z)    ", vnl_math::isfinite(z), true);
+  TEST(" isfinite(f)    ", vnl_math::numeric_predicates::isfinite(f), true);
+  TEST(" isfinite(d)    ", vnl_math::numeric_predicates::isfinite(d), true);
+  TEST(" isfinite(i)    ", vnl_math::numeric_predicates::isfinite(i), true);
+  TEST(" isfinite(z)    ", vnl_math::numeric_predicates::isfinite(z), true);
 
 
   // There is an assumption in this code that std::numeric_limits<float/double>::has_infinity==true
@@ -342,41 +342,41 @@ test_math()
 #endif
             << std::endl;
 
-  TEST("!isfinite(pinf_f)", vnl_math::isfinite(pinf_f), false);
-  TEST("!isfinite(ninf_f)", vnl_math::isfinite(ninf_f), false);
-  TEST(" isinf(pinf_f)   ", vnl_math::isinf(pinf_f), true);
-  TEST(" isinf(ninf_f)   ", vnl_math::isinf(ninf_f), true);
-  TEST("!isnan(pinf_f)   ", vnl_math::isnan(pinf_f), false);
-  TEST("!isnan(ninf_f)   ", vnl_math::isnan(ninf_f), false);
-  TEST("!isfinite(qnan_f)", vnl_math::isfinite(qnan_f), false);
-  TEST("!isinf(qnan_f)   ", vnl_math::isinf(qnan_f), false);
-  TEST(" isnan(qnan_f)   ", vnl_math::isnan(qnan_f), true);
+  TEST("!isfinite(pinf_f)", vnl_math::numeric_predicates::isfinite(pinf_f), false);
+  TEST("!isfinite(ninf_f)", vnl_math::numeric_predicates::isfinite(ninf_f), false);
+  TEST(" isinf(pinf_f)   ", vnl_math::numeric_predicates::isinf(pinf_f), true);
+  TEST(" isinf(ninf_f)   ", vnl_math::numeric_predicates::isinf(ninf_f), true);
+  TEST("!isnan(pinf_f)   ", vnl_math::numeric_predicates::isnan(pinf_f), false);
+  TEST("!isnan(ninf_f)   ", vnl_math::numeric_predicates::isnan(ninf_f), false);
+  TEST("!isfinite(qnan_f)", vnl_math::numeric_predicates::isfinite(qnan_f), false);
+  TEST("!isinf(qnan_f)   ", vnl_math::numeric_predicates::isinf(qnan_f), false);
+  TEST(" isnan(qnan_f)   ", vnl_math::numeric_predicates::isnan(qnan_f), true);
 
-  TEST("!isfinite(pinf_d)", vnl_math::isfinite(pinf_d), false);
-  TEST("!isfinite(ninf_d)", vnl_math::isfinite(ninf_d), false);
-  TEST(" isinf(pinf_d)   ", vnl_math::isinf(pinf_d), true);
-  TEST(" isinf(ninf_d)   ", vnl_math::isinf(ninf_d), true);
-  TEST("!isnan(pinf_d)   ", vnl_math::isnan(pinf_d), false);
-  TEST("!isnan(ninf_d)   ", vnl_math::isnan(ninf_d), false);
-  TEST("!isfinite(qnan_d)", vnl_math::isfinite(qnan_d), false);
-  TEST("!isinf(qnan_d)   ", vnl_math::isinf(qnan_d), false);
-  TEST(" isnan(qnan_d)   ", vnl_math::isnan(qnan_d), true);
+  TEST("!isfinite(pinf_d)", vnl_math::numeric_predicates::isfinite(pinf_d), false);
+  TEST("!isfinite(ninf_d)", vnl_math::numeric_predicates::isfinite(ninf_d), false);
+  TEST(" isinf(pinf_d)   ", vnl_math::numeric_predicates::isinf(pinf_d), true);
+  TEST(" isinf(ninf_d)   ", vnl_math::numeric_predicates::isinf(ninf_d), true);
+  TEST("!isnan(pinf_d)   ", vnl_math::numeric_predicates::isnan(pinf_d), false);
+  TEST("!isnan(ninf_d)   ", vnl_math::numeric_predicates::isnan(ninf_d), false);
+  TEST("!isfinite(qnan_d)", vnl_math::numeric_predicates::isfinite(qnan_d), false);
+  TEST("!isinf(qnan_d)   ", vnl_math::numeric_predicates::isinf(qnan_d), false);
+  TEST(" isnan(qnan_d)   ", vnl_math::numeric_predicates::isnan(qnan_d), true);
 
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
 #  ifndef __ICC // "long double" has no standard internal representation on different platforms/compilers
-  TEST("!isfinite(pinf_q)", vnl_math::isfinite(pinf_q), false);
-  TEST("!isfinite(ninf_q)", vnl_math::isfinite(ninf_q), false);
-  TEST(" isinf(pinf_q)   ", vnl_math::isinf(pinf_q), true);
-  TEST(" isinf(ninf_q)   ", vnl_math::isinf(ninf_q), true);
-  TEST("!isnan(pinf_q)   ", vnl_math::isnan(pinf_q), false);
-  TEST("!isnan(ninf_q)   ", vnl_math::isnan(ninf_q), false);
-  TEST("!isfinite(qnan_q)", vnl_math::isfinite(qnan_q), false);
-  TEST("!isinf(qnan_q)   ", vnl_math::isinf(qnan_q), false);
+  TEST("!isfinite(pinf_q)", vnl_math::numeric_predicates::isfinite(pinf_q), false);
+  TEST("!isfinite(ninf_q)", vnl_math::numeric_predicates::isfinite(ninf_q), false);
+  TEST(" isinf(pinf_q)   ", vnl_math::numeric_predicates::isinf(pinf_q), true);
+  TEST(" isinf(ninf_q)   ", vnl_math::numeric_predicates::isinf(ninf_q), true);
+  TEST("!isnan(pinf_q)   ", vnl_math::numeric_predicates::isnan(pinf_q), false);
+  TEST("!isnan(ninf_q)   ", vnl_math::numeric_predicates::isnan(ninf_q), false);
+  TEST("!isfinite(qnan_q)", vnl_math::numeric_predicates::isfinite(qnan_q), false);
+  TEST("!isinf(qnan_q)   ", vnl_math::numeric_predicates::isinf(qnan_q), false);
 #  endif // __ICC
 #endif
 
-  TEST("!isfinite(huge_val(double))", vnl_math::isfinite(vnl_huge_val(double())), false);
-  TEST("!isfinite(huge_val(float))", vnl_math::isfinite(vnl_huge_val(float())), false);
+  TEST("!isfinite(huge_val(double))", vnl_math::numeric_predicates::isfinite(vnl_huge_val(double())), false);
+  TEST("!isfinite(huge_val(float))", vnl_math::numeric_predicates::isfinite(vnl_huge_val(float())), false);
 
   // Test for math_sgn
   TEST("vnl_math::sgn(+7)  ", vnl_math::sgn(+7), 1);
@@ -719,9 +719,10 @@ test_math()
 
 #define RETURN_TYPE_TEST(funcname, argtypename, returntypename)                                                 \
   {                                                                                                             \
-    const bool test_return_type =                                                                               \
-      std::is_same<decltype(vnl_math::funcname(static_cast<argtypename>(123.4))), returntypename>();            \
-    TEST("vnl_math::" #funcname "<" #argtypename "> returns " #returntypename " type", test_return_type, true); \
+    const bool test_return_type =                                                                                    \
+      std::is_same<decltype(vnl_math::numeric_predicates::funcname(static_cast<argtypename>(123.4))),                 \
+                   returntypename>();                                                                                 \
+    TEST("vnl_math::" #funcname "<" #argtypename "> returns " #returntypename " type", test_return_type, true);       \
   }                                                                                                             \
   void()
 
