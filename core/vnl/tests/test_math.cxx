@@ -375,8 +375,12 @@ test_math()
 #  endif // __ICC
 #endif
 
-  TEST("!isfinite(huge_val(double))", vnl_math::numeric_predicates::isfinite(vnl_huge_val(double())), false);
-  TEST("!isfinite(huge_val(float))", vnl_math::numeric_predicates::isfinite(vnl_huge_val(float())), false);
+  TEST("!isfinite(inf(double))",
+       vnl_math::numeric_predicates::isfinite(std::numeric_limits<double>::infinity()),
+       false);
+  TEST("!isfinite(inf(float))",
+       vnl_math::numeric_predicates::isfinite(std::numeric_limits<float>::infinity()),
+       false);
 
   // Test for math_sgn
   TEST("vnl_math::detail::sgn(+7)  ", vnl_math::detail::sgn(+7), 1);

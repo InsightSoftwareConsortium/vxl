@@ -47,22 +47,35 @@
 #include <vnl/vnl_export.h>
 
 //: Type-accessible infinities for use in templates.
+// Define VNL_MATH_DEPRECATE_HUGE_VAL=0 to silence during migration.
+#ifndef VNL_MATH_DEPRECATE_HUGE_VAL
+#  define VNL_MATH_DEPRECATE_HUGE_VAL 1
+#endif
+#if VNL_MATH_DEPRECATE_HUGE_VAL
+#  define VNL_HUGE_VAL_DEPRECATED                                                                       \
+    [[deprecated("vnl_huge_val is deprecated; use std::numeric_limits<T>::infinity() for "              \
+                 "floating-point T, or std::numeric_limits<T>::max() for integral T")]]
+#else
+#  define VNL_HUGE_VAL_DEPRECATED
+#endif
 template <class T>
-VNL_EXPORT T vnl_huge_val(T);
-extern VNL_EXPORT long double
+VNL_HUGE_VAL_DEPRECATED VNL_EXPORT T
+vnl_huge_val(T);
+VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT long double
 vnl_huge_val(long double);
-extern VNL_EXPORT double
+VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT double
 vnl_huge_val(double);
-extern VNL_EXPORT float
+VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT float
 vnl_huge_val(float);
-extern VNL_EXPORT long int
+VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT long int
 vnl_huge_val(long int);
-extern VNL_EXPORT int
+VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT int
 vnl_huge_val(int);
-extern VNL_EXPORT short
+VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT short
 vnl_huge_val(short);
-extern VNL_EXPORT char
+VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT char
 vnl_huge_val(char);
+#undef VNL_HUGE_VAL_DEPRECATED
 
 //: real numerical constants
 // Declared 'inline constexpr' so every translation unit that includes this
@@ -228,10 +241,29 @@ isnormal(TArg arg)
   return numeric_predicates::isnormal(arg);
 }
 #undef VNL_MATH_PREDICATE_DEPRECATED
-using std::max;
-using std::min;
-using std::cbrt;
-using std::hypot;
+// Deprecated re-exports of the std:: equivalents; use std:: directly.
+// Define VNL_MATH_DEPRECATE_STD_REEXPORTS=0 to silence during migration.
+#ifndef VNL_MATH_DEPRECATE_STD_REEXPORTS
+#  define VNL_MATH_DEPRECATE_STD_REEXPORTS 1
+#endif
+#if VNL_MATH_DEPRECATE_STD_REEXPORTS
+#  define VNL_MATH_STD_REEXPORT_DEPRECATED(fn) [[deprecated("vnl_math::" #fn " is deprecated; use std::" #fn)]]
+#else
+#  define VNL_MATH_STD_REEXPORT_DEPRECATED(fn)
+#endif
+#define VNL_MATH_DEPRECATED_STD_FORWARD(fn)                     \
+  template <typename... Args>                                   \
+  VNL_MATH_STD_REEXPORT_DEPRECATED(fn) inline auto fn(Args &&... args) \
+    ->decltype(std::fn(std::forward<Args>(args)...))            \
+  {                                                             \
+    return std::fn(std::forward<Args>(args)...);                \
+  }
+VNL_MATH_DEPRECATED_STD_FORWARD(max)
+VNL_MATH_DEPRECATED_STD_FORWARD(min)
+VNL_MATH_DEPRECATED_STD_FORWARD(cbrt)
+VNL_MATH_DEPRECATED_STD_FORWARD(hypot)
+#undef VNL_MATH_DEPRECATED_STD_FORWARD
+#undef VNL_MATH_STD_REEXPORT_DEPRECATED
 
 namespace detail // unstable; not part of the public API
 {
