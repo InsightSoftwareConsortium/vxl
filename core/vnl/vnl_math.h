@@ -112,72 +112,8 @@ angle_minuspi_to_pi(double angle);
 
 namespace vnl_math
 {
-#if defined(_MSC_VER)
-// MSVC does not properly implement isfinite, isinf, isnan for C++11 conformance for integral types
-// For integral types only:
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_integral<T>::value, bool>::type
-isnan(_In_ T t) throw()
-{
-  return std::isnan(static_cast<double>(t));
-}
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_integral<T>::value, bool>::type
-isinf(_In_ T t) throw()
-{
-  return std::isinf(static_cast<double>(t));
-}
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_integral<T>::value, bool>::type
-isfinite(_In_ T t) throw()
-{
-  return std::isfinite(static_cast<double>(t));
-}
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_integral<T>::value, bool>::type
-isnormal(_In_ T t) throw()
-{
-  return std::isnormal(static_cast<double>(t));
-}
-
-// Floating point types can alias C++ standard that is implemented
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_floating_point<T>::value, bool>::type
-isnan(_In_ T t) throw()
-{
-  return std::isnan(t);
-}
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_floating_point<T>::value, bool>::type
-isinf(_In_ T t) throw()
-{
-  return std::isinf(t);
-}
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_floating_point<T>::value, bool>::type
-isfinite(_In_ T t) throw()
-{
-  return std::isfinite(t);
-}
-template <typename T>
-_Check_return_ typename std::enable_if<std::is_floating_point<T>::value, bool>::type
-isnormal(_In_ T t) throw()
-{
-  return std::isnormal(t);
-}
-#else
-// https://en.cppreference.com/w/cpp/numeric/math/isinf indicates that isinf should return bool
-// However, several compiler environments do not properly conform to the C++11 standard for
-// returning bool from these functions.  Wrap them to ensure conformance, and
-// rely on the compiler to optimize the overhead away.
-
-// Return a signed integer type has been seen with the following
-// compilers/libstdc++:
-//  RHEL7-devtool-6-gcc6.3
-//  RHEL7-devtool-6-gcc6.3-m32
-//  RHEL7-devtool-7-gcc7.2
-// 	RHEL7-devtool-7-gcc7.2-m32
-
+// Wrap the <cmath> classification functions to guarantee a bool return type;
+// some standard libraries returned a signed integer from these.
 template <typename TArg>
 inline bool
 isinf(TArg arg)
@@ -202,7 +138,6 @@ isnormal(TArg arg)
 {
   return bool(std::isnormal(arg));
 }
-#endif
 using std::max;
 using std::min;
 using std::cbrt;
