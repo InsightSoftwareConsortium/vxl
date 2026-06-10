@@ -59,11 +59,8 @@ namespace detail // unstable; not part of the public API
 type_macro(float) type_macro(double) type_macro(long double)
 #undef type_macro
 } // namespace detail
-
-// abs(std::complex) is not deprecated.
-#define type_macro(T) inline T abs(std::complex<T> const & z) { return std::abs(z); }
-type_macro(float) type_macro(double) type_macro(long double)
-#undef type_macro
+// vnl_math::abs(std::complex) resolves through detail's `using std::abs`
+// (std::abs(std::complex) from <complex>); no separate overload is needed.
 
 // Deprecated public spellings; the non-template overloads divert complex calls
 // away from the deprecated vnl_math:: forwarder templates in vnl_math.h.

@@ -3,7 +3,7 @@
 #include <limits>
 #include <type_traits>
 #include "vnl/vnl_math.h"
-#include "vnl/vnl_complex.h" // for vnl_math::abs(std::complex)
+#include "vnl/vnl_complex.h" // for vnl_math::detail::abs(std::complex)
 #include "testlib/testlib_test.h"
 
 static constexpr double vnl_math_test_20_epsilon = 2 * 10 * std::numeric_limits<double>::epsilon();
@@ -128,21 +128,21 @@ test_math()
             << "exp(d*i) = " << e_ipi << '\n'
             << '\n'
 
-            << "abs(n) = " << vnl_math::abs(n) << '\n'
-            << "abs(f) = " << vnl_math::abs(f) << '\n'
-            << "abs(d) = " << vnl_math::abs(d) << '\n'
-            << "abs(i) = " << vnl_math::abs(i) << '\n'
-            << "abs(z) = " << vnl_math::abs(z) << '\n'
+            << "abs(n) = " << vnl_math::detail::abs(n) << '\n'
+            << "abs(f) = " << vnl_math::detail::abs(f) << '\n'
+            << "abs(d) = " << vnl_math::detail::abs(d) << '\n'
+            << "abs(i) = " << vnl_math::detail::abs(i) << '\n'
+            << "abs(z) = " << vnl_math::detail::abs(z) << '\n'
             << "norm(z) = " << vnl_math::detail::squared_magnitude(z) << '\n'
             << std::endl;
 
-  TEST("abs(n) == 11", vnl_math::abs(n), 11);
-  TEST("abs(f) == 7.5f", vnl_math::abs(f), 7.5f);
-  TEST("abs(d) == pi", vnl_math::abs(d), vnl_math::detail::pi);
-  TEST("abs(i) == 1", vnl_math::abs(i), 1.0);
-  TEST_NEAR("abs(-1+2i)~=sqrt(5)", vnl_math::abs(z), std::sqrt(5.0), 1e-12);
+  TEST("abs(n) == 11", vnl_math::detail::abs(n), 11);
+  TEST("abs(f) == 7.5f", vnl_math::detail::abs(f), 7.5f);
+  TEST("abs(d) == pi", vnl_math::detail::abs(d), vnl_math::detail::pi);
+  TEST("abs(i) == 1", vnl_math::detail::abs(i), 1.0);
+  TEST_NEAR("abs(-1+2i)~=sqrt(5)", vnl_math::detail::abs(z), std::sqrt(5.0), 1e-12);
   TEST_NEAR("norm(-1+2i) ~= 5", vnl_math::detail::squared_magnitude(z), 5, 1e-12);
-  TEST_NEAR("exp(d*i) ~= -1", vnl_math::abs(e_ipi + 1.0), 0, 1e-12);
+  TEST_NEAR("exp(d*i) ~= -1", vnl_math::detail::abs(e_ipi + 1.0), 0, 1e-12);
   std::cout << std::endl;
 
   TEST("rnd(-8.4999)  == -8  ", vnl_math::detail::rnd(-8.4999), -8);

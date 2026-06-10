@@ -348,7 +348,7 @@ vnl_c_vector_one_norm(const T * p, unsigned n, S * out)
   *out = 0;
   const T * end = p + n;
   while (p != end)
-    *out += vnl_math::abs(*p++);
+    *out += vnl_math::detail::abs(*p++);
 }
 
 template <class T, class S>
@@ -368,7 +368,7 @@ vnl_c_vector_inf_norm(const T * p, unsigned n, S * out)
   const T * end = p + n;
   while (p != end)
   {
-    S v = vnl_math::abs(*p++);
+    S v = vnl_math::detail::abs(*p++);
     if (v > *out)
       *out = v;
   }

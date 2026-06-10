@@ -154,7 +154,7 @@ vnl_vector_fixed<T, n>::is_equal(const vnl_vector_fixed<T, n> & rhs, double tol)
     return true;
 
   for (size_t i = 0; i < n; ++i)
-    if (!(vnl_math::abs(this->data_[i] - rhs.data_[i]) <= tol)) // Element different ?
+    if (!(vnl_math::detail::abs(this->data_[i] - rhs.data_[i]) <= tol)) // Element different ?
       return false;
 
   return true;

@@ -741,7 +741,7 @@ cos_angle(const vnl_matrix<T> & a, const vnl_matrix<T> & b)
   using abs_r = typename vnl_numeric_traits<Abs_t>::real_t;
 
   T ab = inner_product(a, b);
-  const Abs_t a_b = (Abs_t)std::sqrt((abs_r)vnl_math::abs(inner_product(a, a) * inner_product(b, b)));
+  const Abs_t a_b = (Abs_t)std::sqrt((abs_r)vnl_math::detail::abs(inner_product(a, a) * inner_product(b, b)));
 
   return T(ab / a_b);
 }
@@ -1141,7 +1141,7 @@ vnl_matrix<T>::is_equal(const vnl_matrix<T> & rhs, double tol) const
 
   for (unsigned int i = 0; i < this->rows(); ++i)
     for (unsigned int j = 0; j < this->columns(); ++j)
-      if (!(vnl_math::abs(this->data[i][j] - rhs.data[i][j]) <= tol))
+      if (!(vnl_math::detail::abs(this->data[i][j] - rhs.data[i][j]) <= tol))
         return false; // difference greater than tol
 
   return true;
@@ -1174,7 +1174,7 @@ vnl_matrix<T>::is_identity(double tol) const
     for (unsigned int j = 0; j < this->columns(); ++j)
     {
       T xm = (*this)(i, j);
-      const abs_t absdev = (i == j) ? vnl_math::abs(xm - one) : vnl_math::abs(xm);
+      const abs_t absdev = (i == j) ? vnl_math::detail::abs(xm - one) : vnl_math::detail::abs(xm);
       if (absdev > tol)
         return false;
     }
@@ -1201,7 +1201,7 @@ vnl_matrix<T>::is_zero(double tol) const
 {
   for (unsigned int i = 0; i < this->rows(); ++i)
     for (unsigned int j = 0; j < this->columns(); ++j)
-      if (vnl_math::abs((*this)(i, j)) > tol)
+      if (vnl_math::detail::abs((*this)(i, j)) > tol)
         return false;
 
   return true;
@@ -1489,7 +1489,7 @@ vnl_matrix<T>::operator_one_norm() const
   {
     abs_t tmp = 0;
     for (unsigned int i = 0; i < this->num_rows; ++i)
-      tmp += vnl_math::abs(this->data[i][j]);
+      tmp += vnl_math::detail::abs(this->data[i][j]);
     if (tmp > max)
       max = tmp;
   }
@@ -1507,7 +1507,7 @@ vnl_matrix<T>::operator_inf_norm() const
   {
     abs_t tmp = 0;
     for (unsigned int j = 0; j < this->num_cols; ++j)
-      tmp += vnl_math::abs(this->data[i][j]);
+      tmp += vnl_math::detail::abs(this->data[i][j]);
     if (tmp > max)
       max = tmp;
   }

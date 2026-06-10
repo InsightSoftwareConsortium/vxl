@@ -359,7 +359,6 @@ ceil(double x)
 {
   return static_cast<int>(std::ceil(x));
 }
-} // namespace detail
 
 // abs
 inline bool
@@ -411,8 +410,6 @@ abs(unsigned long long x)
 //
 using std::abs; // (covers int, long, long long, float, double, long double
 
-namespace detail // unstable; not part of the public API
-{
 // sqr (square)
 inline bool
 sqr(bool x)
@@ -760,6 +757,22 @@ VNL_MATH_DEPRECATED_FORWARD(cube)
 VNL_MATH_DEPRECATED_FORWARD(squared_magnitude)
 #undef VNL_MATH_DEPRECATED_FORWARD
 #undef VNL_MATH_FUNCTION_DEPRECATED
+
+// abs migrates to itk::Math::Absolute(), which (unlike std::abs) preserves the
+// unsigned-returning integral semantics and supports INT_MIN and bool.
+#if VNL_MATH_DEPRECATE_FUNCTIONS
+#  define VNL_MATH_ABS_DEPRECATED \
+    [[deprecated("vnl_math::abs is deprecated; use itk::Math::Absolute() (ITK) or std::abs")]]
+#else
+#  define VNL_MATH_ABS_DEPRECATED
+#endif
+template <typename... Args>
+VNL_MATH_ABS_DEPRECATED inline auto
+abs(Args &&... args) -> decltype(detail::abs(std::forward<Args>(args)...))
+{
+  return detail::abs(std::forward<Args>(args)...);
+}
+#undef VNL_MATH_ABS_DEPRECATED
 
 } // end of namespace vnl_math
 #endif // vnl_math_h_

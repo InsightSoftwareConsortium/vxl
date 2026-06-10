@@ -417,7 +417,7 @@ vnl_matrix_fixed_ref_const<T, nrows, ncols>::is_identity(double tol) const
     for (unsigned int j = 0; j < ncols; ++j)
     {
       T xm = (*this)(i, j);
-      const abs_t absdev = (i == j) ? vnl_math::abs(xm - one) : vnl_math::abs(xm);
+      const abs_t absdev = (i == j) ? vnl_math::detail::abs(xm - one) : vnl_math::detail::abs(xm);
       if (absdev > tol)
         return false;
     }
@@ -443,7 +443,7 @@ vnl_matrix_fixed_ref_const<T, nrows, ncols>::is_zero(double tol) const
 {
   for (unsigned int i = 0; i < nrows; ++i)
     for (unsigned int j = 0; j < ncols; ++j)
-      if (vnl_math::abs((*this)(i, j)) > tol)
+      if (vnl_math::detail::abs((*this)(i, j)) > tol)
         return false;
 
   return true;
@@ -575,7 +575,7 @@ vnl_matrix_fixed_ref_const<T, nrows, ncols>::operator_one_norm() const
   {
     abs_t t(0);
     for (unsigned int i = 0; i < nrows; ++i)
-      t += vnl_math::abs((*this)(i, j));
+      t += vnl_math::detail::abs((*this)(i, j));
     if (t > m)
       m = t;
   }
@@ -591,7 +591,7 @@ vnl_matrix_fixed_ref_const<T, nrows, ncols>::operator_inf_norm() const
   {
     abs_t t(0);
     for (unsigned int j = 0; j < ncols; ++j)
-      t += vnl_math::abs((*this)(i, j));
+      t += vnl_math::detail::abs((*this)(i, j));
     if (t > m)
       m = t;
   }

@@ -798,7 +798,7 @@ vnl_vector<T>::is_equal(const vnl_vector<T> & rhs, double tol) const
   if (this->size() != rhs.size()) // Size different ?
     return false;
   for (size_t i = 0; i < size(); i++)
-    if (!(vnl_math::abs(this->data[i] - rhs.data[i]) <= tol)) // Element different ?
+    if (!(vnl_math::detail::abs(this->data[i] - rhs.data[i]) <= tol)) // Element different ?
       return false;
 
   return true;
