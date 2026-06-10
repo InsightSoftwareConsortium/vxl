@@ -833,7 +833,7 @@ vnl_matrix<T>::normalize_rows()
   {                                                   // For each row in the Matrix
     Abs_t norm(0);                                    // double will not do for all types.
     for (unsigned int j = 0; j < this->num_cols; ++j) // For each element in row
-      norm += vnl_math::squared_magnitude(this->data[i][j]);
+      norm += vnl_math::detail::squared_magnitude(this->data[i][j]);
 
     if (norm != 0)
     {
@@ -858,7 +858,7 @@ vnl_matrix<T>::normalize_columns()
   {                // For each column in the Matrix
     Abs_t norm(0); // double will not do for all types.
     for (unsigned int i = 0; i < this->num_rows; i++)
-      norm += vnl_math::squared_magnitude(this->data[i][j]);
+      norm += vnl_math::detail::squared_magnitude(this->data[i][j]);
 
     if (norm != 0)
     {

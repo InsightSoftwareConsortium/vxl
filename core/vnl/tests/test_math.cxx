@@ -133,7 +133,7 @@ test_math()
             << "abs(d) = " << vnl_math::abs(d) << '\n'
             << "abs(i) = " << vnl_math::abs(i) << '\n'
             << "abs(z) = " << vnl_math::abs(z) << '\n'
-            << "norm(z) = " << vnl_math::squared_magnitude(z) << '\n'
+            << "norm(z) = " << vnl_math::detail::squared_magnitude(z) << '\n'
             << std::endl;
 
   TEST("abs(n) == 11", vnl_math::abs(n), 11);
@@ -141,139 +141,139 @@ test_math()
   TEST("abs(d) == pi", vnl_math::abs(d), vnl_math::detail::pi);
   TEST("abs(i) == 1", vnl_math::abs(i), 1.0);
   TEST_NEAR("abs(-1+2i)~=sqrt(5)", vnl_math::abs(z), std::sqrt(5.0), 1e-12);
-  TEST_NEAR("norm(-1+2i) ~= 5", vnl_math::squared_magnitude(z), 5, 1e-12);
+  TEST_NEAR("norm(-1+2i) ~= 5", vnl_math::detail::squared_magnitude(z), 5, 1e-12);
   TEST_NEAR("exp(d*i) ~= -1", vnl_math::abs(e_ipi + 1.0), 0, 1e-12);
   std::cout << std::endl;
 
-  TEST("rnd(-8.4999)  == -8  ", vnl_math::rnd(-8.4999), -8);
-  TEST("rnd(-8.4999f) == -8  ", vnl_math::rnd(-8.4999f), -8);
-  TEST("rnd(-8.50)    == -8/9", vnl_math::rnd(-8.50) / 2, -4);
-  TEST("rnd(-8.50f)   == -8/9", vnl_math::rnd(-8.50f) / 2, -4);
-  TEST("rnd(-8.5001)  == -9  ", vnl_math::rnd(-8.5001), -9);
-  TEST("rnd(-8.5001f) == -9  ", vnl_math::rnd(-8.5001f), -9);
-  TEST("rnd(8.4999)   ==  8  ", vnl_math::rnd(8.4999), 8);
-  TEST("rnd(8.4999f)  ==  8  ", vnl_math::rnd(8.4999f), 8);
-  TEST("rnd(8.50)     ==  8/9", vnl_math::rnd(8.50) / 2, 4);
-  TEST("rnd(8.50f)    ==  8/9", vnl_math::rnd(8.50f) / 2, 4);
-  TEST("rnd(8.5001)   ==  9  ", vnl_math::rnd(8.5001), 9);
-  TEST("rnd(8.5001f)  ==  9  ", vnl_math::rnd(8.5001f), 9);
+  TEST("rnd(-8.4999)  == -8  ", vnl_math::detail::rnd(-8.4999), -8);
+  TEST("rnd(-8.4999f) == -8  ", vnl_math::detail::rnd(-8.4999f), -8);
+  TEST("rnd(-8.50)    == -8/9", vnl_math::detail::rnd(-8.50) / 2, -4);
+  TEST("rnd(-8.50f)   == -8/9", vnl_math::detail::rnd(-8.50f) / 2, -4);
+  TEST("rnd(-8.5001)  == -9  ", vnl_math::detail::rnd(-8.5001), -9);
+  TEST("rnd(-8.5001f) == -9  ", vnl_math::detail::rnd(-8.5001f), -9);
+  TEST("rnd(8.4999)   ==  8  ", vnl_math::detail::rnd(8.4999), 8);
+  TEST("rnd(8.4999f)  ==  8  ", vnl_math::detail::rnd(8.4999f), 8);
+  TEST("rnd(8.50)     ==  8/9", vnl_math::detail::rnd(8.50) / 2, 4);
+  TEST("rnd(8.50f)    ==  8/9", vnl_math::detail::rnd(8.50f) / 2, 4);
+  TEST("rnd(8.5001)   ==  9  ", vnl_math::detail::rnd(8.5001), 9);
+  TEST("rnd(8.5001f)  ==  9  ", vnl_math::detail::rnd(8.5001f), 9);
 
-  TEST("rnd(-9.4999)  == -9   ", vnl_math::rnd(-9.4999), -9);
-  TEST("rnd(-9.4999f) == -9   ", vnl_math::rnd(-9.4999f), -9);
-  TEST("rnd(-9.50)    == -9/10", (vnl_math::rnd(-9.50) + 1) / 2, -4);
-  TEST("rnd(-9.50f)   == -9/10", (vnl_math::rnd(-9.50f) + 1) / 2, -4);
-  TEST("rnd(-9.5001)  == -10  ", vnl_math::rnd(-9.5001), -10);
-  TEST("rnd(-9.5001f) == -10  ", vnl_math::rnd(-9.5001f), -10);
-  TEST("rnd(9.4999)   ==  9   ", vnl_math::rnd(9.4999), 9);
-  TEST("rnd(9.4999f)  ==  9   ", vnl_math::rnd(9.4999f), 9);
-  TEST("rnd(9.50)     ==  9/10", (vnl_math::rnd(9.50) - 1) / 2, 4);
-  TEST("rnd(9.50f)    ==  9/10", (vnl_math::rnd(9.50f) - 1) / 2, 4);
-  TEST("rnd(9.5001)   ==  10  ", vnl_math::rnd(9.5001), 10);
-  TEST("rnd(9.5001f)  ==  10  ", vnl_math::rnd(9.5001f), 10);
+  TEST("rnd(-9.4999)  == -9   ", vnl_math::detail::rnd(-9.4999), -9);
+  TEST("rnd(-9.4999f) == -9   ", vnl_math::detail::rnd(-9.4999f), -9);
+  TEST("rnd(-9.50)    == -9/10", (vnl_math::detail::rnd(-9.50) + 1) / 2, -4);
+  TEST("rnd(-9.50f)   == -9/10", (vnl_math::detail::rnd(-9.50f) + 1) / 2, -4);
+  TEST("rnd(-9.5001)  == -10  ", vnl_math::detail::rnd(-9.5001), -10);
+  TEST("rnd(-9.5001f) == -10  ", vnl_math::detail::rnd(-9.5001f), -10);
+  TEST("rnd(9.4999)   ==  9   ", vnl_math::detail::rnd(9.4999), 9);
+  TEST("rnd(9.4999f)  ==  9   ", vnl_math::detail::rnd(9.4999f), 9);
+  TEST("rnd(9.50)     ==  9/10", (vnl_math::detail::rnd(9.50) - 1) / 2, 4);
+  TEST("rnd(9.50f)    ==  9/10", (vnl_math::detail::rnd(9.50f) - 1) / 2, 4);
+  TEST("rnd(9.5001)   ==  10  ", vnl_math::detail::rnd(9.5001), 10);
+  TEST("rnd(9.5001f)  ==  10  ", vnl_math::detail::rnd(9.5001f), 10);
 
-  TEST("rnd_halfinttoeven(-8.4999)  == -8", vnl_math::rnd_halfinttoeven(-8.4999), -8);
-  TEST("rnd_halfinttoeven(-8.4999f) == -8", vnl_math::rnd_halfinttoeven(-8.4999f), -8);
-  TEST("rnd_halfinttoeven(-8.50)    == -8", vnl_math::rnd_halfinttoeven(-8.50), -8);
-  TEST("rnd_halfinttoeven(-8.50f)   == -8", vnl_math::rnd_halfinttoeven(-8.50f), -8);
-  TEST("rnd_halfinttoeven(-8.5001)  == -9", vnl_math::rnd_halfinttoeven(-8.5001), -9);
-  TEST("rnd_halfinttoeven(-8.5001f) == -9", vnl_math::rnd_halfinttoeven(-8.5001f), -9);
-  TEST("rnd_halfinttoeven(8.4999)   ==  8", vnl_math::rnd_halfinttoeven(8.4999), 8);
-  TEST("rnd_halfinttoeven(8.4999f)  ==  8", vnl_math::rnd_halfinttoeven(8.4999f), 8);
-  TEST("rnd_halfinttoeven(8.50)     ==  8", vnl_math::rnd_halfinttoeven(8.50), 8);
-  TEST("rnd_halfinttoeven(8.50f)    ==  8", vnl_math::rnd_halfinttoeven(8.50f), 8);
-  TEST("rnd_halfinttoeven(8.5001)   ==  9", vnl_math::rnd_halfinttoeven(8.5001), 9);
-  TEST("rnd_halfinttoeven(8.5001f)  ==  9", vnl_math::rnd_halfinttoeven(8.5001f), 9);
+  TEST("rnd_halfinttoeven(-8.4999)  == -8", vnl_math::detail::rnd_halfinttoeven(-8.4999), -8);
+  TEST("rnd_halfinttoeven(-8.4999f) == -8", vnl_math::detail::rnd_halfinttoeven(-8.4999f), -8);
+  TEST("rnd_halfinttoeven(-8.50)    == -8", vnl_math::detail::rnd_halfinttoeven(-8.50), -8);
+  TEST("rnd_halfinttoeven(-8.50f)   == -8", vnl_math::detail::rnd_halfinttoeven(-8.50f), -8);
+  TEST("rnd_halfinttoeven(-8.5001)  == -9", vnl_math::detail::rnd_halfinttoeven(-8.5001), -9);
+  TEST("rnd_halfinttoeven(-8.5001f) == -9", vnl_math::detail::rnd_halfinttoeven(-8.5001f), -9);
+  TEST("rnd_halfinttoeven(8.4999)   ==  8", vnl_math::detail::rnd_halfinttoeven(8.4999), 8);
+  TEST("rnd_halfinttoeven(8.4999f)  ==  8", vnl_math::detail::rnd_halfinttoeven(8.4999f), 8);
+  TEST("rnd_halfinttoeven(8.50)     ==  8", vnl_math::detail::rnd_halfinttoeven(8.50), 8);
+  TEST("rnd_halfinttoeven(8.50f)    ==  8", vnl_math::detail::rnd_halfinttoeven(8.50f), 8);
+  TEST("rnd_halfinttoeven(8.5001)   ==  9", vnl_math::detail::rnd_halfinttoeven(8.5001), 9);
+  TEST("rnd_halfinttoeven(8.5001f)  ==  9", vnl_math::detail::rnd_halfinttoeven(8.5001f), 9);
 
-  TEST("rnd_halfinttoeven(-9.4999)  == -9 ", vnl_math::rnd_halfinttoeven(-9.4999), -9);
-  TEST("rnd_halfinttoeven(-9.4999f) == -9 ", vnl_math::rnd_halfinttoeven(-9.4999f), -9);
-  TEST("rnd_halfinttoeven(-9.50)    == -10", vnl_math::rnd_halfinttoeven(-9.50), -10);
-  TEST("rnd_halfinttoeven(-9.50f)   == -10", vnl_math::rnd_halfinttoeven(-9.50f), -10);
-  TEST("rnd_halfinttoeven(-9.5001)  == -10", vnl_math::rnd_halfinttoeven(-9.5001), -10);
-  TEST("rnd_halfinttoeven(-9.5001f) == -10", vnl_math::rnd_halfinttoeven(-9.5001f), -10);
-  TEST("rnd_halfinttoeven(9.4999)   ==  9 ", vnl_math::rnd_halfinttoeven(9.4999), 9);
-  TEST("rnd_halfinttoeven(9.4999f)  ==  9 ", vnl_math::rnd_halfinttoeven(9.4999f), 9);
-  TEST("rnd_halfinttoeven(9.50)     ==  10", vnl_math::rnd_halfinttoeven(9.50), 10);
-  TEST("rnd_halfinttoeven(9.50f)    ==  10", vnl_math::rnd_halfinttoeven(9.50f), 10);
-  TEST("rnd_halfinttoeven(9.5001)   ==  10", vnl_math::rnd_halfinttoeven(9.5001), 10);
-  TEST("rnd_halfinttoeven(9.5001f)  ==  10", vnl_math::rnd_halfinttoeven(9.5001f), 10);
+  TEST("rnd_halfinttoeven(-9.4999)  == -9 ", vnl_math::detail::rnd_halfinttoeven(-9.4999), -9);
+  TEST("rnd_halfinttoeven(-9.4999f) == -9 ", vnl_math::detail::rnd_halfinttoeven(-9.4999f), -9);
+  TEST("rnd_halfinttoeven(-9.50)    == -10", vnl_math::detail::rnd_halfinttoeven(-9.50), -10);
+  TEST("rnd_halfinttoeven(-9.50f)   == -10", vnl_math::detail::rnd_halfinttoeven(-9.50f), -10);
+  TEST("rnd_halfinttoeven(-9.5001)  == -10", vnl_math::detail::rnd_halfinttoeven(-9.5001), -10);
+  TEST("rnd_halfinttoeven(-9.5001f) == -10", vnl_math::detail::rnd_halfinttoeven(-9.5001f), -10);
+  TEST("rnd_halfinttoeven(9.4999)   ==  9 ", vnl_math::detail::rnd_halfinttoeven(9.4999), 9);
+  TEST("rnd_halfinttoeven(9.4999f)  ==  9 ", vnl_math::detail::rnd_halfinttoeven(9.4999f), 9);
+  TEST("rnd_halfinttoeven(9.50)     ==  10", vnl_math::detail::rnd_halfinttoeven(9.50), 10);
+  TEST("rnd_halfinttoeven(9.50f)    ==  10", vnl_math::detail::rnd_halfinttoeven(9.50f), 10);
+  TEST("rnd_halfinttoeven(9.5001)   ==  10", vnl_math::detail::rnd_halfinttoeven(9.5001), 10);
+  TEST("rnd_halfinttoeven(9.5001f)  ==  10", vnl_math::detail::rnd_halfinttoeven(9.5001f), 10);
 
-  TEST("rnd_halfintup(-8.4999)  == -8", vnl_math::rnd_halfintup(-8.4999), -8);
-  TEST("rnd_halfintup(-8.4999f) == -8", vnl_math::rnd_halfintup(-8.4999f), -8);
-  TEST("rnd_halfintup(-8.50)    == -8", vnl_math::rnd_halfintup(-8.50), -8);
-  TEST("rnd_halfintup(-8.50f)   == -8", vnl_math::rnd_halfintup(-8.50f), -8);
-  TEST("rnd_halfintup(-8.5001)  == -9", vnl_math::rnd_halfintup(-8.5001), -9);
-  TEST("rnd_halfintup(-8.5001f) == -9", vnl_math::rnd_halfintup(-8.5001f), -9);
-  TEST("rnd_halfintup(8.4999)   ==  8", vnl_math::rnd_halfintup(8.4999), 8);
-  TEST("rnd_halfintup(8.4999f)  ==  8", vnl_math::rnd_halfintup(8.4999f), 8);
-  TEST("rnd_halfintup(8.50)     ==  9", vnl_math::rnd_halfintup(8.50), 9);
-  TEST("rnd_halfintup(8.50f)    ==  9", vnl_math::rnd_halfintup(8.50f), 9);
-  TEST("rnd_halfintup(8.5001)   ==  9", vnl_math::rnd_halfintup(8.5001), 9);
-  TEST("rnd_halfintup(8.5001f)  ==  9", vnl_math::rnd_halfintup(8.5001f), 9);
+  TEST("rnd_halfintup(-8.4999)  == -8", vnl_math::detail::rnd_halfintup(-8.4999), -8);
+  TEST("rnd_halfintup(-8.4999f) == -8", vnl_math::detail::rnd_halfintup(-8.4999f), -8);
+  TEST("rnd_halfintup(-8.50)    == -8", vnl_math::detail::rnd_halfintup(-8.50), -8);
+  TEST("rnd_halfintup(-8.50f)   == -8", vnl_math::detail::rnd_halfintup(-8.50f), -8);
+  TEST("rnd_halfintup(-8.5001)  == -9", vnl_math::detail::rnd_halfintup(-8.5001), -9);
+  TEST("rnd_halfintup(-8.5001f) == -9", vnl_math::detail::rnd_halfintup(-8.5001f), -9);
+  TEST("rnd_halfintup(8.4999)   ==  8", vnl_math::detail::rnd_halfintup(8.4999), 8);
+  TEST("rnd_halfintup(8.4999f)  ==  8", vnl_math::detail::rnd_halfintup(8.4999f), 8);
+  TEST("rnd_halfintup(8.50)     ==  9", vnl_math::detail::rnd_halfintup(8.50), 9);
+  TEST("rnd_halfintup(8.50f)    ==  9", vnl_math::detail::rnd_halfintup(8.50f), 9);
+  TEST("rnd_halfintup(8.5001)   ==  9", vnl_math::detail::rnd_halfintup(8.5001), 9);
+  TEST("rnd_halfintup(8.5001f)  ==  9", vnl_math::detail::rnd_halfintup(8.5001f), 9);
 
-  TEST("rnd_halfintup(-9.4999)  == -9 ", vnl_math::rnd_halfintup(-9.4999), -9);
-  TEST("rnd_halfintup(-9.4999f) == -9 ", vnl_math::rnd_halfintup(-9.4999f), -9);
-  TEST("rnd_halfintup(-9.50)    == -9 ", vnl_math::rnd_halfintup(-9.50), -9);
-  TEST("rnd_halfintup(-9.50f)   == -9 ", vnl_math::rnd_halfintup(-9.50f), -9);
-  TEST("rnd_halfintup(-9.5001)  == -10", vnl_math::rnd_halfintup(-9.5001), -10);
-  TEST("rnd_halfintup(-9.5001f) == -10", vnl_math::rnd_halfintup(-9.5001f), -10);
-  TEST("rnd_halfintup(9.4999)   ==  9 ", vnl_math::rnd_halfintup(9.4999), 9);
-  TEST("rnd_halfintup(9.4999f)  ==  9 ", vnl_math::rnd_halfintup(9.4999f), 9);
-  TEST("rnd_halfintup(9.50)     ==  10", vnl_math::rnd_halfintup(9.50), 10);
-  TEST("rnd_halfintup(9.50f)    ==  10", vnl_math::rnd_halfintup(9.50f), 10);
-  TEST("rnd_halfintup(9.5001)   ==  10", vnl_math::rnd_halfintup(9.5001), 10);
-  TEST("rnd_halfintup(9.5001f)  ==  10", vnl_math::rnd_halfintup(9.5001f), 10);
+  TEST("rnd_halfintup(-9.4999)  == -9 ", vnl_math::detail::rnd_halfintup(-9.4999), -9);
+  TEST("rnd_halfintup(-9.4999f) == -9 ", vnl_math::detail::rnd_halfintup(-9.4999f), -9);
+  TEST("rnd_halfintup(-9.50)    == -9 ", vnl_math::detail::rnd_halfintup(-9.50), -9);
+  TEST("rnd_halfintup(-9.50f)   == -9 ", vnl_math::detail::rnd_halfintup(-9.50f), -9);
+  TEST("rnd_halfintup(-9.5001)  == -10", vnl_math::detail::rnd_halfintup(-9.5001), -10);
+  TEST("rnd_halfintup(-9.5001f) == -10", vnl_math::detail::rnd_halfintup(-9.5001f), -10);
+  TEST("rnd_halfintup(9.4999)   ==  9 ", vnl_math::detail::rnd_halfintup(9.4999), 9);
+  TEST("rnd_halfintup(9.4999f)  ==  9 ", vnl_math::detail::rnd_halfintup(9.4999f), 9);
+  TEST("rnd_halfintup(9.50)     ==  10", vnl_math::detail::rnd_halfintup(9.50), 10);
+  TEST("rnd_halfintup(9.50f)    ==  10", vnl_math::detail::rnd_halfintup(9.50f), 10);
+  TEST("rnd_halfintup(9.5001)   ==  10", vnl_math::detail::rnd_halfintup(9.5001), 10);
+  TEST("rnd_halfintup(9.5001f)  ==  10", vnl_math::detail::rnd_halfintup(9.5001f), 10);
 
-  TEST("floor(8.0)      ==  8", vnl_math::floor(8.0), 8);
-  TEST("floor(8.0f)     ==  8", vnl_math::floor(8.0f), 8);
-  TEST("floor(8.9999)   ==  8", vnl_math::floor(8.9999), 8);
-  TEST("floor(8.9999f)  ==  8", vnl_math::floor(8.9999f), 8);
-  TEST("floor(8.0001)   ==  8", vnl_math::floor(8.0001), 8);
-  TEST("floor(8.0001f)  ==  8", vnl_math::floor(8.0001f), 8);
-  TEST("floor(-8.0)     == -8", vnl_math::floor(-8.0), -8);
-  TEST("floor(-8.0f)    == -8", vnl_math::floor(-8.0f), -8);
-  TEST("floor(-8.9999)  == -9", vnl_math::floor(-8.9999), -9);
-  TEST("floor(-8.9999f) == -9", vnl_math::floor(-8.9999f), -9);
-  TEST("floor(-8.0001)  == -9", vnl_math::floor(-8.0001), -9);
-  TEST("floor(-8.0001f) == -9", vnl_math::floor(-8.0001f), -9);
+  TEST("floor(8.0)      ==  8", vnl_math::detail::floor(8.0), 8);
+  TEST("floor(8.0f)     ==  8", vnl_math::detail::floor(8.0f), 8);
+  TEST("floor(8.9999)   ==  8", vnl_math::detail::floor(8.9999), 8);
+  TEST("floor(8.9999f)  ==  8", vnl_math::detail::floor(8.9999f), 8);
+  TEST("floor(8.0001)   ==  8", vnl_math::detail::floor(8.0001), 8);
+  TEST("floor(8.0001f)  ==  8", vnl_math::detail::floor(8.0001f), 8);
+  TEST("floor(-8.0)     == -8", vnl_math::detail::floor(-8.0), -8);
+  TEST("floor(-8.0f)    == -8", vnl_math::detail::floor(-8.0f), -8);
+  TEST("floor(-8.9999)  == -9", vnl_math::detail::floor(-8.9999), -9);
+  TEST("floor(-8.9999f) == -9", vnl_math::detail::floor(-8.9999f), -9);
+  TEST("floor(-8.0001)  == -9", vnl_math::detail::floor(-8.0001), -9);
+  TEST("floor(-8.0001f) == -9", vnl_math::detail::floor(-8.0001f), -9);
 
-  TEST("floor(9.0)      ==  9 ", vnl_math::floor(9.0), 9);
-  TEST("floor(9.0f)     ==  9 ", vnl_math::floor(9.0f), 9);
-  TEST("floor(9.9999)   ==  9 ", vnl_math::floor(9.9999), 9);
-  TEST("floor(9.9999f)  ==  9 ", vnl_math::floor(9.9999f), 9);
-  TEST("floor(9.0001)   ==  9 ", vnl_math::floor(9.0001), 9);
-  TEST("floor(9.0001f)  ==  9 ", vnl_math::floor(9.0001f), 9);
-  TEST("floor(-9.0)     == -9 ", vnl_math::floor(-9.0), -9);
-  TEST("floor(-9.0f)    == -9 ", vnl_math::floor(-9.0f), -9);
-  TEST("floor(-9.9999)  == -10", vnl_math::floor(-9.9999), -10);
-  TEST("floor(-9.9999f) == -10", vnl_math::floor(-9.9999f), -10);
-  TEST("floor(-9.0001)  == -10", vnl_math::floor(-9.0001), -10);
-  TEST("floor(-9.0001f) == -10", vnl_math::floor(-9.0001f), -10);
+  TEST("floor(9.0)      ==  9 ", vnl_math::detail::floor(9.0), 9);
+  TEST("floor(9.0f)     ==  9 ", vnl_math::detail::floor(9.0f), 9);
+  TEST("floor(9.9999)   ==  9 ", vnl_math::detail::floor(9.9999), 9);
+  TEST("floor(9.9999f)  ==  9 ", vnl_math::detail::floor(9.9999f), 9);
+  TEST("floor(9.0001)   ==  9 ", vnl_math::detail::floor(9.0001), 9);
+  TEST("floor(9.0001f)  ==  9 ", vnl_math::detail::floor(9.0001f), 9);
+  TEST("floor(-9.0)     == -9 ", vnl_math::detail::floor(-9.0), -9);
+  TEST("floor(-9.0f)    == -9 ", vnl_math::detail::floor(-9.0f), -9);
+  TEST("floor(-9.9999)  == -10", vnl_math::detail::floor(-9.9999), -10);
+  TEST("floor(-9.9999f) == -10", vnl_math::detail::floor(-9.9999f), -10);
+  TEST("floor(-9.0001)  == -10", vnl_math::detail::floor(-9.0001), -10);
+  TEST("floor(-9.0001f) == -10", vnl_math::detail::floor(-9.0001f), -10);
 
-  TEST("ceil(8.0)      ==  8", vnl_math::ceil(8.0), 8);
-  TEST("ceil(8.0f)     ==  8", vnl_math::ceil(8.0f), 8);
-  TEST("ceil(8.9999)   ==  9", vnl_math::ceil(8.9999), 9);
-  TEST("ceil(8.9999f)  ==  9", vnl_math::ceil(8.9999f), 9);
-  TEST("ceil(8.0001)   ==  9", vnl_math::ceil(8.0001), 9);
-  TEST("ceil(8.0001f)  ==  9", vnl_math::ceil(8.0001f), 9);
-  TEST("ceil(-8.0)     == -8", vnl_math::ceil(-8.0), -8);
-  TEST("ceil(-8.0f)    == -8", vnl_math::ceil(-8.0f), -8);
-  TEST("ceil(-8.9999)  == -8", vnl_math::ceil(-8.9999), -8);
-  TEST("ceil(-8.9999f) == -8", vnl_math::ceil(-8.9999f), -8);
-  TEST("ceil(-8.0001)  == -8", vnl_math::ceil(-8.0001), -8);
-  TEST("ceil(-8.0001f) == -8", vnl_math::ceil(-8.0001f), -8);
+  TEST("ceil(8.0)      ==  8", vnl_math::detail::ceil(8.0), 8);
+  TEST("ceil(8.0f)     ==  8", vnl_math::detail::ceil(8.0f), 8);
+  TEST("ceil(8.9999)   ==  9", vnl_math::detail::ceil(8.9999), 9);
+  TEST("ceil(8.9999f)  ==  9", vnl_math::detail::ceil(8.9999f), 9);
+  TEST("ceil(8.0001)   ==  9", vnl_math::detail::ceil(8.0001), 9);
+  TEST("ceil(8.0001f)  ==  9", vnl_math::detail::ceil(8.0001f), 9);
+  TEST("ceil(-8.0)     == -8", vnl_math::detail::ceil(-8.0), -8);
+  TEST("ceil(-8.0f)    == -8", vnl_math::detail::ceil(-8.0f), -8);
+  TEST("ceil(-8.9999)  == -8", vnl_math::detail::ceil(-8.9999), -8);
+  TEST("ceil(-8.9999f) == -8", vnl_math::detail::ceil(-8.9999f), -8);
+  TEST("ceil(-8.0001)  == -8", vnl_math::detail::ceil(-8.0001), -8);
+  TEST("ceil(-8.0001f) == -8", vnl_math::detail::ceil(-8.0001f), -8);
 
-  TEST("ceil(9.0)      ==  9", vnl_math::ceil(9.0), 9);
-  TEST("ceil(9.0f)     ==  9", vnl_math::ceil(9.0f), 9);
-  TEST("ceil(9.9999)   == 10", vnl_math::ceil(9.9999), 10);
-  TEST("ceil(9.9999f)  == 10", vnl_math::ceil(9.9999f), 10);
-  TEST("ceil(9.0001)   == 10", vnl_math::ceil(9.0001), 10);
-  TEST("ceil(9.0001f)  == 10", vnl_math::ceil(9.0001f), 10);
-  TEST("ceil(-9.0)     == -9", vnl_math::ceil(-9.0), -9);
-  TEST("ceil(-9.0f)    == -9", vnl_math::ceil(-9.0f), -9);
-  TEST("ceil(-9.9999)  == -9", vnl_math::ceil(-9.9999), -9);
-  TEST("ceil(-9.9999f) == -9", vnl_math::ceil(-9.9999f), -9);
-  TEST("ceil(-9.0001)  == -9", vnl_math::ceil(-9.0001), -9);
-  TEST("ceil(-9.0001f) == -9", vnl_math::ceil(-9.0001f), -9);
+  TEST("ceil(9.0)      ==  9", vnl_math::detail::ceil(9.0), 9);
+  TEST("ceil(9.0f)     ==  9", vnl_math::detail::ceil(9.0f), 9);
+  TEST("ceil(9.9999)   == 10", vnl_math::detail::ceil(9.9999), 10);
+  TEST("ceil(9.9999f)  == 10", vnl_math::detail::ceil(9.9999f), 10);
+  TEST("ceil(9.0001)   == 10", vnl_math::detail::ceil(9.0001), 10);
+  TEST("ceil(9.0001f)  == 10", vnl_math::detail::ceil(9.0001f), 10);
+  TEST("ceil(-9.0)     == -9", vnl_math::detail::ceil(-9.0), -9);
+  TEST("ceil(-9.0f)    == -9", vnl_math::detail::ceil(-9.0f), -9);
+  TEST("ceil(-9.9999)  == -9", vnl_math::detail::ceil(-9.9999), -9);
+  TEST("ceil(-9.9999f) == -9", vnl_math::detail::ceil(-9.9999f), -9);
+  TEST("ceil(-9.0001)  == -9", vnl_math::detail::ceil(-9.0001), -9);
+  TEST("ceil(-9.0001f) == -9", vnl_math::detail::ceil(-9.0001f), -9);
 
   TEST(" isfinite(f)    ", vnl_math::numeric_predicates::isfinite(f), true);
   TEST(" isfinite(d)    ", vnl_math::numeric_predicates::isfinite(d), true);
@@ -379,49 +379,49 @@ test_math()
   TEST("!isfinite(huge_val(float))", vnl_math::numeric_predicates::isfinite(vnl_huge_val(float())), false);
 
   // Test for math_sgn
-  TEST("vnl_math::sgn(+7)  ", vnl_math::sgn(+7), 1);
-  TEST("vnl_math::sgn(-7)  ", vnl_math::sgn(-7), -1);
-  TEST("vnl_math::sgn( 0)  ", vnl_math::sgn(0), 0);
+  TEST("vnl_math::detail::sgn(+7)  ", vnl_math::detail::sgn(+7), 1);
+  TEST("vnl_math::detail::sgn(-7)  ", vnl_math::detail::sgn(-7), -1);
+  TEST("vnl_math::detail::sgn( 0)  ", vnl_math::detail::sgn(0), 0);
 
-  TEST("vnl_math::sgn(+7.0)  ", vnl_math::sgn(+7.0), 1);
-  TEST("vnl_math::sgn(-7.0)  ", vnl_math::sgn(-7.0), -1);
-  TEST("vnl_math::sgn(-0.0)  ", vnl_math::sgn(-0.0), 0);
-  TEST("vnl_math::sgn(+0.0)  ", vnl_math::sgn(-0.0), 0);
+  TEST("vnl_math::detail::sgn(+7.0)  ", vnl_math::detail::sgn(+7.0), 1);
+  TEST("vnl_math::detail::sgn(-7.0)  ", vnl_math::detail::sgn(-7.0), -1);
+  TEST("vnl_math::detail::sgn(-0.0)  ", vnl_math::detail::sgn(-0.0), 0);
+  TEST("vnl_math::detail::sgn(+0.0)  ", vnl_math::detail::sgn(-0.0), 0);
 
-  TEST("vnl_math::sgn(+7.0F)  ", vnl_math::sgn(+7.0F), 1);
-  TEST("vnl_math::sgn(-7.0F)  ", vnl_math::sgn(-7.0F), -1);
-  TEST("vnl_math::sgn(-0.0F)  ", vnl_math::sgn(-0.0F), 0);
-  TEST("vnl_math::sgn(+0.0F)  ", vnl_math::sgn(-0.0F), 0);
+  TEST("vnl_math::detail::sgn(+7.0F)  ", vnl_math::detail::sgn(+7.0F), 1);
+  TEST("vnl_math::detail::sgn(-7.0F)  ", vnl_math::detail::sgn(-7.0F), -1);
+  TEST("vnl_math::detail::sgn(-0.0F)  ", vnl_math::detail::sgn(-0.0F), 0);
+  TEST("vnl_math::detail::sgn(+0.0F)  ", vnl_math::detail::sgn(-0.0F), 0);
 
   std::cout << std::endl;
 
-  // test vnl_math::angle_0_to_2pi() for "extreme values":
-  TEST("vnl_math::angle_0_to_2pi(2pi)", vnl_math::angle_0_to_2pi(vnl_math::detail::twopi), 0.0);
+  // test vnl_math::detail::angle_0_to_2pi() for "extreme values":
+  TEST("vnl_math::detail::angle_0_to_2pi(2pi)", vnl_math::detail::angle_0_to_2pi(vnl_math::detail::twopi), 0.0);
   double eps = vnl_math_test_2_epsilon; // which is smaller than the precision of vnl_math::detail::pi
-  double conv_eps = vnl_math::angle_0_to_2pi(-eps);
+  double conv_eps = vnl_math::detail::angle_0_to_2pi(-eps);
   std::cout << "conv_eps = " << conv_eps << " = 2pi - " << vnl_math::detail::twopi - conv_eps << std::endl;
-  TEST("vnl_math::angle_0_to_2pi(-eps)", conv_eps < vnl_math::detail::twopi && conv_eps > 6.283, true);
+  TEST("vnl_math::detail::angle_0_to_2pi(-eps)", conv_eps < vnl_math::detail::twopi && conv_eps > 6.283, true);
   eps = vnl_math_test_20_epsilon; // which is larger than the precision of vnl_math::detail::pi
-  conv_eps = vnl_math::angle_0_to_2pi(-eps);
+  conv_eps = vnl_math::detail::angle_0_to_2pi(-eps);
   std::cout << "conv_eps = " << conv_eps << " = 2pi - " << vnl_math::detail::twopi - conv_eps << std::endl;
   TEST(
-    "vnl_math::angle_0_to_2pi(-10eps)", conv_eps < vnl_math::detail::twopi - vnl_math_test_2_epsilon && conv_eps > 6.283, true);
+    "vnl_math::detail::angle_0_to_2pi(-10eps)", conv_eps < vnl_math::detail::twopi - vnl_math_test_2_epsilon && conv_eps > 6.283, true);
   const double ang = vnl_math::detail::twopi - eps;
-  const double conv_ang = vnl_math::angle_0_to_2pi(ang);
+  const double conv_ang = vnl_math::detail::angle_0_to_2pi(ang);
   std::cout << "conv_ang = " << conv_ang << " = 2pi - " << vnl_math::detail::twopi - conv_ang << std::endl;
-  TEST("vnl_math::angle_0_to_2pi(2pi-10eps)", conv_ang, ang);
-  // test vnl_math::angle_minuspi_to_pi() for "extreme values":
-  TEST("vnl_math::angle_minuspi_to_pi(2pi)", vnl_math::angle_minuspi_to_pi(vnl_math::detail::twopi), 0.0);
-  TEST("vnl_math::angle_minuspi_to_pi(pi)", vnl_math::angle_minuspi_to_pi(vnl_math::detail::pi), vnl_math::detail::pi);
-  TEST("vnl_math::angle_minuspi_to_pi(-pi)", vnl_math::angle_minuspi_to_pi(-vnl_math::detail::pi), -vnl_math::detail::pi);
+  TEST("vnl_math::detail::angle_0_to_2pi(2pi-10eps)", conv_ang, ang);
+  // test vnl_math::detail::angle_minuspi_to_pi() for "extreme values":
+  TEST("vnl_math::detail::angle_minuspi_to_pi(2pi)", vnl_math::detail::angle_minuspi_to_pi(vnl_math::detail::twopi), 0.0);
+  TEST("vnl_math::detail::angle_minuspi_to_pi(pi)", vnl_math::detail::angle_minuspi_to_pi(vnl_math::detail::pi), vnl_math::detail::pi);
+  TEST("vnl_math::detail::angle_minuspi_to_pi(-pi)", vnl_math::detail::angle_minuspi_to_pi(-vnl_math::detail::pi), -vnl_math::detail::pi);
   eps = vnl_math_test_2_epsilon; // which is smaller than the precision of vnl_math::detail::pi
-  conv_eps = vnl_math::angle_minuspi_to_pi(-eps);
+  conv_eps = vnl_math::detail::angle_minuspi_to_pi(-eps);
   std::cout << "conv_eps = " << conv_eps << std::endl;
-  TEST("vnl_math::angle_minuspi_to_pi(-eps)", conv_eps, -eps);
+  TEST("vnl_math::detail::angle_minuspi_to_pi(-eps)", conv_eps, -eps);
   eps = vnl_math_test_20_epsilon; // which is larger than the precision of vnl_math::detail::pi
-  conv_eps = vnl_math::angle_minuspi_to_pi(-eps);
+  conv_eps = vnl_math::detail::angle_minuspi_to_pi(-eps);
   std::cout << "conv_eps = " << conv_eps << std::endl;
-  TEST("vnl_math::angle_minuspi_to_pi(-10eps)", conv_eps, -eps);
+  TEST("vnl_math::detail::angle_minuspi_to_pi(-10eps)", conv_eps, -eps);
 
   ///////////////
   // TRUNCATED //
@@ -457,33 +457,33 @@ test_math()
     long double y_long_double = 2;
 #endif
 
-    TEST("vnl_math::remainder_truncated(x_short_u    ,y_short_u    )",
-         vnl_math::remainder_truncated(x_short_u, y_short_u),
+    TEST("vnl_math::detail::remainder_truncated(x_short_u    ,y_short_u    )",
+         vnl_math::detail::remainder_truncated(x_short_u, y_short_u),
          +1);
-    TEST("vnl_math::remainder_truncated(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_truncated(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_truncated(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_truncated(x_short_s, y_short_s),
          +1);
-    TEST("vnl_math::remainder_truncated(x_int_u      ,y_int_u      )",
-         vnl_math::remainder_truncated(x_int_u, y_int_u),
+    TEST("vnl_math::detail::remainder_truncated(x_int_u      ,y_int_u      )",
+         vnl_math::detail::remainder_truncated(x_int_u, y_int_u),
          +1);
-    TEST("vnl_math::remainder_truncated(x_int_s      ,y_int_s      )",
-         vnl_math::remainder_truncated(x_int_s, y_int_s),
+    TEST("vnl_math::detail::remainder_truncated(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_truncated(x_int_s, y_int_s),
          +1);
-    TEST("vnl_math::remainder_truncated(x_long_u     ,y_long_u     )",
-         vnl_math::remainder_truncated(x_long_u, y_long_u),
+    TEST("vnl_math::detail::remainder_truncated(x_long_u     ,y_long_u     )",
+         vnl_math::detail::remainder_truncated(x_long_u, y_long_u),
          +1);
-    TEST("vnl_math::remainder_truncated(x_long_s     ,y_long_s     )",
-         vnl_math::remainder_truncated(x_long_s, y_long_s),
+    TEST("vnl_math::detail::remainder_truncated(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_truncated(x_long_s, y_long_s),
          +1);
-    TEST("vnl_math::remainder_truncated(x_float      ,y_float      )",
-         vnl_math::remainder_truncated(x_float, y_float),
+    TEST("vnl_math::detail::remainder_truncated(x_float      ,y_float      )",
+         vnl_math::detail::remainder_truncated(x_float, y_float),
          +1);
-    TEST("vnl_math::remainder_truncated(x_double     ,y_double     )",
-         vnl_math::remainder_truncated(x_double, y_double),
+    TEST("vnl_math::detail::remainder_truncated(x_double     ,y_double     )",
+         vnl_math::detail::remainder_truncated(x_double, y_double),
          +1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_truncated(x_long_double,y_long_double)",
-         vnl_math::remainder_truncated(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_truncated(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_truncated(x_long_double, y_long_double),
          +1);
 #endif
 
@@ -498,24 +498,24 @@ test_math()
     y_long_double *= -1;
 #endif
 
-    TEST("vnl_math::remainder_truncated(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_truncated(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_truncated(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_truncated(x_short_s, y_short_s),
          +1);
-    TEST("vnl_math::remainder_truncated(x_int_s      ,y_int_s      )",
-         vnl_math::remainder_truncated(x_int_s, y_int_s),
+    TEST("vnl_math::detail::remainder_truncated(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_truncated(x_int_s, y_int_s),
          +1);
-    TEST("vnl_math::remainder_truncated(x_long_s     ,y_long_s     )",
-         vnl_math::remainder_truncated(x_long_s, y_long_s),
+    TEST("vnl_math::detail::remainder_truncated(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_truncated(x_long_s, y_long_s),
          +1);
-    TEST("vnl_math::remainder_truncated(x_float      ,y_float      )",
-         vnl_math::remainder_truncated(x_float, y_float),
+    TEST("vnl_math::detail::remainder_truncated(x_float      ,y_float      )",
+         vnl_math::detail::remainder_truncated(x_float, y_float),
          +1);
-    TEST("vnl_math::remainder_truncated(x_double     ,y_double     )",
-         vnl_math::remainder_truncated(x_double, y_double),
+    TEST("vnl_math::detail::remainder_truncated(x_double     ,y_double     )",
+         vnl_math::detail::remainder_truncated(x_double, y_double),
          +1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_truncated(x_long_double,y_long_double)",
-         vnl_math::remainder_truncated(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_truncated(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_truncated(x_long_double, y_long_double),
          +1);
 #endif
 
@@ -530,24 +530,24 @@ test_math()
     x_long_double *= -1;
 #endif
 
-    TEST("vnl_math::remainder_truncated(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_truncated(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_truncated(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_truncated(x_short_s, y_short_s),
          -1);
-    TEST("vnl_math::remainder_truncated(x_int_s      ,y_int_s      )",
-         vnl_math::remainder_truncated(x_int_s, y_int_s),
+    TEST("vnl_math::detail::remainder_truncated(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_truncated(x_int_s, y_int_s),
          -1);
-    TEST("vnl_math::remainder_truncated(x_long_s     ,y_long_s     )",
-         vnl_math::remainder_truncated(x_long_s, y_long_s),
+    TEST("vnl_math::detail::remainder_truncated(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_truncated(x_long_s, y_long_s),
          -1);
-    TEST("vnl_math::remainder_truncated(x_float      ,y_float      )",
-         vnl_math::remainder_truncated(x_float, y_float),
+    TEST("vnl_math::detail::remainder_truncated(x_float      ,y_float      )",
+         vnl_math::detail::remainder_truncated(x_float, y_float),
          -1);
-    TEST("vnl_math::remainder_truncated(x_double     ,y_double     )",
-         vnl_math::remainder_truncated(x_double, y_double),
+    TEST("vnl_math::detail::remainder_truncated(x_double     ,y_double     )",
+         vnl_math::detail::remainder_truncated(x_double, y_double),
          -1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_truncated(x_long_double,y_long_double)",
-         vnl_math::remainder_truncated(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_truncated(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_truncated(x_long_double, y_long_double),
          -1);
 #endif
 
@@ -562,24 +562,24 @@ test_math()
     y_long_double *= -1;
 #endif
 
-    TEST("vnl_math::remainder_truncated(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_truncated(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_truncated(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_truncated(x_short_s, y_short_s),
          -1);
-    TEST("vnl_math::remainder_truncated(x_int_s      ,y_int_s      )",
-         vnl_math::remainder_truncated(x_int_s, y_int_s),
+    TEST("vnl_math::detail::remainder_truncated(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_truncated(x_int_s, y_int_s),
          -1);
-    TEST("vnl_math::remainder_truncated(x_long_s     ,y_long_s     )",
-         vnl_math::remainder_truncated(x_long_s, y_long_s),
+    TEST("vnl_math::detail::remainder_truncated(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_truncated(x_long_s, y_long_s),
          -1);
-    TEST("vnl_math::remainder_truncated(x_float      ,y_float      )",
-         vnl_math::remainder_truncated(x_float, y_float),
+    TEST("vnl_math::detail::remainder_truncated(x_float      ,y_float      )",
+         vnl_math::detail::remainder_truncated(x_float, y_float),
          -1);
-    TEST("vnl_math::remainder_truncated(x_double     ,y_double     )",
-         vnl_math::remainder_truncated(x_double, y_double),
+    TEST("vnl_math::detail::remainder_truncated(x_double     ,y_double     )",
+         vnl_math::detail::remainder_truncated(x_double, y_double),
          -1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_truncated(x_long_double,y_long_double)",
-         vnl_math::remainder_truncated(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_truncated(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_truncated(x_long_double, y_long_double),
          -1);
 #endif
   }
@@ -617,24 +617,24 @@ test_math()
     long double y_long_double = 2;
 #endif
 
-    TEST("vnl_math::remainder_floored(x_short_u    ,y_short_u    )",
-         vnl_math::remainder_floored(x_short_u, y_short_u),
+    TEST("vnl_math::detail::remainder_floored(x_short_u    ,y_short_u    )",
+         vnl_math::detail::remainder_floored(x_short_u, y_short_u),
          +1);
-    TEST("vnl_math::remainder_floored(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_floored(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          +1);
-    TEST("vnl_math::remainder_floored(x_int_u      ,y_int_u      )", vnl_math::remainder_floored(x_int_u, y_int_u), +1);
-    TEST("vnl_math::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::remainder_floored(x_int_s, y_int_s), +1);
+    TEST("vnl_math::detail::remainder_floored(x_int_u      ,y_int_u      )", vnl_math::detail::remainder_floored(x_int_u, y_int_u), +1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), +1);
     TEST(
-      "vnl_math::remainder_floored(x_long_u     ,y_long_u     )", vnl_math::remainder_floored(x_long_u, y_long_u), +1);
+      "vnl_math::detail::remainder_floored(x_long_u     ,y_long_u     )", vnl_math::detail::remainder_floored(x_long_u, y_long_u), +1);
     TEST(
-      "vnl_math::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::remainder_floored(x_long_s, y_long_s), +1);
-    TEST("vnl_math::remainder_floored(x_float      ,y_float      )", vnl_math::remainder_floored(x_float, y_float), +1);
+      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), +1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), +1);
     TEST(
-      "vnl_math::remainder_floored(x_double     ,y_double     )", vnl_math::remainder_floored(x_double, y_double), +1);
+      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), +1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_floored(x_long_double,y_long_double)",
-         vnl_math::remainder_floored(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_floored(x_long_double, y_long_double),
          +1);
 #endif
 
@@ -649,18 +649,18 @@ test_math()
     y_long_double *= -1;
 #endif
 
-    TEST("vnl_math::remainder_floored(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_floored(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          -1);
-    TEST("vnl_math::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::remainder_floored(x_int_s, y_int_s), -1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), -1);
     TEST(
-      "vnl_math::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::remainder_floored(x_long_s, y_long_s), -1);
-    TEST("vnl_math::remainder_floored(x_float      ,y_float      )", vnl_math::remainder_floored(x_float, y_float), -1);
+      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), -1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), -1);
     TEST(
-      "vnl_math::remainder_floored(x_double     ,y_double     )", vnl_math::remainder_floored(x_double, y_double), -1);
+      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), -1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_floored(x_long_double,y_long_double)",
-         vnl_math::remainder_floored(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_floored(x_long_double, y_long_double),
          -1);
 #endif
 
@@ -675,18 +675,18 @@ test_math()
     x_long_double *= -1;
 #endif
 
-    TEST("vnl_math::remainder_floored(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_floored(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          -1);
-    TEST("vnl_math::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::remainder_floored(x_int_s, y_int_s), -1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), -1);
     TEST(
-      "vnl_math::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::remainder_floored(x_long_s, y_long_s), -1);
-    TEST("vnl_math::remainder_floored(x_float      ,y_float      )", vnl_math::remainder_floored(x_float, y_float), -1);
+      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), -1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), -1);
     TEST(
-      "vnl_math::remainder_floored(x_double     ,y_double     )", vnl_math::remainder_floored(x_double, y_double), -1);
+      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), -1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_floored(x_long_double,y_long_double)",
-         vnl_math::remainder_floored(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_floored(x_long_double, y_long_double),
          -1);
 #endif
 
@@ -701,18 +701,18 @@ test_math()
     y_long_double *= -1;
 #endif
 
-    TEST("vnl_math::remainder_floored(x_short_s    ,y_short_s    )",
-         vnl_math::remainder_floored(x_short_s, y_short_s),
+    TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
+         vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          +1);
-    TEST("vnl_math::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::remainder_floored(x_int_s, y_int_s), +1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), +1);
     TEST(
-      "vnl_math::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::remainder_floored(x_long_s, y_long_s), +1);
-    TEST("vnl_math::remainder_floored(x_float      ,y_float      )", vnl_math::remainder_floored(x_float, y_float), +1);
+      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), +1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), +1);
     TEST(
-      "vnl_math::remainder_floored(x_double     ,y_double     )", vnl_math::remainder_floored(x_double, y_double), +1);
+      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), +1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
-    TEST("vnl_math::remainder_floored(x_long_double,y_long_double)",
-         vnl_math::remainder_floored(x_long_double, y_long_double),
+    TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
+         vnl_math::detail::remainder_floored(x_long_double, y_long_double),
          +1);
 #endif
   }

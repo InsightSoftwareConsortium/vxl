@@ -192,7 +192,7 @@ vnl_matrix_fixed_ref<T, nrows, ncols>::normalize_rows() const
   {
     Abs_t norm(0); // double will not do for all types.
     for (unsigned int j = 0; j < ncols; j++)
-      norm += vnl_math::squared_magnitude((*this)(i, j));
+      norm += vnl_math::detail::squared_magnitude((*this)(i, j));
 
     if (norm != 0)
     {
@@ -218,7 +218,7 @@ vnl_matrix_fixed_ref<T, nrows, ncols>::normalize_columns() const
   {                // For each column in the Matrix
     Abs_t norm(0); // double will not do for all types.
     for (unsigned int i = 0; i < nrows; i++)
-      norm += vnl_math::squared_magnitude((*this)(i, j));
+      norm += vnl_math::detail::squared_magnitude((*this)(i, j));
 
     if (norm != 0)
     {

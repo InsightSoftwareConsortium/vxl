@@ -65,7 +65,7 @@ vnl_c_na_vector_two_norm_squared(const T * p, unsigned n, S * out)
   {
     if (!vnl_na_isna(*p))
     {
-      val += S(vnl_math::squared_magnitude(*p));
+      val += S(vnl_math::detail::squared_magnitude(*p));
       any_valid = true;
     }
   }
@@ -82,7 +82,7 @@ vnl_c_na_vector_rms_norm(const T * p, unsigned n, S * out)
   {
     if (!vnl_na_isna(*p))
     {
-      val += S(vnl_math::squared_magnitude(*p));
+      val += S(vnl_math::detail::squared_magnitude(*p));
       n_finite++;
     }
   }

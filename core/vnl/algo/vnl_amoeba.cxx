@@ -90,7 +90,7 @@ struct vnl_amoebaFit : public vnl_amoeba
 int
 vnl_amoeba_SimplexCorner::compare(const vnl_amoeba_SimplexCorner & s1, const vnl_amoeba_SimplexCorner & s2)
 {
-  return vnl_math::sgn(s1.fv - s2.fv);
+  return vnl_math::detail::sgn(s1.fv - s2.fv);
 }
 
 static int

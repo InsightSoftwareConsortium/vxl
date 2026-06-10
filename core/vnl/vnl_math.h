@@ -38,6 +38,7 @@
 #include <algorithm>
 #include <complex>
 #include <limits>
+#include <utility>
 #ifdef _MSC_VER
 #  include <vcl_msvc_warnings.h>
 #endif
@@ -148,12 +149,15 @@ VNL_MATH_CONSTANT_DEPRECATED inline constexpr float float_eps = detail::float_ep
 VNL_MATH_CONSTANT_DEPRECATED inline constexpr float float_sqrteps = detail::float_sqrteps;
 #undef VNL_MATH_CONSTANT_DEPRECATED
 
+namespace detail // unstable; not part of the public API
+{
 //: Convert an angle to [0, 2Pi) range
 VNL_EXPORT double
 angle_0_to_2pi(double angle);
 //: Convert an angle to [-Pi, Pi) range
 VNL_EXPORT double
 angle_minuspi_to_pi(double angle);
+} // namespace detail
 } // namespace vnl_math
 
 namespace vnl_math
@@ -229,6 +233,8 @@ using std::min;
 using std::cbrt;
 using std::hypot;
 
+namespace detail // unstable; not part of the public API
+{
 // rnd_halfinttoeven  -- round towards nearest integer
 //         halfway cases are rounded towards the nearest even integer, e.g.
 //         rnd_halfinttoeven( 1.5) ==  2
@@ -321,6 +327,7 @@ ceil(double x)
 {
   return static_cast<int>(std::ceil(x));
 }
+} // namespace detail
 
 // abs
 inline bool
@@ -372,6 +379,8 @@ abs(unsigned long long x)
 //
 using std::abs; // (covers int, long, long long, float, double, long double
 
+namespace detail // unstable; not part of the public API
+{
 // sqr (square)
 inline bool
 sqr(bool x)
@@ -681,6 +690,44 @@ remainder_floored(long double x, long double y)
 {
   return fmodl(fmodl(x, y) + y, y);
 }
+} // namespace detail
+
+// Deprecated public spellings; vnl-internal code uses vnl_math::detail::.
+// Each forwarder perfectly forwards to detail::, preserving the overload set
+// (scalar, integral and complex) and return type of the original.
+// Define VNL_MATH_DEPRECATE_FUNCTIONS=0 to silence during migration.
+#ifndef VNL_MATH_DEPRECATE_FUNCTIONS
+#  define VNL_MATH_DEPRECATE_FUNCTIONS 1
+#endif
+#if VNL_MATH_DEPRECATE_FUNCTIONS
+#  define VNL_MATH_FUNCTION_DEPRECATED \
+    [[deprecated("this vnl_math:: function is deprecated; use the std:: equivalent or itk::Math")]]
+#else
+#  define VNL_MATH_FUNCTION_DEPRECATED
+#endif
+#define VNL_MATH_DEPRECATED_FORWARD(fn)                       \
+  template <typename... Args>                                 \
+  VNL_MATH_FUNCTION_DEPRECATED inline auto fn(Args &&... args) \
+    ->decltype(detail::fn(std::forward<Args>(args)...))       \
+  {                                                           \
+    return detail::fn(std::forward<Args>(args)...);           \
+  }
+VNL_MATH_DEPRECATED_FORWARD(angle_0_to_2pi)
+VNL_MATH_DEPRECATED_FORWARD(angle_minuspi_to_pi)
+VNL_MATH_DEPRECATED_FORWARD(rnd_halfinttoeven)
+VNL_MATH_DEPRECATED_FORWARD(rnd_halfintup)
+VNL_MATH_DEPRECATED_FORWARD(rnd)
+VNL_MATH_DEPRECATED_FORWARD(floor)
+VNL_MATH_DEPRECATED_FORWARD(ceil)
+VNL_MATH_DEPRECATED_FORWARD(sgn)
+VNL_MATH_DEPRECATED_FORWARD(sgn0)
+VNL_MATH_DEPRECATED_FORWARD(remainder_truncated)
+VNL_MATH_DEPRECATED_FORWARD(remainder_floored)
+VNL_MATH_DEPRECATED_FORWARD(sqr)
+VNL_MATH_DEPRECATED_FORWARD(cube)
+VNL_MATH_DEPRECATED_FORWARD(squared_magnitude)
+#undef VNL_MATH_DEPRECATED_FORWARD
+#undef VNL_MATH_FUNCTION_DEPRECATED
 
 } // end of namespace vnl_math
 #endif // vnl_math_h_

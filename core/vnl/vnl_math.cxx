@@ -53,6 +53,8 @@ vnl_huge_val(char)
 //----------------------------------------------------------------------
 namespace vnl_math
 {
+namespace detail
+{
 double
 angle_0_to_2pi(double angle)
 {
@@ -82,4 +84,5 @@ angle_minuspi_to_pi(double angle)
   return angle;
 }
 
+} // namespace detail
 }; // end namespace vnl_math

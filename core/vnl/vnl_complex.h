@@ -51,12 +51,37 @@ type_macro(float) type_macro(double) type_macro(long double)
 #undef type_macro
 #undef VNL_MATH_CPLX_PREDICATE_DEPRECATED
 
-#define type_macro(T)                                            \
-  inline T abs(std::complex<T> const & z) { return std::abs(z); } \
+namespace detail // unstable; not part of the public API
+{
+#define type_macro(T)                                                    \
   inline std::complex<T> sqr(std::complex<T> const & z) { return z * z; } \
   inline T squared_magnitude(std::complex<T> const & z) { return std::norm(z); }
 type_macro(float) type_macro(double) type_macro(long double)
 #undef type_macro
+} // namespace detail
+
+// abs(std::complex) is not deprecated.
+#define type_macro(T) inline T abs(std::complex<T> const & z) { return std::abs(z); }
+type_macro(float) type_macro(double) type_macro(long double)
+#undef type_macro
+
+// Deprecated public spellings; the non-template overloads divert complex calls
+// away from the deprecated vnl_math:: forwarder templates in vnl_math.h.
+#if VNL_MATH_DEPRECATE_FUNCTIONS
+#  define VNL_MATH_CPLX_FUNCTION_DEPRECATED \
+    [[deprecated("this vnl_math:: function is deprecated; use the std:: equivalent or itk::Math")]]
+#else
+#  define VNL_MATH_CPLX_FUNCTION_DEPRECATED
+#endif
+#define type_macro(T)                                                                                               \
+  VNL_MATH_CPLX_FUNCTION_DEPRECATED inline std::complex<T> sqr(std::complex<T> const & z) { return detail::sqr(z); } \
+  VNL_MATH_CPLX_FUNCTION_DEPRECATED inline T squared_magnitude(std::complex<T> const & z)                            \
+  {                                                                                                                  \
+    return detail::squared_magnitude(z);                                                                            \
+  }
+type_macro(float) type_macro(double) type_macro(long double)
+#undef type_macro
+#undef VNL_MATH_CPLX_FUNCTION_DEPRECATED
 
 } // end namespace vnl_math
 
