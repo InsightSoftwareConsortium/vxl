@@ -38,6 +38,7 @@
 #include <algorithm>
 #include <complex>
 #include <limits>
+#include <type_traits>
 #include <utility>
 #ifdef _MSC_VER
 #  include <vcl_msvc_warnings.h>
@@ -179,29 +180,45 @@ namespace numeric_predicates
 {
 // Wrap the <cmath> classification functions to guarantee a bool return type;
 // some standard libraries returned a signed integer from these.
+// Integral arguments are short-circuited: an integer is always finite, never
+// inf/NaN, and normal when non-zero. This also avoids an ambiguous fpclassify
+// overload in older Windows SDK <corecrt_math.h> integer templates, where
+// std::isfinite/isnan of an integer fails to compile (error C2668).
 template <typename TArg>
 inline bool
 isinf(TArg arg)
 {
-  return bool(std::isinf(arg));
+  if constexpr (std::is_integral_v<TArg>)
+    return false;
+  else
+    return bool(std::isinf(arg));
 }
 template <typename TArg>
 inline bool
 isnan(TArg arg)
 {
-  return bool(std::isnan(arg));
+  if constexpr (std::is_integral_v<TArg>)
+    return false;
+  else
+    return bool(std::isnan(arg));
 }
 template <typename TArg>
 inline bool
 isfinite(TArg arg)
 {
-  return bool(std::isfinite(arg));
+  if constexpr (std::is_integral_v<TArg>)
+    return true;
+  else
+    return bool(std::isfinite(arg));
 }
 template <typename TArg>
 inline bool
 isnormal(TArg arg)
 {
-  return bool(std::isnormal(arg));
+  if constexpr (std::is_integral_v<TArg>)
+    return arg != TArg(0);
+  else
+    return bool(std::isnormal(arg));
 }
 } // namespace numeric_predicates
 
