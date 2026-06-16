@@ -9,6 +9,7 @@ DECLARE(test_math);
 DECLARE(test_na);
 DECLARE(test_matrix);
 DECLARE(test_container_interface);
+DECLARE(test_matrix_exp);
 DECLARE(test_matrix_fixed);
 DECLARE(test_matrix_fixed_ref);
 DECLARE(test_na);
@@ -45,6 +46,7 @@ register_tests()
   REGISTER(test_math);
   REGISTER(test_matrix);
   REGISTER(test_container_interface);
+  REGISTER(test_matrix_exp);
   REGISTER(test_matrix_fixed);
   REGISTER(test_matrix_fixed_ref);
   REGISTER(test_na);
