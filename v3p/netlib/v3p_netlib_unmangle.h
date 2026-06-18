@@ -233,7 +233,6 @@
 #undef sgerq2_
 #undef sggsvd_
 #undef sggsvp_
-#undef simpru_
 #undef slacpy_
 #undef slags2_
 #undef slamc1_
@@ -287,13 +286,10 @@
 #undef tql1_
 #undef tql2_
 #undef tqlrat_
-#undef trapru_
 #undef tred1_
 #undef tred2_
 #undef urand_
 #undef xerbla_
-#undef xsimpru_
-#undef xtrapru_
 #undef zaxpy_
 #undef zcopy_
 #undef zdotc_
