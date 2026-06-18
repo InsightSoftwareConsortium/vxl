@@ -164,17 +164,6 @@ set(V3P_NETLIB_eispack_SOURCES
 set(V3P_NETLIB_napack_SOURCES
      napack/cg.c napack/cg.h
    )
-set(V3P_NETLIB_minpack_SOURCES
-     minpack/dpmpar.c minpack/dpmpar.h
-     minpack/enorm.c minpack/enorm.h
-     minpack/fdjac2.c minpack/fdjac2.h
-     minpack/lmder.c minpack/lmder.h
-     minpack/lmder1.c minpack/lmder1.h
-     minpack/lmdif.c minpack/lmdif.h
-     minpack/lmpar.c minpack/lmpar.h
-     minpack/qrfac.c minpack/qrfac.h
-     minpack/qrsolv.c minpack/qrsolv.h
-   )
 set(V3P_NETLIB_opt_SOURCES
      opt/lbfgs.c opt/lbfgs.h
      opt/lbfgsb.c opt/lbfgsb.h
@@ -206,7 +195,6 @@ set(v3p_netlib_sources
      ${V3P_NETLIB_temperton_SOURCES}
      ${V3P_NETLIB_eispack_SOURCES}
      ${V3P_NETLIB_napack_SOURCES}
-     ${V3P_NETLIB_minpack_SOURCES}
      ${V3P_NETLIB_opt_SOURCES}
      ${V3P_NETLIB_linalg_SOURCES}
      ${V3P_NETLIB_sparse_SOURCES}

@@ -119,7 +119,6 @@ test_diag_matrix_fixed()
   ///////////////
   // ACCESSORS //
   ///////////////
-
 }
 
 TESTMAIN(test_diag_matrix_fixed);

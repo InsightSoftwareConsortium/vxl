@@ -375,12 +375,9 @@ test_math()
 #  endif // __ICC
 #endif
 
-  TEST("!isfinite(inf(double))",
-       vnl_math::numeric_predicates::isfinite(std::numeric_limits<double>::infinity()),
-       false);
-  TEST("!isfinite(inf(float))",
-       vnl_math::numeric_predicates::isfinite(std::numeric_limits<float>::infinity()),
-       false);
+  TEST(
+    "!isfinite(inf(double))", vnl_math::numeric_predicates::isfinite(std::numeric_limits<double>::infinity()), false);
+  TEST("!isfinite(inf(float))", vnl_math::numeric_predicates::isfinite(std::numeric_limits<float>::infinity()), false);
 
   // Test for math_sgn
   TEST("vnl_math::detail::sgn(+7)  ", vnl_math::detail::sgn(+7), 1);
@@ -408,16 +405,22 @@ test_math()
   eps = vnl_math_test_20_epsilon; // which is larger than the precision of vnl_math::detail::pi
   conv_eps = vnl_math::detail::angle_0_to_2pi(-eps);
   std::cout << "conv_eps = " << conv_eps << " = 2pi - " << vnl_math::detail::twopi - conv_eps << std::endl;
-  TEST(
-    "vnl_math::detail::angle_0_to_2pi(-10eps)", conv_eps < vnl_math::detail::twopi - vnl_math_test_2_epsilon && conv_eps > 6.283, true);
+  TEST("vnl_math::detail::angle_0_to_2pi(-10eps)",
+       conv_eps < vnl_math::detail::twopi - vnl_math_test_2_epsilon && conv_eps > 6.283,
+       true);
   const double ang = vnl_math::detail::twopi - eps;
   const double conv_ang = vnl_math::detail::angle_0_to_2pi(ang);
   std::cout << "conv_ang = " << conv_ang << " = 2pi - " << vnl_math::detail::twopi - conv_ang << std::endl;
   TEST("vnl_math::detail::angle_0_to_2pi(2pi-10eps)", conv_ang, ang);
   // test vnl_math::detail::angle_minuspi_to_pi() for "extreme values":
-  TEST("vnl_math::detail::angle_minuspi_to_pi(2pi)", vnl_math::detail::angle_minuspi_to_pi(vnl_math::detail::twopi), 0.0);
-  TEST("vnl_math::detail::angle_minuspi_to_pi(pi)", vnl_math::detail::angle_minuspi_to_pi(vnl_math::detail::pi), vnl_math::detail::pi);
-  TEST("vnl_math::detail::angle_minuspi_to_pi(-pi)", vnl_math::detail::angle_minuspi_to_pi(-vnl_math::detail::pi), -vnl_math::detail::pi);
+  TEST(
+    "vnl_math::detail::angle_minuspi_to_pi(2pi)", vnl_math::detail::angle_minuspi_to_pi(vnl_math::detail::twopi), 0.0);
+  TEST("vnl_math::detail::angle_minuspi_to_pi(pi)",
+       vnl_math::detail::angle_minuspi_to_pi(vnl_math::detail::pi),
+       vnl_math::detail::pi);
+  TEST("vnl_math::detail::angle_minuspi_to_pi(-pi)",
+       vnl_math::detail::angle_minuspi_to_pi(-vnl_math::detail::pi),
+       -vnl_math::detail::pi);
   eps = vnl_math_test_2_epsilon; // which is smaller than the precision of vnl_math::detail::pi
   conv_eps = vnl_math::detail::angle_minuspi_to_pi(-eps);
   std::cout << "conv_eps = " << conv_eps << std::endl;
@@ -627,15 +630,24 @@ test_math()
     TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
          vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          +1);
-    TEST("vnl_math::detail::remainder_floored(x_int_u      ,y_int_u      )", vnl_math::detail::remainder_floored(x_int_u, y_int_u), +1);
-    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), +1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_long_u     ,y_long_u     )", vnl_math::detail::remainder_floored(x_long_u, y_long_u), +1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), +1);
-    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), +1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), +1);
+    TEST("vnl_math::detail::remainder_floored(x_int_u      ,y_int_u      )",
+         vnl_math::detail::remainder_floored(x_int_u, y_int_u),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_floored(x_int_s, y_int_s),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_long_u     ,y_long_u     )",
+         vnl_math::detail::remainder_floored(x_long_u, y_long_u),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_floored(x_long_s, y_long_s),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )",
+         vnl_math::detail::remainder_floored(x_float, y_float),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_double     ,y_double     )",
+         vnl_math::detail::remainder_floored(x_double, y_double),
+         +1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
     TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
          vnl_math::detail::remainder_floored(x_long_double, y_long_double),
@@ -656,12 +668,18 @@ test_math()
     TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
          vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          -1);
-    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), -1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), -1);
-    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), -1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), -1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_floored(x_int_s, y_int_s),
+         -1);
+    TEST("vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_floored(x_long_s, y_long_s),
+         -1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )",
+         vnl_math::detail::remainder_floored(x_float, y_float),
+         -1);
+    TEST("vnl_math::detail::remainder_floored(x_double     ,y_double     )",
+         vnl_math::detail::remainder_floored(x_double, y_double),
+         -1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
     TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
          vnl_math::detail::remainder_floored(x_long_double, y_long_double),
@@ -682,12 +700,18 @@ test_math()
     TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
          vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          -1);
-    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), -1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), -1);
-    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), -1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), -1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_floored(x_int_s, y_int_s),
+         -1);
+    TEST("vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_floored(x_long_s, y_long_s),
+         -1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )",
+         vnl_math::detail::remainder_floored(x_float, y_float),
+         -1);
+    TEST("vnl_math::detail::remainder_floored(x_double     ,y_double     )",
+         vnl_math::detail::remainder_floored(x_double, y_double),
+         -1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
     TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
          vnl_math::detail::remainder_floored(x_long_double, y_long_double),
@@ -708,12 +732,18 @@ test_math()
     TEST("vnl_math::detail::remainder_floored(x_short_s    ,y_short_s    )",
          vnl_math::detail::remainder_floored(x_short_s, y_short_s),
          +1);
-    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )", vnl_math::detail::remainder_floored(x_int_s, y_int_s), +1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )", vnl_math::detail::remainder_floored(x_long_s, y_long_s), +1);
-    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )", vnl_math::detail::remainder_floored(x_float, y_float), +1);
-    TEST(
-      "vnl_math::detail::remainder_floored(x_double     ,y_double     )", vnl_math::detail::remainder_floored(x_double, y_double), +1);
+    TEST("vnl_math::detail::remainder_floored(x_int_s      ,y_int_s      )",
+         vnl_math::detail::remainder_floored(x_int_s, y_int_s),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_long_s     ,y_long_s     )",
+         vnl_math::detail::remainder_floored(x_long_s, y_long_s),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_float      ,y_float      )",
+         vnl_math::detail::remainder_floored(x_float, y_float),
+         +1);
+    TEST("vnl_math::detail::remainder_floored(x_double     ,y_double     )",
+         vnl_math::detail::remainder_floored(x_double, y_double),
+         +1);
 #ifdef INCLUDE_LONG_DOUBLE_TESTS
     TEST("vnl_math::detail::remainder_floored(x_long_double,y_long_double)",
          vnl_math::detail::remainder_floored(x_long_double, y_long_double),
@@ -723,10 +753,10 @@ test_math()
 
 #define RETURN_TYPE_TEST(funcname, argtypename, returntypename)                                                 \
   {                                                                                                             \
-    const bool test_return_type =                                                                                    \
-      std::is_same<decltype(vnl_math::numeric_predicates::funcname(static_cast<argtypename>(123.4))),                 \
-                   returntypename>();                                                                                 \
-    TEST("vnl_math::" #funcname "<" #argtypename "> returns " #returntypename " type", test_return_type, true);       \
+    const bool test_return_type =                                                                               \
+      std::is_same<decltype(vnl_math::numeric_predicates::funcname(static_cast<argtypename>(123.4))),           \
+                   returntypename>();                                                                           \
+    TEST("vnl_math::" #funcname "<" #argtypename "> returns " #returntypename " type", test_return_type, true); \
   }                                                                                                             \
   void()
 

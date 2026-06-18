@@ -68,7 +68,13 @@ endif()
 vxl_add_library(LIBRARY_NAME itkvnl_algo
   LIBRARY_SOURCES ${vnl_algo_sources}
   HEADER_INSTALL_DIR vnl/algo)
-target_link_libraries( itkvnl_algo PUBLIC itkv3p_netlib itkvnl )
+target_link_libraries( itkvnl_algo PUBLIC itkv3p_netlib itkvnl PRIVATE Eigen3::Eigen )
+# v3p/itkeigen/ shim resolves "itkeigen/unsupported/Eigen/..." includes;
+# EIGEN3_UNSUPPORTED_INCLUDE_DIR provides the real unsupported/ headers.
+# Both are excluded from UpdateFromUpstream.sh (ITK vendors its own copy).
+target_include_directories( itkvnl_algo PRIVATE
+    "${VXL_ROOT_SOURCE_DIR}/v3p"
+    "${EIGEN3_UNSUPPORTED_INCLUDE_DIR}" )
 set(CURR_LIB_NAME vnl_algo)
 set_vxl_library_properties(
    TARGET_NAME itk${CURR_LIB_NAME}

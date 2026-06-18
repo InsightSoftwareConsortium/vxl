@@ -40,8 +40,9 @@ test_random_round_trip()
   for (unsigned i = 0; i < 1000; ++i)
   {
     // Need to be careful abount wrap around - don't test with angles that are too big
-    vnl_vector_fixed<double, 3> euler(
-      rng.normal() * vnl_math::detail::pi / 18.0, rng.normal() * vnl_math::detail::pi / 18.0, rng.normal() * vnl_math::detail::pi / 18.0);
+    vnl_vector_fixed<double, 3> euler(rng.normal() * vnl_math::detail::pi / 18.0,
+                                      rng.normal() * vnl_math::detail::pi / 18.0,
+                                      rng.normal() * vnl_math::detail::pi / 18.0);
     const vnl_quaternion<double> quat(euler(0), euler(1), euler(2));
     const vnl_vector_fixed<double, 3> out = quat.rotation_euler_angles();
     const double err = vnl_vector_ssd(euler, out);
@@ -65,8 +66,9 @@ test_random_euler_near_zero()
   for (unsigned i = 0; i < 1000; ++i)
   {
     // Need to be careful abount wrap around - don't test with angles that are too big
-    vnl_vector_fixed<double, 3> euler(
-      rng.normal() * vnl_math::detail::pi_over_180, rng.normal() * vnl_math::detail::pi_over_180, rng.normal() * vnl_math::detail::pi_over_180);
+    vnl_vector_fixed<double, 3> euler(rng.normal() * vnl_math::detail::pi_over_180,
+                                      rng.normal() * vnl_math::detail::pi_over_180,
+                                      rng.normal() * vnl_math::detail::pi_over_180);
     vnl_quaternion<double> quat(euler(0), euler(1), euler(2));
     if (quat.angle() > vnl_math::detail::pi / 36.0)
     {

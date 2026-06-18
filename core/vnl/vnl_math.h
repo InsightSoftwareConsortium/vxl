@@ -52,15 +52,14 @@
 #  define VNL_MATH_DEPRECATE_HUGE_VAL 1
 #endif
 #if VNL_MATH_DEPRECATE_HUGE_VAL
-#  define VNL_HUGE_VAL_DEPRECATED                                                                       \
-    [[deprecated("vnl_huge_val is deprecated; use std::numeric_limits<T>::infinity() for "              \
+#  define VNL_HUGE_VAL_DEPRECATED                                                          \
+    [[deprecated("vnl_huge_val is deprecated; use std::numeric_limits<T>::infinity() for " \
                  "floating-point T, or std::numeric_limits<T>::max() for integral T")]]
 #else
 #  define VNL_HUGE_VAL_DEPRECATED
 #endif
 template <class T>
-VNL_HUGE_VAL_DEPRECATED VNL_EXPORT T
-vnl_huge_val(T);
+VNL_HUGE_VAL_DEPRECATED VNL_EXPORT T vnl_huge_val(T);
 VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT long double
 vnl_huge_val(long double);
 VNL_HUGE_VAL_DEPRECATED extern VNL_EXPORT double
@@ -212,7 +211,8 @@ isnormal(TArg arg)
 #endif
 #if VNL_MATH_DEPRECATE_PREDICATES
 #  define VNL_MATH_PREDICATE_DEPRECATED \
-    [[deprecated("vnl_math:: classification functions are deprecated; use std::isnan/isinf/isfinite/isnormal or itk::Math")]]
+    [[deprecated(                       \
+      "vnl_math:: classification functions are deprecated; use std::isnan/isinf/isfinite/isnormal or itk::Math")]]
 #else
 #  define VNL_MATH_PREDICATE_DEPRECATED
 #endif
@@ -251,12 +251,12 @@ isnormal(TArg arg)
 #else
 #  define VNL_MATH_STD_REEXPORT_DEPRECATED(fn)
 #endif
-#define VNL_MATH_DEPRECATED_STD_FORWARD(fn)                     \
-  template <typename... Args>                                   \
-  VNL_MATH_STD_REEXPORT_DEPRECATED(fn) inline auto fn(Args &&... args) \
-    ->decltype(std::fn(std::forward<Args>(args)...))            \
-  {                                                             \
-    return std::fn(std::forward<Args>(args)...);                \
+#define VNL_MATH_DEPRECATED_STD_FORWARD(fn)                                         \
+  template <typename... Args>                                                       \
+  VNL_MATH_STD_REEXPORT_DEPRECATED(fn)                                              \
+  inline auto fn(Args &&... args) -> decltype(std::fn(std::forward<Args>(args)...)) \
+  {                                                                                 \
+    return std::fn(std::forward<Args>(args)...);                                    \
   }
 VNL_MATH_DEPRECATED_STD_FORWARD(max)
 VNL_MATH_DEPRECATED_STD_FORWARD(min)
@@ -734,12 +734,11 @@ remainder_floored(long double x, long double y)
 #else
 #  define VNL_MATH_FUNCTION_DEPRECATED
 #endif
-#define VNL_MATH_DEPRECATED_FORWARD(fn)                       \
-  template <typename... Args>                                 \
-  VNL_MATH_FUNCTION_DEPRECATED inline auto fn(Args &&... args) \
-    ->decltype(detail::fn(std::forward<Args>(args)...))       \
-  {                                                           \
-    return detail::fn(std::forward<Args>(args)...);           \
+#define VNL_MATH_DEPRECATED_FORWARD(fn)                                                                             \
+  template <typename... Args>                                                                                       \
+  VNL_MATH_FUNCTION_DEPRECATED inline auto fn(Args &&... args) -> decltype(detail::fn(std::forward<Args>(args)...)) \
+  {                                                                                                                 \
+    return detail::fn(std::forward<Args>(args)...);                                                                 \
   }
 VNL_MATH_DEPRECATED_FORWARD(angle_0_to_2pi)
 VNL_MATH_DEPRECATED_FORWARD(angle_minuspi_to_pi)

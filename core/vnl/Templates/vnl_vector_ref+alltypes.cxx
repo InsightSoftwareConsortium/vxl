@@ -17,4 +17,3 @@ VNL_VECTOR_REF_INSTANTIATE(unsigned long);
 VNL_VECTOR_REF_INSTANTIATE(signed long);
 VNL_VECTOR_REF_INSTANTIATE(unsigned long long);
 VNL_VECTOR_REF_INSTANTIATE(signed long long);
-

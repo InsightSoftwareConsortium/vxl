@@ -1,0 +1,5 @@
+// Standalone-VXL shim — excluded from UpdateFromUpstream.sh syncs.
+// ITK vendored its own copy at Modules/ThirdParty/Eigen3/src/itkeigen/;
+// here we redirect to the system Eigen3 package found by find_package(Eigen3).
+#pragma once
+#include <unsupported/Eigen/NumericalDiff>
