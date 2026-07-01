@@ -52,39 +52,24 @@ set(V3P_NETLIB_libf2c_SOURCES
 set(V3P_NETLIB_blas_SOURCES
      blas/lsame.c blas/lsame.h
      blas/caxpy.c blas/caxpy.h
-     blas/ccopy.c blas/ccopy.h
      blas/cdotc.c blas/cdotc.h
      blas/cscal.c blas/cscal.h
      blas/csrot.c blas/csrot.h
      blas/cswap.c blas/cswap.h
-     blas/dasum.c blas/dasum.h
      blas/daxpy.c blas/daxpy.h
      blas/dcabs1.c blas/dcabs1.h
      blas/dcopy.c blas/dcopy.h
      blas/ddot.c blas/ddot.h
-     blas/dgemm.c blas/dgemm.h
-     blas/dgemv.c blas/dgemv.h
-     blas/dger.c blas/dger.h
      blas/dlamch.c blas/dlamch.h
      blas/dnrm2.c blas/dnrm2.h
      blas/drot.c blas/drot.h
      blas/drotg.c blas/drotg.h
      blas/dscal.c blas/dscal.h
      blas/dswap.c blas/dswap.h
-     blas/dtrmm.c blas/dtrmm.h
-     blas/dtrmv.c blas/dtrmv.h
-     blas/dtrsv.c blas/dtrsv.h
-     blas/dzasum.c blas/dzasum.h
      blas/dznrm2.c blas/dznrm2.h
-     blas/idamax.c blas/idamax.h
-     blas/isamax.c blas/isamax.h
-     blas/izamax.c blas/izamax.h
      blas/saxpy.c blas/saxpy.h
      blas/scnrm2.c blas/scnrm2.h
-     blas/scopy.c blas/scopy.h
      blas/sdot.c blas/sdot.h
-     blas/sgemv.c blas/sgemv.h
-     blas/sger.c blas/sger.h
      blas/slamch.c blas/slamch.h
      blas/snrm2.c blas/snrm2.h
      blas/srot.c blas/srot.h
@@ -93,52 +78,10 @@ set(V3P_NETLIB_blas_SOURCES
      blas/sswap.c blas/sswap.h
      blas/xerbla.c blas/xerbla.h
      blas/zaxpy.c blas/zaxpy.h
-     blas/zcopy.c blas/zcopy.h
      blas/zdotc.c blas/zdotc.h
-     blas/zdotu.c blas/zdotu.h
      blas/zdrot.c blas/zdrot.h
-     blas/zdscal.c blas/zdscal.h
-     blas/zgemm.c blas/zgemm.h
-     blas/zgemv.c blas/zgemv.h
-     blas/zgerc.c blas/zgerc.h
-     blas/zgeru.c blas/zgeru.h
      blas/zscal.c blas/zscal.h
      blas/zswap.c blas/zswap.h
-     blas/ztrmm.c blas/ztrmm.h
-     blas/ztrmv.c blas/ztrmv.h
-     blas/ztrsv.c blas/ztrsv.h
-   )
-set(V3P_NETLIB_linpack_SOURCES
-     linpack/sqrdc.c linpack/sqrdc.h
-     linpack/dqrdc.c linpack/dqrdc.h
-     linpack/cqrdc.c linpack/cqrdc.h
-     linpack/zqrdc.c linpack/zqrdc.h
-     linpack/sqrsl.c linpack/sqrsl.h
-     linpack/dqrsl.c linpack/dqrsl.h
-     linpack/cqrsl.c linpack/cqrsl.h
-     linpack/zqrsl.c linpack/zqrsl.h
-
-     linpack/csvdc.c linpack/csvdc.h
-     linpack/dsvdc.c linpack/dsvdc.h
-     linpack/ssvdc.c linpack/ssvdc.h
-     linpack/zsvdc.c linpack/zsvdc.h
-
-     linpack/dpoco.c linpack/dpoco.h
-     linpack/dpodi.c linpack/dpodi.h
-     linpack/dpofa.c linpack/dpofa.h
-     linpack/dposl.c linpack/dposl.h
-   )
-set(V3P_NETLIB_temperton_SOURCES
-     temperton/dgpfa.c temperton/dgpfa.h
-     temperton/dgpfa2f.c temperton/dgpfa2f.h
-     temperton/dgpfa3f.c temperton/dgpfa3f.h
-     temperton/dgpfa5f.c temperton/dgpfa5f.h
-     temperton/gpfa.c temperton/gpfa.h
-     temperton/gpfa2f.c temperton/gpfa2f.h
-     temperton/gpfa3f.c temperton/gpfa3f.h
-     temperton/gpfa5f.c temperton/gpfa5f.h
-     temperton/setdgpfa.c temperton/setdgpfa.h
-     temperton/setgpfa.c temperton/setgpfa.h
    )
 set(V3P_NETLIB_eispack_SOURCES
      eispack/balanc.c eispack/balanc.h
@@ -161,9 +104,19 @@ set(V3P_NETLIB_eispack_SOURCES
      eispack/tred1.c eispack/tred1.h
      eispack/tred2.c eispack/tred2.h
    )
+# eispack (rs/rg/rsg) backs only the deprecated vnl_real_eigensystem,
+# vnl_symmetric_eigensystem, vnl_generalized_eigensystem and vnl_scatter_3x3.
+# Drop the dead engine once those APIs are removed.
+if(ITK_FUTURE_LEGACY_REMOVE)
+  set(V3P_NETLIB_eispack_SOURCES "")
+endif()
 set(V3P_NETLIB_napack_SOURCES
      napack/cg.c napack/cg.h
    )
+# The netlib MINPACK lmdif/lmder port has been removed: ITK's
+# vnl_levenberg_marquardt is now backed by Eigen's MINPACK-port
+# Levenberg-Marquardt (unsupported/Eigen/NonLinearOptimization), which was its
+# only consumer.
 set(V3P_NETLIB_opt_SOURCES
      opt/lbfgs.c opt/lbfgs.h
      opt/lbfgsb.c opt/lbfgsb.h
@@ -189,8 +142,6 @@ set(v3p_netlib_sources
      ${V3P_NETLIB_base_SOURCES}
      ${V3P_NETLIB_libf2c_SOURCES}
      ${V3P_NETLIB_blas_SOURCES}
-     ${V3P_NETLIB_linpack_SOURCES}
-     ${V3P_NETLIB_temperton_SOURCES}
      ${V3P_NETLIB_eispack_SOURCES}
      ${V3P_NETLIB_napack_SOURCES}
      ${V3P_NETLIB_opt_SOURCES}
@@ -200,14 +151,6 @@ set(v3p_netlib_sources
 
 # Adjust the compiler flags to avoid problems with f2c-generated code.
 if(CMAKE_COMPILER_IS_GNUCC)
-  # Adjust optimization of floating point computation for some sources.
-  # See comments in the sources for details.
-  set_source_files_properties(
-     linpack/ssvdc.c
-     linpack/dsvdc.c
-     PROPERTIES COMPILE_FLAGS -ffloat-store
-    )
-
   # Disable global optimizations for some source files.
   # See comments in the sources for details.
   set_source_files_properties(

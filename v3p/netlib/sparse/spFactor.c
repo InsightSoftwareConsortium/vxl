@@ -1343,7 +1343,7 @@ int  I, NumberOfTies;
 ElementPtr  ChosenPivot, TiedElements[MAX_MARKOWITZ_TIES + 1];
 RealNumber  Magnitude, LargestInCol, Ratio, MaxRatio;
 RealNumber  LargestOffDiagonal;
-RealNumber  FindBiggestInColExclude( MatrixPtr, ElementPtr, int );
+RealNumber  FindBiggestInColExclude();
 
 /* Begin `QuicklySearchDiagonal'. */
     NumberOfTies = -1;

@@ -133,32 +133,6 @@ endif()
 
 
 #-------------------------------------------------------------------
-# Eigen3 5.0 is required for Eigen-backed vnl_levenberg_marquardt.
-find_package(Eigen3 5.0 REQUIRED)
-# The ITK-specific Eigen install places core headers under itkeigen/ but omits
-# unsupported/.  Derive the Eigen source root (three levels up from the itkeigen
-# include dir) so the v3p/itkeigen/ shim can redirect to the real headers there.
-if(NOT DEFINED EIGEN3_UNSUPPORTED_INCLUDE_DIR)
-  get_target_property(_eigen_itkeigen_inc Eigen3::Eigen INTERFACE_INCLUDE_DIRECTORIES)
-  get_filename_component(_e1 "${_eigen_itkeigen_inc}" DIRECTORY) # .../include
-  get_filename_component(_e2 "${_e1}" DIRECTORY)                 # .../install
-  get_filename_component(_e3 "${_e2}" DIRECTORY)                 # Eigen source root
-  if(EXISTS "${_e3}/unsupported/Eigen/NonLinearOptimization")
-    set(EIGEN3_UNSUPPORTED_INCLUDE_DIR "${_e3}" CACHE PATH
-        "Eigen source root containing unsupported/Eigen/ (auto-detected)")
-  else()
-    set(EIGEN3_UNSUPPORTED_INCLUDE_DIR "" CACHE PATH
-        "Eigen source root containing unsupported/Eigen/; set manually if auto-detect fails")
-    message(WARNING "VXL: Could not auto-detect Eigen unsupported/ path. "
-        "Set EIGEN3_UNSUPPORTED_INCLUDE_DIR to the Eigen source root.")
-  endif()
-  unset(_eigen_itkeigen_inc)
-  unset(_e1)
-  unset(_e2)
-  unset(_e3)
-endif()
-
-#-------------------------------------------------------------------
 # Build the core vxl + support libraries
 add_subdirectory(vcl)
 add_subdirectory(v3p)

@@ -40,30 +40,23 @@ type_macro(float) type_macro(double) type_macro(long double)
 // away from the deprecated vnl_math:: forwarder templates in vnl_math.h.
 #if VNL_MATH_DEPRECATE_PREDICATES
 #  define VNL_MATH_CPLX_PREDICATE_DEPRECATED \
-    [[deprecated(                            \
-      "vnl_math:: classification functions are deprecated; use std::isnan/isinf/isfinite/isnormal or itk::Math")]]
+    [[deprecated("vnl_math:: classification functions are deprecated; use std::isnan/isinf/isfinite/isnormal or itk::Math")]]
 #else
 #  define VNL_MATH_CPLX_PREDICATE_DEPRECATED
 #endif
-#define type_macro(T)                                                                \
-  VNL_MATH_CPLX_PREDICATE_DEPRECATED inline bool isnan(std::complex<T> const & z)    \
-  {                                                                                  \
-    return numeric_predicates::isnan(z);                                             \
-  }                                                                                  \
-  VNL_MATH_CPLX_PREDICATE_DEPRECATED inline bool isfinite(std::complex<T> const & z) \
-  {                                                                                  \
-    return numeric_predicates::isfinite(z);                                          \
-  }
+#define type_macro(T)                                                                            \
+  VNL_MATH_CPLX_PREDICATE_DEPRECATED inline bool isnan(std::complex<T> const & z) { return numeric_predicates::isnan(z); } \
+  VNL_MATH_CPLX_PREDICATE_DEPRECATED inline bool isfinite(std::complex<T> const & z) { return numeric_predicates::isfinite(z); }
 type_macro(float) type_macro(double) type_macro(long double)
 #undef type_macro
 #undef VNL_MATH_CPLX_PREDICATE_DEPRECATED
 
-  namespace detail // unstable; not part of the public API
+namespace detail // unstable; not part of the public API
 {
-#define type_macro(T)                                                     \
+#define type_macro(T)                                                    \
   inline std::complex<T> sqr(std::complex<T> const & z) { return z * z; } \
   inline T squared_magnitude(std::complex<T> const & z) { return std::norm(z); }
-  type_macro(float) type_macro(double) type_macro(long double)
+type_macro(float) type_macro(double) type_macro(long double)
 #undef type_macro
 } // namespace detail
 // vnl_math::abs(std::complex) resolves through detail's `using std::abs`
@@ -77,11 +70,11 @@ type_macro(float) type_macro(double) type_macro(long double)
 #else
 #  define VNL_MATH_CPLX_FUNCTION_DEPRECATED
 #endif
-#define type_macro(T)                                                                                                \
+#define type_macro(T)                                                                                               \
   VNL_MATH_CPLX_FUNCTION_DEPRECATED inline std::complex<T> sqr(std::complex<T> const & z) { return detail::sqr(z); } \
   VNL_MATH_CPLX_FUNCTION_DEPRECATED inline T squared_magnitude(std::complex<T> const & z)                            \
   {                                                                                                                  \
-    return detail::squared_magnitude(z);                                                                             \
+    return detail::squared_magnitude(z);                                                                            \
   }
 type_macro(float) type_macro(double) type_macro(long double)
 #undef type_macro

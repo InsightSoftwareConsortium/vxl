@@ -4,8 +4,7 @@
 // \author Andrew W. Fitzgibbon, Oxford RRG
 // \date 31 Aug 96
 //
-// Minimization uses Eigen's NonLinearOptimization Levenberg-Marquardt
-// (unsupported/Eigen/NonLinearOptimization).
+// ITK: minimization uses Eigen's NonLinearOptimization Levenberg-Marquardt.
 
 #include <iostream>
 #include <cassert>
@@ -16,8 +15,9 @@
 #include "vnl/vnl_vector_ref.h"
 #include "vnl/vnl_least_squares_function.h"
 
-#include "itkeigen/unsupported/Eigen/NonLinearOptimization"
-#include "itkeigen/unsupported/Eigen/NumericalDiff"
+#include "itk_eigen.h"
+#include ITK_EIGEN_UNSUPPORTED(NonLinearOptimization)
+#include ITK_EIGEN_UNSUPPORTED(NumericalDiff)
 
 namespace
 {
@@ -35,8 +35,8 @@ struct vnl_lsf_functor
   };
 
   vnl_least_squares_function * f_;
-  int m_; // residuals
-  int n_; // unknowns
+  int                          m_; // residuals
+  int                          n_; // unknowns
 
   int
   inputs() const
@@ -53,7 +53,7 @@ struct vnl_lsf_functor
   operator()(const Eigen::VectorXd & x, Eigen::VectorXd & fx) const
   {
     const vnl_vector_ref<double> rx(n_, const_cast<double *>(x.data()));
-    vnl_vector_ref<double> rfx(m_, fx.data());
+    vnl_vector_ref<double>       rfx(m_, fx.data());
     f_->f(rx, rfx);
     if (f_->failure)
     {
@@ -69,7 +69,7 @@ struct vnl_lsf_functor
   df(const Eigen::VectorXd & x, Eigen::MatrixXd & fjac) const
   {
     const vnl_vector_ref<double> rx(n_, const_cast<double *>(x.data()));
-    vnl_matrix<double> jac(m_, n_);
+    vnl_matrix<double>           jac(m_, n_);
     f_->gradf(rx, jac);
     for (int i = 0; i < m_; ++i)
     {
@@ -98,7 +98,7 @@ rms_of(const vnl_vector<double> & v)
 vnl_vector<double>
 vnl_levenberg_marquardt_minimize(vnl_least_squares_function & f, const vnl_vector<double> & initial_estimate)
 {
-  vnl_vector<double> x = initial_estimate;
+  vnl_vector<double>      x = initial_estimate;
   vnl_levenberg_marquardt lm(f);
   lm.minimize(x);
   return x;
@@ -136,17 +136,17 @@ vnl_levenberg_marquardt::~vnl_levenberg_marquardt() = default;
 
 namespace
 {
-// Store the R factor and permutation from an Eigen LM solve into the vnl
+//: Store the R factor and permutation from an Eigen LM solve into the vnl
 // members consumed by get_JtJ(). Eigen's fjac holds R in its top n-by-n; vnl
 // get_JtJ() expects fdjac_.extract(n,n).transpose() to be that R, so store the
 // transpose. ipvt_ is 1-based.
 template <typename TEigenMatrix, typename TPermutation>
 void
-store_r_and_permutation(const TEigenMatrix & fjac,
-                        const TPermutation & permutation,
-                        unsigned int n,
-                        vnl_matrix<double> & fdjac,
-                        vnl_vector<long> & ipvt)
+store_r_and_permutation(const TEigenMatrix &  fjac,
+                        const TPermutation &  permutation,
+                        unsigned int          n,
+                        vnl_matrix<double> &  fdjac,
+                        vnl_vector<long> &    ipvt)
 {
   for (unsigned int a = 0; a < n; ++a)
   {
@@ -196,7 +196,7 @@ vnl_levenberg_marquardt::minimize_without_gradient(vnl_vector<double> & x)
     return false;
   }
 
-  vnl_lsf_functor functor{ f_, static_cast<int>(m), static_cast<int>(n) };
+  vnl_lsf_functor                       functor{ f_, static_cast<int>(m), static_cast<int>(n) };
   Eigen::NumericalDiff<vnl_lsf_functor> numdiff(functor, epsfcn);
   Eigen::LevenbergMarquardt<Eigen::NumericalDiff<vnl_lsf_functor>> lm(numdiff);
   lm.parameters.ftol = ftol;
@@ -267,7 +267,7 @@ vnl_levenberg_marquardt::minimize_using_gradient(vnl_vector<double> & x)
     return false;
   }
 
-  vnl_lsf_functor functor{ f_, static_cast<int>(m), static_cast<int>(n) };
+  vnl_lsf_functor                            functor{ f_, static_cast<int>(m), static_cast<int>(n) };
   Eigen::LevenbergMarquardt<vnl_lsf_functor> lm(functor);
   lm.parameters.ftol = ftol;
   lm.parameters.xtol = xtol;

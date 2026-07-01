@@ -120,6 +120,7 @@ test_diag_matrix()
   ///////////////
   // ACCESSORS //
   ///////////////
+
 }
 
 TESTMAIN(test_diag_matrix);

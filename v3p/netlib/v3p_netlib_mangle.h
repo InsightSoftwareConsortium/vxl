@@ -30,7 +30,6 @@ nm libv3p_netlib.a |grep " [TR] "
 #define cqrsl_ v3p_netlib_cqrsl_
 #define cscal_ v3p_netlib_cscal_
 #define csrot_ v3p_netlib_csrot_
-#define csvdc_ v3p_netlib_csvdc_
 #define cswap_ v3p_netlib_cswap_
 #define cub_ v3p_netlib_cub_
 #define dasum_ v3p_netlib_dasum_
@@ -45,10 +44,6 @@ nm libv3p_netlib.a |grep " [TR] "
 #define dgemv_ v3p_netlib_dgemv_
 #define dger_ v3p_netlib_dger_
 #define dgetv0_ v3p_netlib_dgetv0_
-#define dgpfa2f_ v3p_netlib_dgpfa2f_
-#define dgpfa3f_ v3p_netlib_dgpfa3f_
-#define dgpfa5f_ v3p_netlib_dgpfa5f_
-#define dgpfa_ v3p_netlib_dgpfa_
 #define dlabax_ v3p_netlib_dlabax_
 #define dlabcm_ v3p_netlib_dlabcm_
 #define dlabfc_ v3p_netlib_dlabfc_
@@ -91,7 +86,6 @@ nm libv3p_netlib.a |grep " [TR] "
 #define dsortr_ v3p_netlib_dsortr_
 #define dstats_ v3p_netlib_dstats_
 #define dstqrb_ v3p_netlib_dstqrb_
-#define dsvdc_ v3p_netlib_dsvdc_
 #define dswap_ v3p_netlib_dswap_
 #define dtrmm_ v3p_netlib_dtrmm_
 #define dtrmv_ v3p_netlib_dtrmv_
@@ -113,10 +107,6 @@ nm libv3p_netlib.a |grep " [TR] "
 #define fv_ v3p_netlib_fv_
 #define fvd_ v3p_netlib_fvd_
 #define fxshfr_ v3p_netlib_fxshfr_
-#define gpfa2f_ v3p_netlib_gpfa2f_
-#define gpfa3f_ v3p_netlib_gpfa3f_
-#define gpfa5f_ v3p_netlib_gpfa5f_
-#define gpfa_ v3p_netlib_gpfa_
 #define hpsolb_ v3p_netlib_hpsolb_
 #define hqr2_ v3p_netlib_hqr2_
 #define hqr_ v3p_netlib_hqr_
@@ -173,8 +163,6 @@ nm libv3p_netlib.a |grep " [TR] "
 #define sdiff_ v3p_netlib_sdiff_
 #define sdot_ v3p_netlib_sdot_
 #define second_ v3p_netlib_second_
-#define setdgpfa_ v3p_netlib_setdgpfa_
-#define setgpfa_ v3p_netlib_setgpfa_
 #define setulb_ v3p_netlib_setulb_
 #define sgbmv_ v3p_netlib_sgbmv_
 #define sgemv_ v3p_netlib_sgemv_
@@ -199,7 +187,6 @@ nm libv3p_netlib.a |grep " [TR] "
 #define sspmv_ v3p_netlib_sspmv_
 #define sspr2_ v3p_netlib_sspr2_
 #define sspr_ v3p_netlib_sspr_
-#define ssvdc_ v3p_netlib_ssvdc_
 #define sswap_ v3p_netlib_sswap_
 #define ssymv_ v3p_netlib_ssymv_
 #define ssyr2_ v3p_netlib_ssyr2_
@@ -253,7 +240,6 @@ nm libv3p_netlib.a |grep " [TR] "
 #define zqrdc_ v3p_netlib_zqrdc_
 #define zqrsl_ v3p_netlib_zqrsl_
 #define zscal_ v3p_netlib_zscal_
-#define zsvdc_ v3p_netlib_zsvdc_
 #define zswap_ v3p_netlib_zswap_
 #define ztrevc_ v3p_netlib_ztrevc_
 #define ztrmm_ v3p_netlib_ztrmm_

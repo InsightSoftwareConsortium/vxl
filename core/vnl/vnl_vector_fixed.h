@@ -35,7 +35,7 @@
 #include "vnl_vector.h"
 #include "vnl_vector_ref.h"
 #include "vnl_c_vector.h"
-#include "vnl_matrix.h" // outerproduct
+#include "vnl_matrix.h"     // outerproduct
 #include "vnl_error.h"
 #include "vnl/vnl_export.h"
 

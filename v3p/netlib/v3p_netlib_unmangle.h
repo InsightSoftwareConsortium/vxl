@@ -21,7 +21,6 @@
 #undef cqrsl_
 #undef cscal_
 #undef csrot_
-#undef csvdc_
 #undef cswap_
 #undef cub_
 #undef dasum_
@@ -36,10 +35,6 @@
 #undef dgemv_
 #undef dger_
 #undef dgetv0_
-#undef dgpfa2f_
-#undef dgpfa3f_
-#undef dgpfa5f_
-#undef dgpfa_
 #undef dlabax_
 #undef dlabcm_
 #undef dlabfc_
@@ -82,7 +77,6 @@
 #undef dsortr_
 #undef dstats_
 #undef dstqrb_
-#undef dsvdc_
 #undef dswap_
 #undef dtrmm_
 #undef dtrmv_
@@ -104,10 +98,6 @@
 #undef fv_
 #undef fvd_
 #undef fxshfr_
-#undef gpfa2f_
-#undef gpfa3f_
-#undef gpfa5f_
-#undef gpfa_
 #undef hpsolb_
 #undef hqr2_
 #undef hqr_
@@ -164,8 +154,6 @@
 #undef sdiff_
 #undef sdot_
 #undef second_
-#undef setdgpfa_
-#undef setgpfa_
 #undef setulb_
 #undef sgbmv_
 #undef sgemv_
@@ -190,7 +178,6 @@
 #undef sspmv_
 #undef sspr2_
 #undef sspr_
-#undef ssvdc_
 #undef sswap_
 #undef ssymv_
 #undef ssyr2_
@@ -244,7 +231,6 @@
 #undef zqrdc_
 #undef zqrsl_
 #undef zscal_
-#undef zsvdc_
 #undef zswap_
 #undef ztrevc_
 #undef ztrmm_
