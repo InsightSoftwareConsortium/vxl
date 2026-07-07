@@ -13,7 +13,6 @@ set( vnl_algo_sources
   vnl_svd.hxx vnl_svd.h
   vnl_svd_economy.hxx vnl_svd_economy.h
   vnl_svd_fixed.hxx vnl_svd_fixed.h
-  vnl_matrix_inverse.hxx vnl_matrix_inverse.h
   vnl_qr.hxx vnl_qr.h
   vnl_cholesky.cxx vnl_cholesky.h
   vnl_ldl_cholesky.cxx vnl_ldl_cholesky.h
@@ -59,11 +58,20 @@ if(NOT ITK_FUTURE_LEGACY_REMOVE)
   )
 endif()
 
+# vnl_matrix_inverse is a thin vnl_svd wrapper deprecated for itk::Math::SVD;
+# drop it and its template instantiations under ITK_FUTURE_LEGACY_REMOVE.
+if(NOT ITK_FUTURE_LEGACY_REMOVE)
+  list(APPEND vnl_algo_sources
+    vnl_matrix_inverse.hxx vnl_matrix_inverse.h
+  )
+endif()
+
 aux_source_directory(Templates vnl_algo_sources)
 
 if(ITK_FUTURE_LEGACY_REMOVE)
   list(FILTER vnl_algo_sources EXCLUDE REGEX "vnl_symmetric_eigensystem\\+")
   list(FILTER vnl_algo_sources EXCLUDE REGEX "vnl_scatter_3x3\\+")
+  list(FILTER vnl_algo_sources EXCLUDE REGEX "vnl_matrix_inverse\\+")
 endif()
 
 # If VXL_INSTALL_INCLUDE_DIR is the default value
